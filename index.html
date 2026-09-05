@@ -1,2667 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
-<title>Lucky Store</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-  rel="stylesheet"
->
-
-<style>
-
-/* =========================================================
-   LUCKY STORE
-   MAIN VARIABLES
-========================================================= */
-
-:root {
-
-  --blue:#1767ff;
-  --cyan:#28c7ff;
-  --deep:#030914;
-  --deep2:#071426;
-
-  --panel:rgba(8,20,40,.78);
-  --panel-solid:#08152a;
-
-  --text:#f4f8ff;
-  --muted:#8ea2c1;
-
-  --line:rgba(255,255,255,.10);
-
-  --danger:#ff4f70;
-  --success:#55e6ad;
-
-  --shadow:0 25px 80px rgba(0,0,0,.45);
-
-  --menu-width:min(420px,90vw);
-
-}
-
-
-/* =========================================================
-   LIGHT MODE
-========================================================= */
-
-body.light {
-
-  --deep:#edf5ff;
-  --deep2:#dbeaff;
-
-  --panel:rgba(255,255,255,.75);
-  --panel-solid:#ffffff;
-
-  --text:#071426;
-  --muted:#52657f;
-
-  --line:rgba(5,30,70,.12);
-
-  --shadow:0 25px 70px rgba(20,70,130,.18);
-
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
-
-  min-height:100vh;
-
-  background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(20,120,255,.16),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 90% 70%,
-      rgba(0,180,255,.12),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      var(--deep),
-      var(--deep2)
-    );
-
-  color:var(--text);
-
-  font-family:Inter,sans-serif;
-
-  overflow-x:hidden;
-
-  transition:
-    background .5s ease,
-    color .3s ease;
-
-}
-
-button,
-input,
-textarea {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-}
-
-a {
-  color:inherit;
-}
-
-
-/* =========================================================
-   WATER BACKGROUND
-========================================================= */
-
-.water-background {
-
-  position:fixed;
-
-  inset:0;
-
-  overflow:hidden;
-
-  z-index:-10;
-
-  pointer-events:none;
-
-}
-
-
-/* giant flowing blobs */
-
-.water-blob {
-
-  position:absolute;
-
-  border-radius:
-    45% 55% 65% 35% /
-    55% 45% 55% 45%;
-
-  filter:blur(2px);
-
-  opacity:.28;
-
-  background:
-    radial-gradient(
-      circle at 30% 30%,
-      rgba(80,220,255,.9),
-      rgba(0,90,255,.25) 45%,
-      transparent 70%
-    );
-
-  animation:
-    waterFlow 18s ease-in-out infinite alternate;
-
-}
-
-.blob1 {
-
-  width:700px;
-  height:500px;
-
-  left:-250px;
-  top:5%;
-
-}
-
-.blob2 {
-
-  width:600px;
-  height:650px;
-
-  right:-250px;
-  bottom:-200px;
-
-  animation-delay:-6s;
-
-}
-
-.blob3 {
-
-  width:450px;
-  height:450px;
-
-  left:35%;
-  top:35%;
-
-  opacity:.13;
-
-  animation-delay:-11s;
-
-}
-
-
-@keyframes waterFlow {
-
-  0% {
-
-    transform:
-      translate3d(-30px,20px,0)
-      rotate(-8deg)
-      scale(1);
-
-  }
-
-  50% {
-
-    transform:
-      translate3d(70px,-50px,0)
-      rotate(15deg)
-      scale(1.12);
-
-  }
-
-  100% {
-
-    transform:
-      translate3d(-40px,70px,0)
-      rotate(-5deg)
-      scale(.95);
-
-  }
-
-}
-
-
-/* =========================================================
-   WAVES
-========================================================= */
-
-.wave {
-
-  position:absolute;
-
-  left:-10%;
-
-  width:120%;
-
-  height:240px;
-
-  border-radius:50%;
-
-  border-top:2px solid rgba(50,190,255,.13);
-
-  border-bottom:1px solid rgba(30,130,255,.08);
-
-  animation:
-    waveMove 13s ease-in-out infinite alternate;
-
-}
-
-.wave1 {
-  bottom:10%;
-}
-
-.wave2 {
-
-  bottom:2%;
-
-  animation-duration:17s;
-
-  animation-delay:-4s;
-
-}
-
-.wave3 {
-
-  bottom:-8%;
-
-  animation-duration:21s;
-
-  animation-delay:-8s;
-
-}
-
-
-@keyframes waveMove {
-
-  from {
-
-    transform:
-      translateX(-40px)
-      rotate(-2deg)
-      scaleX(1);
-
-  }
-
-  to {
-
-    transform:
-      translateX(50px)
-      rotate(3deg)
-      scaleX(1.08);
-
-  }
-
-}
-
-
-/* =========================================================
-   BUBBLES
-========================================================= */
-
-.bubbles {
-
-  position:absolute;
-
-  inset:0;
-
-}
-
-.bubble {
-
-  position:absolute;
-
-  bottom:-100px;
-
-  border-radius:50%;
-
-  border:1px solid rgba(130,225,255,.35);
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      rgba(255,255,255,.5),
-      rgba(50,170,255,.06) 35%,
-      rgba(0,120,255,.02) 70%
-    );
-
-  box-shadow:
-    inset 0 0 15px rgba(120,220,255,.12),
-    0 0 20px rgba(0,150,255,.08);
-
-  animation:
-    bubbleRise linear infinite;
-
-}
-
-.bubble:nth-child(1) {
-  left:7%;
-  width:25px;
-  height:25px;
-  animation-duration:13s;
-}
-
-.bubble:nth-child(2) {
-  left:18%;
-  width:12px;
-  height:12px;
-  animation-duration:9s;
-  animation-delay:-2s;
-}
-
-.bubble:nth-child(3) {
-  left:31%;
-  width:38px;
-  height:38px;
-  animation-duration:17s;
-  animation-delay:-6s;
-}
-
-.bubble:nth-child(4) {
-  left:48%;
-  width:18px;
-  height:18px;
-  animation-duration:11s;
-  animation-delay:-3s;
-}
-
-.bubble:nth-child(5) {
-  left:63%;
-  width:30px;
-  height:30px;
-  animation-duration:15s;
-  animation-delay:-7s;
-}
-
-.bubble:nth-child(6) {
-  left:75%;
-  width:15px;
-  height:15px;
-  animation-duration:10s;
-  animation-delay:-1s;
-}
-
-.bubble:nth-child(7) {
-  left:88%;
-  width:44px;
-  height:44px;
-  animation-duration:19s;
-  animation-delay:-9s;
-}
-
-.bubble:nth-child(8) {
-  left:56%;
-  width:9px;
-  height:9px;
-  animation-duration:8s;
-  animation-delay:-5s;
-}
-
-
-@keyframes bubbleRise {
-
-  0% {
-
-    transform:
-      translate3d(0,0,0)
-      scale(.7);
-
-    opacity:0;
-
-  }
-
-  10% {
-    opacity:.6;
-  }
-
-  50% {
-
-    transform:
-      translate3d(50px,-50vh,0)
-      scale(1);
-
-  }
-
-  100% {
-
-    transform:
-      translate3d(-60px,-115vh,0)
-      scale(1.3);
-
-    opacity:0;
-
-  }
-
-}
-
-
-/* =========================================================
-   GRID
-========================================================= */
-
-.grid {
-
-  position:absolute;
-
-  inset:-30%;
-
-  background-image:
-    linear-gradient(
-      rgba(50,160,255,.12) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(50,160,255,.12) 1px,
-      transparent 1px
-    );
-
-  background-size:60px 60px;
-
-  transform:
-    rotate(-7deg);
-
-  opacity:.22;
-
-  animation:
-    gridMove 30s linear infinite;
-
-}
-
-@keyframes gridMove {
-
-  to {
-
-    transform:
-      translate3d(60px,40px,0)
-      rotate(-7deg);
-
-  }
-
-}
-
-
-/* =========================================================
-   APP
-========================================================= */
-
-.app {
-
-  min-height:100vh;
-
-  position:relative;
-
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-
-  height:78px;
-
-  position:sticky;
-
-  top:0;
-
-  z-index:50;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  padding:
-    0
-    max(18px,4vw);
-
-  background:
-    color-mix(
-      in srgb,
-      var(--panel-solid) 76%,
-      transparent
-    );
-
-  backdrop-filter:blur(22px);
-
-  border-bottom:
-    1px solid var(--line);
-
-}
-
-
-.brand {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-}
-
-.clover {
-
-  width:43px;
-  height:43px;
-
-  display:grid;
-
-  place-items:center;
-
-  border-radius:13px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #175dff,
-      #00c7ff
-    );
-
-  box-shadow:
-    0 0 35px rgba(0,140,255,.32);
-
-  font-size:23px;
-
-}
-
-.brand-name {
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  font-size:29px;
-
-  font-weight:900;
-
-  text-transform:uppercase;
-
-}
-
-.brand-name span {
-  color:#36baff;
-}
-
-
-.header-right {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-}
-
-
-/* account button */
-
-.account-button {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:9px;
-
-  border:1px solid var(--line);
-
-  background:rgba(255,255,255,.04);
-
-  color:var(--text);
-
-  padding:9px 13px;
-
-  border-radius:8px;
-
-  font-weight:800;
-
-}
-
-
-.avatar-small {
-
-  width:28px;
-  height:28px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-}
-
-
-/* hamburger */
-
-.menu-button {
-
-  width:47px;
-  height:43px;
-
-  border:1px solid var(--line);
-
-  background:
-    rgba(255,255,255,.04);
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-
-  align-items:center;
-
-  gap:5px;
-
-  border-radius:8px;
-
-}
-
-.menu-button span {
-
-  width:21px;
-
-  height:2px;
-
-  background:var(--text);
-
-  transition:.25s;
-
-}
-
-.menu-button:hover span:nth-child(1) {
-  transform:translateX(4px);
-}
-
-.menu-button:hover span:nth-child(3) {
-  transform:translateX(-4px);
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-main {
-
-  width:
-    min(
-      1100px,
-      calc(100% - 30px)
-    );
-
-  margin:auto;
-
-  padding:
-    55px
-    0
-    100px;
-
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero {
-
-  min-height:480px;
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-
-}
-
-.eyebrow {
-
-  color:#42bfff;
-
-  letter-spacing:4px;
-
-  font-size:12px;
-
-  font-weight:900;
-
-  margin-bottom:15px;
-
-}
-
-.hero-title {
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  font-size:
-    clamp(
-      75px,
-      14vw,
-      155px
-    );
-
-  font-weight:900;
-
-  line-height:.72;
-
-  text-transform:uppercase;
-
-  letter-spacing:-4px;
-
-}
-
-.hero-title span {
-
-  color:transparent;
-
-  -webkit-text-stroke:
-    1px var(--text);
-
-}
-
-.hero-subtitle {
-
-  color:var(--muted);
-
-  max-width:570px;
-
-  line-height:1.7;
-
-  margin-top:32px;
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-container {
-
-  width:min(850px,100%);
-
-  margin-top:35px;
-
-}
-
-.search-box {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  padding:6px;
-
-  background:
-    var(--panel);
-
-  backdrop-filter:blur(20px);
-
-  border:
-    1px solid
-    rgba(50,160,255,.3);
-
-  clip-path:
-    polygon(
-      0 0,
-      calc(100% - 18px) 0,
-      100% 18px,
-      100% 100%,
-      18px 100%,
-      0 calc(100% - 18px)
-    );
-
-}
-
-.search-icon {
-
-  width:45px;
-
-  text-align:center;
-
-  font-size:23px;
-
-  color:#54c6ff;
-
-}
-
-.search-input {
-
-  flex:1;
-
-  min-width:0;
-
-  background:transparent;
-
-  border:0;
-
-  outline:0;
-
-  color:var(--text);
-
-  font-size:16px;
-
-}
-
-.search-input::placeholder {
-  color:#7186a5;
-}
-
-.search-button {
-
-  border:0;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #1761ff,
-      #009dd9
-    );
-
-  padding:
-    14px
-    22px;
-
-  font-weight:900;
-
-}
-
-.search-status {
-
-  color:var(--muted);
-
-  font-size:12px;
-
-  margin-top:10px;
-
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section {
-
-  margin-top:65px;
-
-}
-
-.section-heading {
-
-  display:flex;
-
-  align-items:end;
-
-  justify-content:space-between;
-
-  margin-bottom:20px;
-
-}
-
-.section-title {
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  text-transform:uppercase;
-
-  font-size:42px;
-
-  font-weight:900;
-
-}
-
-
-/* =========================================================
-   COMMUNITY
-========================================================= */
-
-.community {
-
-  display:none;
-
-}
-
-.community.active {
-  display:block;
-}
-
-
-/* create post */
-
-.create-post {
-
-  background:var(--panel);
-
-  border:
-    1px solid var(--line);
-
-  padding:20px;
-
-  backdrop-filter:blur(20px);
-
-  margin-bottom:25px;
-
-}
-
-.create-post-header {
-
-  display:flex;
-
-  gap:12px;
-
-  align-items:center;
-
-  margin-bottom:15px;
-
-}
-
-.create-avatar {
-
-  width:42px;
-  height:42px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-}
-
-.post-textarea {
-
-  width:100%;
-
-  min-height:105px;
-
-  resize:vertical;
-
-  background:
-    rgba(255,255,255,.04);
-
-  color:var(--text);
-
-  border:
-    1px solid var(--line);
-
-  outline:0;
-
-  padding:15px;
-
-  border-radius:8px;
-
-}
-
-.post-textarea:focus {
-
-  border-color:
-    rgba(30,150,255,.5);
-
-}
-
-.post-actions {
-
-  display:flex;
-
-  justify-content:flex-end;
-
-  margin-top:10px;
-
-}
-
-.post-button {
-
-  border:0;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #1460ff,
-      #00a7dc
-    );
-
-  padding:11px 20px;
-
-  font-weight:900;
-
-}
-
-
-/* =========================================================
-   POSTS
-========================================================= */
-
-.post-list {
-
-  display:grid;
-
-  gap:14px;
-
-}
-
-.post {
-
-  background:var(--panel);
-
-  border:
-    1px solid var(--line);
-
-  backdrop-filter:blur(20px);
-
-  padding:20px;
-
-  position:relative;
-
-  overflow:hidden;
-
-  animation:
-    postIn .45s ease both;
-
-}
-
-.post::before {
-
-  content:"";
-
-  position:absolute;
-
-  left:0;
-
-  top:0;
-
-  bottom:0;
-
-  width:3px;
-
-  background:
-    linear-gradient(
-      #19a5ff,
-      #1760ff
-    );
-
-}
-
-@keyframes postIn {
-
-  from {
-
-    opacity:0;
-
-    transform:
-      translateY(20px)
-      skewY(1deg);
-
-  }
-
-  to {
-
-    opacity:1;
-
-    transform:
-      translateY(0)
-      skewY(0);
-
-  }
-
-}
-
-
-.post-header {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:11px;
-
-}
-
-.post-avatar {
-
-  width:42px;
-  height:42px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  cursor:pointer;
-
-}
-
-.post-author {
-
-  font-weight:800;
-
-  cursor:pointer;
-
-}
-
-.post-author:hover {
-  color:#35baff;
-}
-
-.post-time {
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin-top:3px;
-
-}
-
-.post-content {
-
-  margin-top:17px;
-
-  line-height:1.7;
-
-  color:var(--text);
-
-  white-space:pre-wrap;
-
-  word-break:break-word;
-
-}
-
-.post-footer {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-top:18px;
-
-}
-
-.like-button {
-
-  border:
-    1px solid var(--line);
-
-  background:
-    rgba(255,255,255,.03);
-
-  color:var(--muted);
-
-  padding:8px 13px;
-
-  border-radius:6px;
-
-}
-
-.like-button.liked {
-
-  color:#ff6685;
-
-  border-color:
-    rgba(255,70,110,.35);
-
-  background:
-    rgba(255,50,100,.08);
-
-}
-
-
-/* =========================================================
-   PROFILE
-========================================================= */
-
-.profile-page {
-
-  display:none;
-
-}
-
-.profile-page.active {
-  display:block;
-}
-
-.profile-card {
-
-  background:var(--panel);
-
-  border:1px solid var(--line);
-
-  backdrop-filter:blur(25px);
-
-  overflow:hidden;
-
-}
-
-.profile-banner {
-
-  height:170px;
-
-  background:
-    radial-gradient(
-      circle at 30% 40%,
-      rgba(0,200,255,.5),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #08235d,
-      #00192d
-    );
-
-  position:relative;
-
-}
-
-.profile-info {
-
-  padding:
-    0
-    25px
-    25px;
-
-  position:relative;
-
-}
-
-.profile-big-avatar {
-
-  width:105px;
-  height:105px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  border:
-    4px solid var(--panel-solid);
-
-  margin-top:-52px;
-
-  position:relative;
-
-}
-
-.profile-name {
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  font-size:40px;
-
-  font-weight:900;
-
-  margin-top:10px;
-
-}
-
-.profile-email {
-
-  color:var(--muted);
-
-  font-size:13px;
-
-  margin-top:3px;
-
-}
-
-.profile-bio {
-
-  margin-top:15px;
-
-  color:var(--muted);
-
-  line-height:1.6;
-
-}
-
-
-/* =========================================================
-   MENU OVERLAY
-========================================================= */
-
-.menu-overlay {
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  display:none;
-
-  background:
-    rgba(0,4,12,.78);
-
-  backdrop-filter:blur(18px);
-
-}
-
-.menu-overlay.open {
-  display:block;
-}
-
-
-.menu-panel {
-
-  position:absolute;
-
-  top:0;
-
-  right:0;
-
-  height:100%;
-
-  width:var(--menu-width);
-
-  padding:95px 35px 35px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(8,28,57,.98),
-      rgba(2,9,20,.98)
-    );
-
-  border-left:
-    1px solid
-    rgba(50,170,255,.3);
-
-  box-shadow:
-    -30px 0 100px rgba(0,0,0,.45);
-
-  animation:
-    menuSlide .45s
-    cubic-bezier(.16,1,.3,1);
-
-}
-
-@keyframes menuSlide {
-
-  from {
-
-    transform:
-      translateX(100%);
-
-  }
-
-  to {
-
-    transform:
-      translateX(0);
-
-  }
-
-}
-
-
-.menu-close {
-
-  position:absolute;
-
-  top:22px;
-
-  right:25px;
-
-  border:1px solid var(--line);
-
-  background:rgba(255,255,255,.04);
-
-  color:white;
-
-  padding:10px 14px;
-
-}
-
-.menu-label {
-
-  color:#38baff;
-
-  font-size:11px;
-
-  font-weight:900;
-
-  letter-spacing:3px;
-
-  margin-bottom:25px;
-
-}
-
-.menu-item {
-
-  width:100%;
-
-  border:0;
-
-  background:transparent;
-
-  color:white;
-
-  text-align:left;
-
-  padding:14px 0;
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  font-size:43px;
-
-  font-weight:900;
-
-  text-transform:uppercase;
-
-  transition:.2s;
-
-}
-
-.menu-item:hover {
-
-  color:#35baff;
-
-  transform:
-    translateX(12px)
-    skewX(-5deg);
-
-}
-
-.menu-item.active {
-  color:#35baff;
-}
-
-
-/* settings */
-
-.settings {
-
-  margin-top:30px;
-
-  padding-top:20px;
-
-  border-top:1px solid var(--line);
-
-}
-
-.setting-row {
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  padding:13px 0;
-
-}
-
-.setting-name {
-
-  font-weight:700;
-
-}
-
-.setting-description {
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin-top:3px;
-
-}
-
-
-/* toggle */
-
-.toggle {
-
-  width:48px;
-  height:26px;
-
-  border-radius:30px;
-
-  border:0;
-
-  background:#283852;
-
-  position:relative;
-
-  transition:.25s;
-
-}
-
-.toggle::after {
-
-  content:"";
-
-  width:20px;
-  height:20px;
-
-  position:absolute;
-
-  top:3px;
-  left:4px;
-
-  border-radius:50%;
-
-  background:white;
-
-  transition:.25s;
-
-}
-
-.toggle.on {
-
-  background:#1767ff;
-
-}
-
-.toggle.on::after {
-
-  transform:
-    translateX(20px);
-
-}
-
-
-/* =========================================================
-   AUTH MODAL
-========================================================= */
-
-.modal {
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:200;
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    rgba(0,3,10,.8);
-
-  backdrop-filter:blur(18px);
-
-}
-
-.modal.open {
-  display:flex;
-}
-
-.modal-card {
-
-  width:min(460px,100%);
-
-  background:
-    linear-gradient(
-      145deg,
-      #091a35,
-      #030914
-    );
-
-  border:
-    1px solid
-    rgba(50,160,255,.35);
-
-  padding:30px;
-
-  box-shadow:var(--shadow);
-
-  animation:
-    modalIn .35s
-    cubic-bezier(.16,1,.3,1);
-
-}
-
-@keyframes modalIn {
-
-  from {
-
-    opacity:0;
-
-    transform:
-      scale(.94)
-      translateY(25px);
-
-  }
-
-  to {
-
-    opacity:1;
-
-    transform:
-      scale(1)
-      translateY(0);
-
-  }
-
-}
-
-.modal-close {
-
-  float:right;
-
-  border:0;
-
-  background:transparent;
-
-  color:#8195b2;
-
-  font-size:24px;
-
-}
-
-.modal-title {
-
-  font-family:
-    "Barlow Condensed",
-    sans-serif;
-
-  font-size:50px;
-
-  line-height:.85;
-
-  text-transform:uppercase;
-
-  margin-bottom:10px;
-
-}
-
-.modal-subtitle {
-
-  color:#7d91af;
-
-  font-size:13px;
-
-  line-height:1.6;
-
-  margin-bottom:22px;
-
-}
-
-.google-button {
-
-  width:100%;
-
-  border:0;
-
-  background:white;
-
-  color:#111;
-
-  padding:14px;
-
-  border-radius:6px;
-
-  font-weight:800;
-
-}
-
-.divider {
-
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin:20px 0;
-
-  color:#61748f;
-
-  font-size:10px;
-
-}
-
-.divider::before,
-.divider::after {
-
-  content:"";
-
-  height:1px;
-
-  background:var(--line);
-
-  flex:1;
-
-}
-
-.auth-form {
-
-  display:grid;
-
-  gap:10px;
-
-}
-
-.auth-input {
-
-  width:100%;
-
-  border:
-    1px solid var(--line);
-
-  background:
-    rgba(255,255,255,.04);
-
-  color:white;
-
-  padding:13px;
-
-  outline:0;
-
-  border-radius:6px;
-
-}
-
-.auth-submit {
-
-  border:0;
-
-  padding:13px;
-
-  background:#1767ff;
-
-  color:white;
-
-  font-weight:900;
-
-}
-
-.auth-buttons {
-
-  display:flex;
-
-  gap:8px;
-
-  margin-top:9px;
-
-}
-
-.auth-buttons button {
-
-  flex:1;
-
-  border:1px solid var(--line);
-
-  background:transparent;
-
-  color:#9db0ca;
-
-  padding:9px;
-
-  font-size:11px;
-
-}
-
-.auth-message {
-
-  color:#58bfff;
-
-  font-size:12px;
-
-  margin-top:12px;
-
-  min-height:18px;
-
-}
-
-
-/* =========================================================
-   PROFILE EDIT
-========================================================= */
-
-.edit-profile {
-
-  display:none;
-
-}
-
-.edit-profile.active {
-  display:block;
-}
-
-.edit-input,
-.edit-textarea {
-
-  width:100%;
-
-  margin-bottom:10px;
-
-  padding:12px;
-
-  border:
-    1px solid var(--line);
-
-  background:
-    rgba(255,255,255,.04);
-
-  color:var(--text);
-
-  outline:0;
-
-}
-
-.edit-textarea {
-  min-height:90px;
-  resize:vertical;
-}
-
-.save-profile {
-
-  border:0;
-
-  padding:12px 18px;
-
-  background:#1767ff;
-
-  color:white;
-
-  font-weight:900;
-
-}
-
-
-/* =========================================================
-   EMPTY STATE
-========================================================= */
-
-.empty {
-
-  padding:50px 20px;
-
-  text-align:center;
-
-  border:
-    1px dashed var(--line);
-
-  color:var(--muted);
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast {
-
-  position:fixed;
-
-  bottom:25px;
-
-  left:50%;
-
-  z-index:500;
-
-  transform:
-    translate(-50%,100px);
-
-  opacity:0;
-
-  transition:.35s;
-
-  background:#07172f;
-
-  color:white;
-
-  border:
-    1px solid
-    rgba(40,160,255,.4);
-
-  padding:12px 18px;
-
-  font-size:13px;
-
-  box-shadow:var(--shadow);
-
-}
-
-.toast.show {
-
-  transform:
-    translate(-50%,0);
-
-  opacity:1;
-
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:700px) {
-
-  .brand-name {
-    font-size:23px;
-  }
-
-  .account-button span {
-    display:none;
-  }
-
-  main {
-
-    width:
-      calc(100% - 22px);
-
-    padding-top:35px;
-
-  }
-
-  .hero {
-    min-height:430px;
-  }
-
-  .hero-title {
-
-    font-size:76px;
-
-    letter-spacing:-2px;
-
-  }
-
-  .search-button {
-
-    padding:
-      12px
-      13px;
-
-    font-size:11px;
-
-  }
-
-  .menu-item {
-    font-size:38px;
-  }
-
-  .profile-banner {
-    height:130px;
-  }
-
-}
-
-</style>
-</head>
-
-
-<body>
-
-<!-- =========================================================
-     WATER BACKGROUND
-========================================================= -->
-
-<div class="water-background">
-
-  <div class="grid"></div>
-
-  <div class="water-blob blob1"></div>
-  <div class="water-blob blob2"></div>
-  <div class="water-blob blob3"></div>
-
-  <div class="wave wave1"></div>
-  <div class="wave wave2"></div>
-  <div class="wave wave3"></div>
-
-  <div class="bubbles">
-
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================================================
-     APP
-========================================================= -->
-
-<div class="app">
-
-
-<header>
-
-  <div
-    class="brand"
-    onclick="showPage('home')"
-    style="cursor:pointer"
-  >
-
-    <div class="clover">
-      🍀
-    </div>
-
-    <div class="brand-name">
-      Lucky <span>Store</span>
-    </div>
-
-  </div>
-
-
-  <div class="header-right">
-
-    <button
-      id="accountButton"
-      class="account-button"
-    >
-
-      <img
-        id="headerAvatar"
-        class="avatar-small"
-        style="display:none"
-      >
-
-      <span id="accountButtonText">
-        ACCOUNT
-      </span>
-
-    </button>
-
-
-    <button
-      id="menuButton"
-      class="menu-button"
-      aria-label="Open menu"
-    >
-
-      <span></span>
-      <span></span>
-      <span></span>
-
-    </button>
-
-  </div>
-
-</header>
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
-<main>
-
-
-<!-- HOME -->
-
-<section
-  id="homePage"
-  class="page"
->
-
-  <div class="hero">
-
-    <div class="eyebrow">
-      LUCKY STORE // SOCIAL WEB
-    </div>
-
-    <h1 class="hero-title">
-
-      FIND<br>
-
-      <span>YOUR WORLD.</span>
-
-    </h1>
-
-    <p class="hero-subtitle">
-
-      Search, discover, post, meet people and build
-      your own Lucky Store profile.
-
-    </p>
-
-
-    <div class="search-container">
-
-      <form id="searchForm" class="search-box">
-
-        <div class="search-icon">
-          ⌕
-        </div>
-
-        <input
-          id="searchInput"
-          class="search-input"
-          placeholder="Search the web..."
-          autocomplete="off"
-        >
-
-        <button
-          class="search-button"
-        >
-          SEARCH
-        </button>
-
-      </form>
-
-      <div
-        id="searchStatus"
-        class="search-status"
-      >
-        Ready.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- QUICK COMMUNITY -->
-
-  <section class="section">
-
-    <div class="section-heading">
-
-      <h2 class="section-title">
-        Community
-      </h2>
-
-      <button
-        class="post-button"
-        onclick="showPage('community')"
-      >
-        OPEN COMMUNITY
-      </button>
-
-    </div>
-
-    <div id="homePosts" class="post-list"></div>
-
-  </section>
-
-</section>
-
-
-<!-- =========================================================
-     COMMUNITY PAGE
-========================================================= -->
-
-<section
-  id="communityPage"
-  class="community page"
->
-
-  <div class="section-heading">
-
-    <h2 class="section-title">
-      Community
-    </h2>
-
-  </div>
-
-
-  <div class="create-post">
-
-    <div class="create-post-header">
-
-      <img
-        id="createAvatar"
-        class="create-avatar"
-        src="https://ui-avatars.com/api/?name=Lucky"
-      >
-
-      <strong id="createPostName">
-        Sign in to post
-      </strong>
-
-    </div>
-
-
-    <textarea
-      id="postText"
-      class="post-textarea"
-      maxlength="500"
-      placeholder="What's happening?"
-      disabled
-    ></textarea>
-
-
-    <div class="post-actions">
-
-      <button
-        id="createPostButton"
-        class="post-button"
-        disabled
-      >
-        POST
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div id="postList" class="post-list">
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     PROFILE PAGE
-========================================================= -->
-
-<section
-  id="profilePage"
-  class="profile-page page"
->
-
-  <div class="profile-card">
-
-    <div class="profile-banner"></div>
-
-    <div class="profile-info">
-
-      <img
-        id="profileAvatar"
-        class="profile-big-avatar"
-      >
-
-      <div
-        id="profileName"
-        class="profile-name"
-      >
-        Lucky User
-      </div>
-
-      <div
-        id="profileEmail"
-        class="profile-email"
-      >
-      </div>
-
-      <div
-        id="profileBio"
-        class="profile-bio"
-      >
-        Welcome to Lucky Store.
-      </div>
-
-
-      <br>
-
-      <button
-        id="editProfileButton"
-        class="post-button"
-      >
-        EDIT PROFILE
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div
-    id="editProfileBox"
-    class="edit-profile"
-    style="margin-top:20px"
-  >
-
-    <div class="create-post">
-
-      <h2 class="section-title">
-        Edit Profile
-      </h2>
-
-      <input
-        id="editDisplayName"
-        class="edit-input"
-        placeholder="Display name"
-        maxlength="40"
-      >
-
-      <textarea
-        id="editBio"
-        class="edit-textarea"
-        placeholder="Bio"
-        maxlength="160"
-      ></textarea>
-
-      <input
-        id="editPhotoURL"
-        class="edit-input"
-        placeholder="Profile picture URL"
-      >
-
-      <button
-        id="saveProfileButton"
-        class="save-profile"
-      >
-        SAVE PROFILE
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="section">
-
-    <div class="section-heading">
-
-      <h2 class="section-title">
-        Posts
-      </h2>
-
-    </div>
-
-    <div
-      id="profilePosts"
-      class="post-list"
-    ></div>
-
-  </div>
-
-</section>
-
-
-</main>
-
-</div>
-
-
-<!-- =========================================================
-     MENU
-========================================================= -->
-
-<div
-  id="menuOverlay"
-  class="menu-overlay"
->
-
-  <div class="menu-panel">
-
-    <button
-      id="menuClose"
-      class="menu-close"
-    >
-      CLOSE ×
-    </button>
-
-
-    <div class="menu-label">
-      LUCKY STORE
-    </div>
-
-
-    <button
-      class="menu-item"
-      onclick="showPage('home'); closeMenu()"
-    >
-      HOME
-    </button>
-
-    <button
-      class="menu-item"
-      onclick="showPage('community'); closeMenu()"
-    >
-      COMMUNITY
-    </button>
-
-    <button
-      class="menu-item"
-      onclick="openProfile(); closeMenu()"
-    >
-      PROFILE
-    </button>
-
-    <button
-      class="menu-item"
-      onclick="focusSearch(); closeMenu()"
-    >
-      SEARCH
-    </button>
-
-
-    <!-- SETTINGS -->
-
-    <div class="settings">
-
-      <div class="setting-row">
-
-        <div>
-
-          <div class="setting-name">
-            Dark Mode
-          </div>
-
-          <div class="setting-description">
-            Change Lucky Store appearance
-          </div>
-
-        </div>
-
-        <button
-          id="themeToggle"
-          class="toggle on"
-          aria-label="Toggle dark mode"
-        ></button>
-
-      </div>
-
-
-      <div class="setting-row">
-
-        <div>
-
-          <div class="setting-name">
-            Bubbles
-          </div>
-
-          <div class="setting-description">
-            Floating water particles
-          </div>
-
-        </div>
-
-        <button
-          id="bubbleToggle"
-          class="toggle on"
-        ></button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================================================
-     AUTH MODAL
-========================================================= -->
-
-<div
-  id="authModal"
-  class="modal"
->
-
-  <div class="modal-card">
-
-    <button
-      class="modal-close"
-      onclick="closeAuth()"
-    >
-      ×
-    </button>
-
-
-    <h2 class="modal-title">
-
-      LUCKY<br>
-      ACCOUNT
-
-    </h2>
-
-
-    <p class="modal-subtitle">
-
-      Create your Lucky Store identity.
-      Sign in with Google or use an email and password.
-
-    </p>
-
-
-    <button
-      id="googleButton"
-      class="google-button"
-    >
-      Continue with Google
-    </button>
-
-
-    <div class="divider">
-      OR
-    </div>
-
-
-    <form id="authForm" class="auth-form">
-
-      <input
-        id="emailInput"
-        class="auth-input"
-        type="email"
-        placeholder="Email"
-        required
-      >
-
-      <input
-        id="passwordInput"
-        class="auth-input"
-        type="password"
-        placeholder="Password"
-        minlength="6"
-        required
-      >
-
-      <button
-        id="loginButton"
-        class="auth-submit"
-      >
-        SIGN IN
-      </button>
-
-    </form>
-
-
-    <div class="auth-buttons">
-
-      <button id="createAccountButton">
-        CREATE ACCOUNT
-      </button>
-
-      <button id="resetPasswordButton">
-        RESET PASSWORD
-      </button>
-
-    </div>
-
-
-    <div
-      id="authMessage"
-      class="auth-message"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================================================
-     TOAST
-========================================================= -->
-
-<div
-  id="toast"
-  class="toast"
-></div>
-
-
-<!-- =========================================================
-     FIREBASE
-========================================================= -->
-
 <script type="module">
 
-/*
-===============================================================
-FIREBASE CONFIG
-===============================================================
+/* =========================================================
+   LUCKY STORE — COMPLETE JAVASCRIPT
+   Firebase + Accounts + Posts + Profiles
+   + Flowing Triangular Menu
+   + Appearance Settings
+========================================================= */
 
-REPLACE THESE VALUES WITH YOUR FIREBASE WEB APP CONFIG.
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-Firebase Console:
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-Project settings
-→ Your apps
-→ Web app
-→ Firebase SDK setup
-===============================================================
-*/
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp,
+  arrayUnion,
+  arrayRemove
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+   KEEP YOUR EXISTING CONFIG HERE
+========================================================= */
 
 const firebaseConfig = {
 
-  apiKey:
-    "YOUR_FIREBASE_API_KEY",
+  apiKey: "YOUR_FIREBASE_API_KEY",
 
   authDomain:
     "YOUR_PROJECT.firebaseapp.com",
@@ -2681,834 +70,1228 @@ const firebaseConfig = {
 };
 
 
-/*
-===============================================================
-FIREBASE IMPORTS
-===============================================================
-*/
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
 
-import {
-  initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
 
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+const db = getFirestore(app);
+
+const googleProvider =
+  new GoogleAuthProvider();
 
 
-import {
-
-  getFirestore,
-  collection,
-  doc,
-  setDoc,
-  getDoc,
-  addDoc,
-  updateDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  serverTimestamp,
-  arrayUnion,
-  arrayRemove,
-  increment
-
-}
-from
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-/*
-===============================================================
-INITIALIZE
-===============================================================
-*/
-
-let app = null;
-let auth = null;
-let db = null;
-
-let googleProvider = null;
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
 let currentUser = null;
 
 let unsubscribePosts = null;
-let unsubscribeProfilePosts = null;
 
-let viewingProfileUID = null;
+let currentProfileUID = null;
 
 
-try {
+/* =========================================================
+   SETTINGS
+========================================================= */
 
-  app =
-    initializeApp(firebaseConfig);
+const defaultSettings = {
 
-  auth =
-    getAuth(app);
+  theme: "dark",
 
-  db =
-    getFirestore(app);
+  accent: "blue",
 
-  googleProvider =
-    new GoogleAuthProvider();
+  water: true,
 
-} catch(error) {
+  animations: true,
 
-  console.error(
-    "Firebase initialization failed:",
-    error
+  glass: true
+
+};
+
+
+let settings = {
+  ...defaultSettings
+};
+
+
+/* =========================================================
+   LOAD LOCAL SETTINGS
+========================================================= */
+
+function loadLocalSettings() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        "lucky_store_settings"
+      );
+
+    if (saved) {
+
+      settings = {
+        ...defaultSettings,
+        ...JSON.parse(saved)
+      };
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Could not load settings",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SAVE LOCAL SETTINGS
+========================================================= */
+
+function saveLocalSettings() {
+
+  localStorage.setItem(
+
+    "lucky_store_settings",
+
+    JSON.stringify(settings)
+
   );
 
 }
 
 
-/*
-===============================================================
-ELEMENTS
-===============================================================
-*/
+/* =========================================================
+   APPLY SETTINGS
+========================================================= */
 
-const menuButton =
-  document.getElementById(
-    "menuButton"
-  );
+function applySettings() {
 
-const menuOverlay =
-  document.getElementById(
-    "menuOverlay"
-  );
-
-const menuClose =
-  document.getElementById(
-    "menuClose"
-  );
-
-const authModal =
-  document.getElementById(
-    "authModal"
-  );
-
-const accountButton =
-  document.getElementById(
-    "accountButton"
-  );
-
-const accountButtonText =
-  document.getElementById(
-    "accountButtonText"
-  );
-
-const headerAvatar =
-  document.getElementById(
-    "headerAvatar"
-  );
-
-const googleButton =
-  document.getElementById(
-    "googleButton"
-  );
-
-const authForm =
-  document.getElementById(
-    "authForm"
-  );
-
-const emailInput =
-  document.getElementById(
-    "emailInput"
-  );
-
-const passwordInput =
-  document.getElementById(
-    "passwordInput"
-  );
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-const createAccountButton =
-  document.getElementById(
-    "createAccountButton"
-  );
-
-const resetPasswordButton =
-  document.getElementById(
-    "resetPasswordButton"
-  );
-
-const authMessage =
-  document.getElementById(
-    "authMessage"
-  );
-
-const toast =
-  document.getElementById(
-    "toast"
-  );
-
-const themeToggle =
-  document.getElementById(
-    "themeToggle"
-  );
-
-const bubbleToggle =
-  document.getElementById(
-    "bubbleToggle"
-  );
+  const root =
+    document.documentElement;
 
 
-/*
-===============================================================
-MENU
-===============================================================
-*/
+  /* THEME */
 
-menuButton.onclick =
-  () => {
+  root.dataset.theme =
+    settings.theme;
 
-    menuOverlay.classList.add(
-      "open"
-    );
+
+  /* ACCENT */
+
+  const accents = {
+
+    blue: {
+      primary: "#28bfff",
+      secondary: "#176cff"
+    },
+
+    cyan: {
+      primary: "#00fff0",
+      secondary: "#008cff"
+    },
+
+    purple: {
+      primary: "#b45cff",
+      secondary: "#653cff"
+    },
+
+    pink: {
+      primary: "#ff4fa3",
+      secondary: "#b72fff"
+    },
+
+    green: {
+      primary: "#4cff88",
+      secondary: "#00a85a"
+    }
 
   };
 
 
-menuClose.onclick =
-  closeMenu;
+  const selected =
+    accents[settings.accent]
+    || accents.blue;
 
 
-menuOverlay.addEventListener(
-  "click",
-  event => {
+  root.style.setProperty(
+    "--accent",
+    selected.primary
+  );
+
+  root.style.setProperty(
+    "--accent2",
+    selected.secondary
+  );
+
+
+  /* WATER */
+
+  if (settings.water) {
+
+    document.body.classList.remove(
+      "no-water"
+    );
+
+  } else {
+
+    document.body.classList.add(
+      "no-water"
+    );
+
+  }
+
+
+  /* ANIMATIONS */
+
+  if (settings.animations) {
+
+    document.body.classList.remove(
+      "no-animations"
+    );
+
+  } else {
+
+    document.body.classList.add(
+      "no-animations"
+    );
+
+  }
+
+
+  /* GLASS */
+
+  if (settings.glass) {
+
+    document.body.classList.remove(
+      "no-glass"
+    );
+
+  } else {
+
+    document.body.classList.add(
+      "no-glass"
+    );
+
+  }
+
+
+  saveLocalSettings();
+
+  updateSettingControls();
+
+}
+
+
+/* =========================================================
+   UPDATE SETTINGS CONTROLS
+========================================================= */
+
+function updateSettingControls() {
+
+  const themeToggle =
+    document.getElementById(
+      "themeToggle"
+    );
+
+  const waterToggle =
+    document.getElementById(
+      "waterToggle"
+    );
+
+  const animationToggle =
+    document.getElementById(
+      "animationToggle"
+    );
+
+  const glassToggle =
+    document.getElementById(
+      "glassToggle"
+    );
+
+
+  if (themeToggle) {
+
+    themeToggle.classList.toggle(
+
+      "on",
+
+      settings.theme === "dark"
+
+    );
+
+  }
+
+
+  if (waterToggle) {
+
+    waterToggle.classList.toggle(
+
+      "on",
+
+      settings.water
+
+    );
+
+  }
+
+
+  if (animationToggle) {
+
+    animationToggle.classList.toggle(
+
+      "on",
+
+      settings.animations
+
+    );
+
+  }
+
+
+  if (glassToggle) {
+
+    glassToggle.classList.toggle(
+
+      "on",
+
+      settings.glass
+
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(".accent")
+    .forEach(button => {
+
+      button.classList.toggle(
+
+        "selected",
+
+        button.dataset.accent ===
+        settings.accent
+
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   FIREBASE SETTINGS
+========================================================= */
+
+async function saveFirebaseSettings() {
+
+  if (!currentUser)
+    return;
+
+  try {
+
+    await updateDoc(
+
+      doc(
+        db,
+        "profiles",
+        currentUser.uid
+      ),
+
+      {
+
+        settings: settings,
+
+        updatedAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Could not save settings to profile:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOAD FIREBASE SETTINGS
+========================================================= */
+
+async function loadFirebaseSettings() {
+
+  if (!currentUser)
+    return;
+
+  try {
+
+    const profileSnap =
+      await getDoc(
+
+        doc(
+          db,
+          "profiles",
+          currentUser.uid
+        )
+
+      );
+
 
     if (
-      event.target ===
-      menuOverlay
+      profileSnap.exists()
+      &&
+      profileSnap.data().settings
     ) {
 
-      closeMenu();
+      settings = {
+
+        ...defaultSettings,
+
+        ...profileSnap.data().settings
+
+      };
+
+      saveLocalSettings();
+
+      applySettings();
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Could not load profile settings:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function createMenuIfMissing() {
+
+  if (
+    document.getElementById(
+      "luckyMenu"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  const menu =
+    document.createElement(
+      "div"
+    );
+
+  menu.id =
+    "luckyMenu";
+
+  menu.className =
+    "menu-overlay";
+
+
+  menu.innerHTML = `
+
+    <div class="menu-panel">
+
+      <button
+        class="menu-close"
+        id="menuClose"
+      >
+        CLOSE ×
+      </button>
+
+
+      <div class="menu-label">
+        LUCKY STORE
+      </div>
+
+
+      <button
+        class="menu-item"
+        data-page="home"
+      >
+        HOME
+      </button>
+
+
+      <button
+        class="menu-item"
+        data-page="search"
+      >
+        SEARCH
+      </button>
+
+
+      <button
+        class="menu-item"
+        data-page="community"
+      >
+        COMMUNITY
+      </button>
+
+
+      <button
+        class="menu-item"
+        data-page="profile"
+      >
+        PROFILE
+      </button>
+
+
+      <div class="settings">
+
+        <div class="settings-title">
+          APPEARANCE
+        </div>
+
+
+        <div class="setting-row">
+
+          <div>
+
+            <div class="setting-name">
+              DARK MODE
+            </div>
+
+            <div class="setting-description">
+              Change the entire website theme
+            </div>
+
+          </div>
+
+
+          <button
+            class="toggle"
+            id="themeToggle"
+          ></button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+          <div>
+
+            <div class="setting-name">
+              WATER EFFECTS
+            </div>
+
+            <div class="setting-description">
+              Bubbles and flowing background
+            </div>
+
+          </div>
+
+
+          <button
+            class="toggle"
+            id="waterToggle"
+          ></button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+          <div>
+
+            <div class="setting-name">
+              ANIMATIONS
+            </div>
+
+            <div class="setting-description">
+              Menu and interface movement
+            </div>
+
+          </div>
+
+
+          <button
+            class="toggle"
+            id="animationToggle"
+          ></button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+          <div>
+
+            <div class="setting-name">
+              GLASS UI
+            </div>
+
+            <div class="setting-description">
+              Transparent glass interface
+            </div>
+
+          </div>
+
+
+          <button
+            class="toggle"
+            id="glassToggle"
+          ></button>
+
+        </div>
+
+
+        <div
+          class="settings-title"
+          style="margin-top:14px"
+        >
+          ACCENT
+        </div>
+
+
+        <div class="accent-picker">
+
+          <button
+            class="accent"
+            data-accent="blue"
+            style="background:#28bfff"
+            title="Blue"
+          ></button>
+
+
+          <button
+            class="accent"
+            data-accent="cyan"
+            style="background:#00fff0"
+            title="Cyan"
+          ></button>
+
+
+          <button
+            class="accent"
+            data-accent="purple"
+            style="background:#b45cff"
+            title="Purple"
+          ></button>
+
+
+          <button
+            class="accent"
+            data-accent="pink"
+            style="background:#ff4fa3"
+            title="Pink"
+          ></button>
+
+
+          <button
+            class="accent"
+            data-accent="green"
+            style="background:#4cff88"
+            title="Green"
+          ></button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    menu
+  );
+
+}
+
+
+/* =========================================================
+   OPEN MENU
+========================================================= */
+
+function openMenu() {
+
+  createMenuIfMissing();
+
+
+  const menu =
+    document.getElementById(
+      "luckyMenu"
+    );
+
+
+  menu.classList.add(
+    "open"
+  );
+
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+
+  updateSettingControls();
+
+}
+
+
+/* =========================================================
+   CLOSE MENU
+========================================================= */
+
+function closeMenu() {
+
+  const menu =
+    document.getElementById(
+      "luckyMenu"
+    );
+
+
+  if (!menu)
+    return;
+
+
+  menu.classList.remove(
+    "open"
+  );
+
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+}
+
+
+/* =========================================================
+   FIND HAMBURGER
+========================================================= */
+
+function setupMenuButton() {
+
+  const possibleButtons = [
+
+    "#menuButton",
+
+    "#hamburger",
+
+    "#optionsButton",
+
+    "#optionsBtn",
+
+    ".menu-button",
+
+    ".hamburger",
+
+    ".hamburger-button",
+
+    "[data-menu]"
+
+  ];
+
+
+  let button = null;
+
+
+  for (
+    const selector
+    of possibleButtons
+  ) {
+
+    const found =
+      document.querySelector(
+        selector
+      );
+
+    if (found) {
+
+      button = found;
+
+      break;
 
     }
 
   }
-);
 
 
-function closeMenu() {
+  if (!button) {
 
-  menuOverlay.classList.remove(
-    "open"
-  );
-
-}
-
-
-/*
-===============================================================
-TOAST
-===============================================================
-*/
-
-let toastTimeout;
-
-function showToast(message) {
-
-  toast.textContent =
-    message;
-
-  toast.classList.add(
-    "show"
-  );
-
-  clearTimeout(
-    toastTimeout
-  );
-
-  toastTimeout =
-    setTimeout(
-      () => {
-
-        toast.classList.remove(
-          "show"
-        );
-
-      },
-      2800
-    );
-
-}
-
-
-/*
-===============================================================
-THEME
-===============================================================
-*/
-
-const savedTheme =
-  localStorage.getItem(
-    "lucky_theme"
-  );
-
-
-if (
-  savedTheme ===
-  "light"
-) {
-
-  document.body.classList.add(
-    "light"
-  );
-
-  themeToggle.classList.remove(
-    "on"
-  );
-
-}
-
-
-themeToggle.onclick =
-  () => {
-
-    const isLight =
-      document.body.classList.toggle(
-        "light"
+    button =
+      document.createElement(
+        "button"
       );
 
-    localStorage.setItem(
-      "lucky_theme",
-      isLight
-        ? "light"
-        : "dark"
+    button.id =
+      "menuButton";
+
+    button.className =
+      "menu-button";
+
+    button.innerHTML =
+      "☰";
+
+    document.body.appendChild(
+      button
     );
 
-    themeToggle.classList.toggle(
-      "on",
-      !isLight
-    );
-
-  };
+  }
 
 
-/*
-===============================================================
-BUBBLE SWITCH
-===============================================================
-*/
-
-bubbleToggle.onclick =
-  () => {
-
-    const bubbles =
-      document.querySelector(
-        ".bubbles"
-      );
-
-    const enabled =
-      bubbles.style.display !==
-      "none";
-
-    bubbles.style.display =
-      enabled
-        ? "none"
-        : "block";
-
-    bubbleToggle.classList.toggle(
-      "on",
-      !enabled
-    );
-
-    localStorage.setItem(
-      "lucky_bubbles",
-      !enabled
-    );
-
-  };
-
-
-const savedBubbles =
-  localStorage.getItem(
-    "lucky_bubbles"
-  );
-
-
-if (
-  savedBubbles ===
-  "false"
-) {
-
-  document.querySelector(
-    ".bubbles"
-  ).style.display =
-    "none";
-
-  bubbleToggle.classList.remove(
-    "on"
-  );
-
-}
-
-
-/*
-===============================================================
-PAGE SYSTEM
-===============================================================
-*/
-
-window.showPage =
-  function(page) {
-
-    document
-      .querySelectorAll(
-        ".page"
-      )
-      .forEach(
-        element => {
-
-          element.classList.remove(
-            "active"
-          );
-
-        }
-      );
-
-
-    if (
-      page ===
-      "home"
-    ) {
-
-      document
-        .getElementById(
-          "homePage"
-        )
-        .classList.add(
-          "active"
-        );
-
-    }
-
-
-    if (
-      page ===
-      "community"
-    ) {
-
-      document
-        .getElementById(
-          "communityPage"
-        )
-        .classList.add(
-          "active"
-        );
-
-    }
-
-
-    if (
-      page ===
-      "profile"
-    ) {
-
-      document
-        .getElementById(
-          "profilePage"
-        )
-        .classList.add(
-          "active"
-        );
-
-    }
-
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  };
-
-
-/*
-===============================================================
-SEARCH
-===============================================================
-*/
-
-window.focusSearch =
-  function() {
-
-    showPage(
-      "home"
-    );
-
-    setTimeout(
-      () => {
-
-        document
-          .getElementById(
-            "searchInput"
-          )
-          .focus();
-
-      },
-      300
-    );
-
-  };
-
-
-document
-  .getElementById(
-    "searchForm"
-  )
-  .addEventListener(
-    "submit",
+  button.addEventListener(
+    "click",
     event => {
 
       event.preventDefault();
 
-      const value =
-        document
-          .getElementById(
-            "searchInput"
-          )
-          .value
-          .trim();
-
-      if (!value) return;
-
-      /*
-      Replace this with your search API later.
-      */
-
-      document
-        .getElementById(
-          "searchStatus"
-        )
-        .textContent =
-          `Search requested: "${value}"`;
-
-      showToast(
-        "Search system ready."
-      );
+      openMenu();
 
     }
-  );
-
-
-/*
-===============================================================
-AUTH MODAL
-===============================================================
-*/
-
-accountButton.onclick =
-  () => {
-
-    if (
-      currentUser
-    ) {
-
-      openProfile();
-
-    } else {
-
-      authModal.classList.add(
-        "open"
-      );
-
-    }
-
-  };
-
-
-window.closeAuth =
-  function() {
-
-    authModal.classList.remove(
-      "open"
-    );
-
-  };
-
-
-authModal.addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target ===
-      authModal
-    ) {
-
-      closeAuth();
-
-    }
-
-  }
-);
-
-
-/*
-===============================================================
-AUTH ERROR
-===============================================================
-*/
-
-function authError(error) {
-
-  const code =
-    error?.code || "";
-
-  const messages = {
-
-    "auth/popup-closed-by-user":
-      "Google sign-in was cancelled.",
-
-    "auth/popup-blocked":
-      "The Google popup was blocked.",
-
-    "auth/email-already-in-use":
-      "An account already exists with that email.",
-
-    "auth/invalid-email":
-      "That email address is invalid.",
-
-    "auth/weak-password":
-      "Password must be at least 6 characters.",
-
-    "auth/user-not-found":
-      "No account exists with that email.",
-
-    "auth/wrong-password":
-      "Incorrect password.",
-
-    "auth/invalid-credential":
-      "The login information is invalid.",
-
-    "auth/too-many-requests":
-      "Too many attempts. Try again later."
-
-  };
-
-  return (
-    messages[code] ||
-    error?.message ||
-    "Authentication failed."
   );
 
 }
 
 
-/*
-===============================================================
-GOOGLE LOGIN
-===============================================================
-*/
+/* =========================================================
+   MENU EVENTS
+========================================================= */
 
-googleButton.onclick =
-  async () => {
+function setupMenuEvents() {
 
-    try {
+  createMenuIfMissing();
 
-      authMessage.textContent =
-        "Opening Google...";
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      const target =
+        event.target;
+
+
+      /* CLOSE */
+
+      if (
+        target.id ===
+        "menuClose"
+      ) {
+
+        closeMenu();
+
+        return;
+
+      }
+
+
+      /* PAGE */
+
+      const pageButton =
+        target.closest(
+          ".menu-item"
+        );
+
+
+      if (pageButton) {
+
+        const page =
+          pageButton.dataset.page;
+
+
+        closeMenu();
+
+
+        if (
+          typeof showPage ===
+          "function"
+        ) {
+
+          showPage(page);
+
+        }
+
+        return;
+
+      }
+
+
+      /* DARK MODE */
+
+      if (
+        target.id ===
+        "themeToggle"
+      ) {
+
+        settings.theme =
+          settings.theme ===
+          "dark"
+            ? "light"
+            : "dark";
+
+
+        applySettings();
+
+        saveFirebaseSettings();
+
+        return;
+
+      }
+
+
+      /* WATER */
+
+      if (
+        target.id ===
+        "waterToggle"
+      ) {
+
+        settings.water =
+          !settings.water;
+
+
+        applySettings();
+
+        saveFirebaseSettings();
+
+        return;
+
+      }
+
+
+      /* ANIMATIONS */
+
+      if (
+        target.id ===
+        "animationToggle"
+      ) {
+
+        settings.animations =
+          !settings.animations;
+
+
+        applySettings();
+
+        saveFirebaseSettings();
+
+        return;
+
+      }
+
+
+      /* GLASS */
+
+      if (
+        target.id ===
+        "glassToggle"
+      ) {
+
+        settings.glass =
+          !settings.glass;
+
+
+        applySettings();
+
+        saveFirebaseSettings();
+
+        return;
+
+      }
+
+
+      /* ACCENT */
+
+      const accent =
+        target.closest(
+          ".accent"
+        );
+
+
+      if (accent) {
+
+        settings.accent =
+          accent.dataset.accent;
+
+
+        applySettings();
+
+        saveFirebaseSettings();
+
+        return;
+
+      }
+
+    }
+  );
+
+
+  /* CLICK OUTSIDE */
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      const menu =
+        document.getElementById(
+          "luckyMenu"
+        );
+
+
+      if (!menu)
+        return;
+
+
+      if (
+        !menu.classList.contains(
+          "open"
+        )
+      )
+        return;
+
+
+      const panel =
+        menu.querySelector(
+          ".menu-panel"
+        );
+
+
+      if (
+        !panel.contains(
+          event.target
+        )
+      ) {
+
+        closeMenu();
+
+      }
+
+    }
+  );
+
+
+  /* ESC */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key ===
+        "Escape"
+      ) {
+
+        closeMenu();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   AUTH — GOOGLE
+========================================================= */
+
+async function loginWithGoogle() {
+
+  try {
+
+    const isMobile =
+      /Android|iPhone|iPad|iPod/i
+        .test(
+          navigator.userAgent
+        );
+
+
+    if (isMobile) {
+
+      await signInWithRedirect(
+        auth,
+        googleProvider
+      );
+
+    } else {
 
       await signInWithPopup(
         auth,
         googleProvider
       );
 
-    } catch(error) {
-
-      console.error(error);
-
-      if (
-        error.code ===
-        "auth/popup-blocked"
-      ) {
-
-        await signInWithRedirect(
-          auth,
-          googleProvider
-        );
-
-        return;
-
-      }
-
-      authMessage.textContent =
-        authError(error);
-
     }
 
-  };
+  } catch (error) {
 
+    console.error(
+      "Google login error:",
+      error
+    );
 
-/*
-===============================================================
-EMAIL LOGIN
-===============================================================
-*/
-
-authForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    try {
-
-      loginButton.textContent =
-        "SIGNING IN...";
-
-      await signInWithEmailAndPassword(
-        auth,
-        emailInput.value.trim(),
-        passwordInput.value
-      );
-
-      closeAuth();
-
-      showToast(
-        "Welcome back."
-      );
-
-    } catch(error) {
-
-      authMessage.textContent =
-        authError(error);
-
-    } finally {
-
-      loginButton.textContent =
-        "SIGN IN";
-
-    }
+    alert(
+      "Google login failed: "
+      + error.message
+    );
 
   }
-);
+
+}
 
 
-/*
-===============================================================
-CREATE ACCOUNT
-===============================================================
-*/
+/* =========================================================
+   AUTH — EMAIL LOGIN
+========================================================= */
 
-createAccountButton.onclick =
-  async () => {
+async function loginWithEmail(
+  email,
+  password
+) {
 
-    const email =
-      emailInput.value.trim();
+  try {
 
-    const password =
-      passwordInput.value;
+    await signInWithEmailAndPassword(
 
-    if (
-      !email ||
-      !password
-    ) {
+      auth,
 
-      authMessage.textContent =
-        "Enter an email and password.";
+      email,
 
-      return;
+      password
 
-    }
+    );
 
-    try {
+  } catch (error) {
 
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+    alert(
+      "Login failed: "
+      + error.message
+    );
 
-      closeAuth();
+  }
 
-      showToast(
-        "Account created!"
-      );
-
-    } catch(error) {
-
-      authMessage.textContent =
-        authError(error);
-
-    }
-
-  };
+}
 
 
-/*
-===============================================================
-PASSWORD RESET
-===============================================================
-*/
+/* =========================================================
+   AUTH — CREATE ACCOUNT
+========================================================= */
 
-resetPasswordButton.onclick =
-  async () => {
+async function createAccount(
+  email,
+  password
+) {
 
-    const email =
-      emailInput.value.trim();
+  try {
 
-    if (!email) {
+    await createUserWithEmailAndPassword(
 
-      authMessage.textContent =
-        "Enter your email first.";
+      auth,
 
-      return;
+      email,
 
-    }
+      password
 
-    try {
+    );
 
-      await sendPasswordResetEmail(
-        auth,
-        email
-      );
+  } catch (error) {
 
-      authMessage.textContent =
-        "Password reset email sent.";
+    alert(
+      "Account creation failed: "
+      + error.message
+    );
 
-    } catch(error) {
+  }
 
-      authMessage.textContent =
-        authError(error);
-
-    }
-
-  };
+}
 
 
-/*
-===============================================================
-FIRESTORE PROFILE
-===============================================================
-*/
+/* =========================================================
+   AUTH — PASSWORD RESET
+========================================================= */
 
-async function createOrUpdateProfile(
+async function resetPassword(
+  email
+) {
+
+  try {
+
+    await sendPasswordResetEmail(
+
+      auth,
+
+      email
+
+    );
+
+
+    alert(
+      "Password reset email sent."
+    );
+
+  } catch (error) {
+
+    alert(
+      "Could not send reset email: "
+      + error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   AUTH — LOGOUT
+========================================================= */
+
+async function logout() {
+
+  try {
+
+    await signOut(auth);
+
+  } catch (error) {
+
+    console.error(
+      "Logout failed:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE PROFILE
+========================================================= */
+
+async function createProfile(
   user
 ) {
+
+  if (!user)
+    return;
+
 
   const profileRef =
     doc(
@@ -3524,30 +1307,34 @@ async function createOrUpdateProfile(
     );
 
 
-  if (
-    !existing.exists()
-  ) {
+  if (!existing.exists()) {
 
     await setDoc(
+
       profileRef,
+
       {
 
-        uid:user.uid,
+        uid:
+          user.uid,
 
         displayName:
-          user.displayName ||
-          "Lucky User",
+          user.displayName
+          || "Lucky User",
 
         email:
-          user.email ||
-          "",
+          user.email
+          || "",
 
         photoURL:
-          user.photoURL ||
-          "",
+          user.photoURL
+          || "",
 
         bio:
           "Welcome to Lucky Store!",
+
+        settings:
+          settings,
 
         createdAt:
           serverTimestamp(),
@@ -3556,27 +1343,7 @@ async function createOrUpdateProfile(
           serverTimestamp()
 
       }
-    );
 
-  } else {
-
-    /*
-    Only update information supplied
-    by the authentication provider.
-    */
-
-    await updateDoc(
-      profileRef,
-      {
-
-        email:
-          user.email ||
-          "",
-
-        updatedAt:
-          serverTimestamp()
-
-      }
     );
 
   }
@@ -3584,11 +1351,9 @@ async function createOrUpdateProfile(
 }
 
 
-/*
-===============================================================
-AUTH STATE
-===============================================================
-*/
+/* =========================================================
+   AUTH STATE
+========================================================= */
 
 onAuthStateChanged(
   auth,
@@ -3600,582 +1365,261 @@ onAuthStateChanged(
 
     if (user) {
 
-      await createOrUpdateProfile(
+      await createProfile(
         user
       );
 
-
-      accountButtonText.textContent =
-        (
-          user.displayName ||
-          "ACCOUNT"
-        )
-        .split(" ")[0]
-        .toUpperCase();
-
-
-      if (
-        user.photoURL
-      ) {
-
-        headerAvatar.src =
-          user.photoURL;
-
-        headerAvatar.style.display =
-          "block";
-
-      }
-
-
-      document
-        .getElementById(
-          "createPostName"
-        )
-        .textContent =
-          user.displayName ||
-          "Lucky User";
-
-
-      document
-        .getElementById(
-          "postText"
-        )
-        .disabled =
-          false;
-
-
-      document
-        .getElementById(
-          "createPostButton"
-        )
-        .disabled =
-          false;
-
-
-      document
-        .getElementById(
-          "createAvatar"
-        )
-        .src =
-          user.photoURL ||
-          avatarURL(
-            user.displayName ||
-            "Lucky User"
-          );
-
-
-      loadCurrentProfile();
-
-    } else {
-
-      accountButtonText.textContent =
-        "ACCOUNT";
-
-      headerAvatar.style.display =
-        "none";
-
-
-      document
-        .getElementById(
-          "createPostName"
-        )
-        .textContent =
-          "Sign in to post";
-
-
-      document
-        .getElementById(
-          "postText"
-        )
-        .disabled =
-          true;
-
-
-      document
-        .getElementById(
-          "createPostButton"
-        )
-        .disabled =
-          true;
+      await loadFirebaseSettings();
 
     }
 
+
+    updateAuthUI();
+
+    updateProfileUI();
+
   }
 );
 
 
-/*
-===============================================================
-REDIRECT LOGIN
-===============================================================
-*/
+/* =========================================================
+   AUTH UI
+========================================================= */
 
-getRedirectResult(
-  auth
-).catch(
-  error => {
+function updateAuthUI() {
 
-    console.error(
-      "Redirect login error:",
-      error
+  const accountButtons =
+    document.querySelectorAll(
+      "[data-account]"
     );
 
-  }
-);
 
+  accountButtons.forEach(
+    button => {
 
-/*
-===============================================================
-AVATAR HELPER
-===============================================================
-*/
+      if (currentUser) {
 
-function avatarURL(
-  name
-) {
+        button.textContent =
+          currentUser.displayName
+          || "ACCOUNT";
 
-  return (
-    "https://ui-avatars.com/api/?name=" +
-    encodeURIComponent(name) +
-    "&background=1767ff&color=ffffff"
+      } else {
+
+        button.textContent =
+          "SIGN IN";
+
+      }
+
+    }
   );
+
+
+  const userName =
+    document.getElementById(
+      "userName"
+    );
+
+
+  if (userName) {
+
+    userName.textContent =
+      currentUser
+        ? (
+            currentUser.displayName
+            || "Lucky User"
+          )
+        : "Guest";
+
+  }
 
 }
 
 
-/*
-===============================================================
-CREATE POST
-===============================================================
-*/
-
-document
-  .getElementById(
-    "createPostButton"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      if (!currentUser) {
-
-        authModal.classList.add(
-          "open"
-        );
-
-        return;
-
-      }
-
-
-      const text =
-        document
-          .getElementById(
-            "postText"
-          )
-          .value
-          .trim();
-
-
-      if (!text) {
-
-        showToast(
-          "Write something first."
-        );
-
-        return;
-
-      }
-
-
-      if (
-        text.length >
-        500
-      ) {
-
-        showToast(
-          "Posts are limited to 500 characters."
-        );
-
-        return;
-
-      }
-
-
-      const button =
-        document
-          .getElementById(
-            "createPostButton"
-          );
-
-
-      button.disabled =
-        true;
-
-      button.textContent =
-        "POSTING...";
-
-
-      try {
-
-        const profile =
-          await getDoc(
-            doc(
-              db,
-              "profiles",
-              currentUser.uid
-            )
-          );
-
-
-        const data =
-          profile.exists()
-            ? profile.data()
-            : {};
-
-
-        await addDoc(
-          collection(
-            db,
-            "posts"
-          ),
-          {
-
-            authorUID:
-              currentUser.uid,
-
-            authorName:
-              data.displayName ||
-              currentUser.displayName ||
-              "Lucky User",
-
-            authorPhoto:
-              data.photoURL ||
-              currentUser.photoURL ||
-              "",
-
-            text:text,
-
-            likes:[],
-
-            createdAt:
-              serverTimestamp()
-
-          }
-        );
-
-
-        document
-          .getElementById(
-            "postText"
-          )
-          .value =
-            "";
-
-
-        showToast(
-          "Posted!"
-        );
-
-
-      } catch(error) {
-
-        console.error(error);
-
-        showToast(
-          "Couldn't create post."
-        );
-
-      }
-
-
-      button.disabled =
-        false;
-
-      button.textContent =
-        "POST";
-
-    }
-  );
-
-
-/*
-===============================================================
-LOAD COMMUNITY FEED
-===============================================================
-*/
-
-const postsQuery =
-  query(
-    collection(
-      db,
-      "posts"
-    ),
-    orderBy(
-      "createdAt",
-      "desc"
-    ),
-    limit(50)
-  );
-
-
-unsubscribePosts =
-  onSnapshot(
-    postsQuery,
-    snapshot => {
-
-      const posts =
-        snapshot.docs.map(
-          docSnap => ({
-
-            id:
-              docSnap.id,
-
-            ...docSnap.data()
-
-          })
-        );
-
-
-      renderPosts(
-        posts,
-        "postList"
-      );
-
-      renderPosts(
-        posts.slice(0,3),
-        "homePosts"
-      );
-
-    },
-
-    error => {
-
-      console.error(
-        "Post feed error:",
-        error
-      );
-
-      document
-        .getElementById(
-          "postList"
-        )
-        .innerHTML = `
-          <div class="empty">
-            Unable to load the community.
-          </div>
-        `;
-
-    }
-
-  );
-
-
-/*
-===============================================================
-RENDER POSTS
-===============================================================
-*/
-
-function renderPosts(
-  posts,
-  elementID
+/* =========================================================
+   PROFILE
+========================================================= */
+
+async function getProfile(
+  uid
 ) {
 
-  const container =
-    document.getElementById(
-      elementID
+  const snap =
+    await getDoc(
+
+      doc(
+        db,
+        "profiles",
+        uid
+      )
+
     );
 
 
-  if (!posts.length) {
+  if (!snap.exists())
+    return null;
 
-    container.innerHTML = `
-      <div class="empty">
-        No posts yet.<br>
-        Be the first person to post!
-      </div>
-    `;
+
+  return snap.data();
+
+}
+
+
+/* =========================================================
+   UPDATE PROFILE UI
+========================================================= */
+
+async function updateProfileUI() {
+
+  if (!currentUser)
+    return;
+
+
+  const profile =
+    await getProfile(
+      currentUser.uid
+    );
+
+
+  if (!profile)
+    return;
+
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+
+  const bio =
+    document.getElementById(
+      "profileBio"
+    );
+
+
+  const avatar =
+    document.getElementById(
+      "profileAvatar"
+    );
+
+
+  if (name) {
+
+    name.textContent =
+      profile.displayName
+      || "Lucky User";
+
+  }
+
+
+  if (bio) {
+
+    bio.textContent =
+      profile.bio
+      || "";
+
+  }
+
+
+  if (
+    avatar
+    &&
+    profile.photoURL
+  ) {
+
+    avatar.src =
+      profile.photoURL;
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE POST
+========================================================= */
+
+async function createPost(
+  text
+) {
+
+  if (!currentUser) {
+
+    alert(
+      "Please sign in first."
+    );
 
     return;
 
   }
 
 
-  container.innerHTML =
-    "";
+  text =
+    String(text || "")
+      .trim();
 
 
-  posts.forEach(
-    post => {
-
-      const article =
-        document.createElement(
-          "article"
-        );
-
-      article.className =
-        "post";
+  if (!text)
+    return;
 
 
-      const likes =
-        Array.isArray(
-          post.likes
-        )
-          ? post.likes
-          : [];
+  if (text.length > 1000) {
+
+    alert(
+      "Posts can be up to 1000 characters."
+    );
+
+    return;
+
+  }
 
 
-      const liked =
-        currentUser &&
-        likes.includes(
-          currentUser.uid
-        );
+  const profile =
+    await getProfile(
+      currentUser.uid
+    );
 
 
-      article.innerHTML = `
+  await addDoc(
 
-        <div class="post-header">
+    collection(
+      db,
+      "posts"
+    ),
 
-          <img
-            class="post-avatar"
-            src="${
-              safeImage(
-                post.authorPhoto,
-                post.authorName
-              )
-            }"
-          >
+    {
 
-          <div>
+      authorUID:
+        currentUser.uid,
 
-            <div
-              class="post-author"
-            >
-              ${escapeHTML(
-                post.authorName ||
-                "Lucky User"
-              )}
-            </div>
+      authorName:
+        profile?.displayName
+        || currentUser.displayName
+        || "Lucky User",
 
-            <div class="post-time">
-              ${formatTime(
-                post.createdAt
-              )}
-            </div>
+      authorPhoto:
+        profile?.photoURL
+        || currentUser.photoURL
+        || "",
 
-          </div>
+      text:
 
-        </div>
+        text,
 
+      likes: [],
 
-        <div class="post-content">
-          ${escapeHTML(
-            post.text || ""
-          )}
-        </div>
-
-
-        <div class="post-footer">
-
-          <button
-            class="like-button ${
-              liked
-                ? "liked"
-                : ""
-            }"
-            data-post-id="${
-              post.id
-            }"
-          >
-
-            ${
-              liked
-                ? "♥"
-                : "♡"
-            }
-
-            ${likes.length}
-
-          </button>
-
-        </div>
-
-      `;
-
-
-      /*
-      Profile click
-      */
-
-      article
-        .querySelector(
-          ".post-avatar"
-        )
-        .addEventListener(
-          "click",
-          () => {
-
-            openUserProfile(
-              post.authorUID
-            );
-
-          }
-        );
-
-
-      article
-        .querySelector(
-          ".post-author"
-        )
-        .addEventListener(
-          "click",
-          () => {
-
-            openUserProfile(
-              post.authorUID
-            );
-
-          }
-        );
-
-
-      /*
-      Like
-      */
-
-      article
-        .querySelector(
-          ".like-button"
-        )
-        .addEventListener(
-          "click",
-          () => {
-
-            toggleLike(
-              post.id,
-              likes
-            );
-
-          }
-        );
-
-
-      container.appendChild(
-        article
-      );
+      createdAt:
+        serverTimestamp()
 
     }
+
   );
 
 }
 
 
-/*
-===============================================================
-LIKE / UNLIKE
-===============================================================
-*/
+/* =========================================================
+   LIKE POST
+========================================================= */
 
 async function toggleLike(
   postID,
@@ -4184,8 +1628,8 @@ async function toggleLike(
 
   if (!currentUser) {
 
-    authModal.classList.add(
-      "open"
+    alert(
+      "Please sign in to like posts."
     );
 
     return;
@@ -4202,6 +1646,8 @@ async function toggleLike(
 
 
   const alreadyLiked =
+    Array.isArray(likes)
+    &&
     likes.includes(
       currentUser.uid
     );
@@ -4209,30 +1655,47 @@ async function toggleLike(
 
   try {
 
-    await updateDoc(
-      postRef,
-      {
+    if (alreadyLiked) {
 
-        likes:
-          alreadyLiked
-            ? arrayRemove(
-                currentUser.uid
-              )
-            : arrayUnion(
-                currentUser.uid
-              )
+      await updateDoc(
 
-      }
-    );
+        postRef,
 
-  } catch(error) {
+        {
+
+          likes:
+            arrayRemove(
+              currentUser.uid
+            )
+
+        }
+
+      );
+
+    } else {
+
+      await updateDoc(
+
+        postRef,
+
+        {
+
+          likes:
+            arrayUnion(
+              currentUser.uid
+            )
+
+        }
+
+      );
+
+    }
+
+  } catch (error) {
 
     console.error(
+      "Like error:",
       error
-    );
-
-    showToast(
-      "Couldn't update like."
     );
 
   }
@@ -4240,78 +1703,538 @@ async function toggleLike(
 }
 
 
-/*
-===============================================================
-OPEN CURRENT USER PROFILE
-===============================================================
-*/
+/* =========================================================
+   SAFE HTML
+========================================================= */
 
-window.openProfile =
-  async function() {
+function escapeHTML(
+  value
+) {
 
-    if (!currentUser) {
+  return String(
+    value ?? ""
+  )
 
-      authModal.classList.add(
-        "open"
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+function avatarURL(
+  photo,
+  name
+) {
+
+  if (photo)
+    return photo;
+
+
+  return (
+
+    "https://ui-avatars.com/api/?name="
+    +
+    encodeURIComponent(
+      name || "Lucky User"
+    )
+    +
+    "&background=176cff&color=fff"
+
+  );
+
+}
+
+
+/* =========================================================
+   COMMUNITY FEED
+========================================================= */
+
+function startCommunityFeed() {
+
+  if (unsubscribePosts) {
+
+    unsubscribePosts();
+
+    unsubscribePosts =
+      null;
+
+  }
+
+
+  const postsRef =
+    collection(
+      db,
+      "posts"
+    );
+
+
+  const postsQuery =
+    query(
+
+      postsRef,
+
+      orderBy(
+        "createdAt",
+        "desc"
+      ),
+
+      limit(50)
+
+    );
+
+
+  unsubscribePosts =
+    onSnapshot(
+
+      postsQuery,
+
+      snapshot => {
+
+        const posts =
+          [];
+
+
+        snapshot.forEach(
+          postSnap => {
+
+            posts.push({
+
+              id:
+                postSnap.id,
+
+              ...postSnap.data()
+
+            });
+
+          }
+        );
+
+
+        renderPosts(
+          posts
+        );
+
+      },
+
+      error => {
+
+        console.error(
+          "Feed error:",
+          error
+        );
+
+      }
+
+    );
+
+}
+
+
+/* =========================================================
+   RENDER POSTS
+========================================================= */
+
+function renderPosts(
+  posts
+) {
+
+  const container =
+    document.getElementById(
+      "postsContainer"
+    );
+
+
+  if (!container)
+    return;
+
+
+  container.innerHTML =
+    "";
+
+
+  if (!posts.length) {
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        <h2>
+          NO POSTS YET
+        </h2>
+
+        <p>
+          Be the first person to post.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  posts.forEach(
+    post => {
+
+      const likes =
+        Array.isArray(
+          post.likes
+        )
+          ? post.likes
+          : [];
+
+
+      const liked =
+        currentUser
+        &&
+        likes.includes(
+          currentUser.uid
+        );
+
+
+      const date =
+        post.createdAt?.toDate
+          ? post.createdAt
+              .toDate()
+              .toLocaleString()
+          : "JUST NOW";
+
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "post-card";
+
+
+      article.innerHTML = `
+
+        <div class="post-header">
+
+          <img
+            class="post-avatar"
+            src="${avatarURL(
+              post.authorPhoto,
+              post.authorName
+            )}"
+            alt=""
+          >
+
+          <div>
+
+            <button
+              class="post-author"
+              data-profile="${escapeHTML(
+                post.authorUID
+              )}"
+            >
+              ${escapeHTML(
+                post.authorName
+              )}
+            </button>
+
+            <div class="post-date">
+              ${escapeHTML(date)}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="post-text">
+
+          ${escapeHTML(
+            post.text
+          )}
+
+        </div>
+
+
+        <div class="post-actions">
+
+          <button
+            class="like-button ${liked ? "liked" : ""}"
+            data-like="${post.id}"
+          >
+
+            ${liked ? "♥" : "♡"}
+
+            ${likes.length}
+
+          </button>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        article
       );
 
-      return;
+    }
+  );
+
+}
+
+
+/* =========================================================
+   COMMUNITY EVENTS
+========================================================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const likeButton =
+      event.target.closest(
+        "[data-like]"
+      );
+
+
+    if (likeButton) {
+
+      const id =
+        likeButton.dataset.like;
+
+
+      /* Find current post
+         from rendered feed */
+
+      const postCard =
+        likeButton.closest(
+          ".post-card"
+        );
+
+
+      if (!postCard)
+        return;
+
+
+      /* Re-read feed document */
+
+      getDoc(
+        doc(
+          db,
+          "posts",
+          id
+        )
+      )
+      .then(
+        snap => {
+
+          if (!snap.exists())
+            return;
+
+
+          toggleLike(
+
+            id,
+
+            snap.data().likes
+            || []
+
+          );
+
+        }
+      );
 
     }
 
-    viewingProfileUID =
-      currentUser.uid;
 
-    showPage(
-      "profile"
-    );
-
-    await loadProfile(
-      currentUser.uid
-    );
-
-  };
+    const profileButton =
+      event.target.closest(
+        "[data-profile]"
+      );
 
 
-/*
-===============================================================
-OPEN OTHER USER PROFILE
-===============================================================
-*/
+    if (profileButton) {
+
+      const uid =
+        profileButton.dataset.profile;
+
+
+      openUserProfile(
+        uid
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   OPEN USER PROFILE
+========================================================= */
 
 async function openUserProfile(
   uid
 ) {
 
-  if (!uid) return;
-
-  viewingProfileUID =
+  currentProfileUID =
     uid;
 
-  showPage(
-    "profile"
-  );
 
-  await loadProfile(
+  const profile =
+    await getProfile(
+      uid
+    );
+
+
+  if (!profile) {
+
+    alert(
+      "Profile not found."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    typeof showPage ===
+    "function"
+  ) {
+
+    showPage(
+      "profile"
+    );
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "profileName"
+    );
+
+
+  const bio =
+    document.getElementById(
+      "profileBio"
+    );
+
+
+  const avatar =
+    document.getElementById(
+      "profileAvatar"
+    );
+
+
+  if (name) {
+
+    name.textContent =
+      profile.displayName
+      || "Lucky User";
+
+  }
+
+
+  if (bio) {
+
+    bio.textContent =
+      profile.bio
+      || "";
+
+  }
+
+
+  if (
+    avatar
+    &&
+    profile.photoURL
+  ) {
+
+    avatar.src =
+      profile.photoURL;
+
+  }
+
+
+  loadUserPosts(
     uid
   );
 
 }
 
 
-/*
-===============================================================
-LOAD PROFILE
-===============================================================
-*/
+/* =========================================================
+   LOAD USER POSTS
+========================================================= */
 
-async function loadProfile(
+async function loadUserPosts(
   uid
 ) {
 
+  const container =
+    document.getElementById(
+      "profilePosts"
+    );
+
+
+  if (!container)
+    return;
+
+
+  container.innerHTML =
+    "<p>Loading posts...</p>";
+
+
   try {
 
-    const profileSnap =
+    const postsQuery =
+      query(
+
+        collection(
+          db,
+          "posts"
+        ),
+
+        orderBy(
+          "createdAt",
+          "desc"
+        ),
+
+        limit(100)
+
+      );
+
+
+    const snap =
       await getDoc(
         doc(
           db,
@@ -4321,549 +2244,476 @@ async function loadProfile(
       );
 
 
-    if (!profileSnap.exists()) {
+    if (!snap.exists()) {
 
-      showToast(
-        "Profile not found."
-      );
+      container.innerHTML =
+        "<p>Profile not found.</p>";
 
       return;
 
     }
 
 
-    const profile =
-      profileSnap.data();
-
-
-    document
-      .getElementById(
-        "profileName"
-      )
-      .textContent =
-        profile.displayName ||
-        "Lucky User";
-
-
-    document
-      .getElementById(
-        "profileEmail"
-      )
-      .textContent =
-        profile.email ||
-        "";
-
-
-    document
-      .getElementById(
-        "profileBio"
-      )
-      .textContent =
-        profile.bio ||
-        "No bio yet.";
-
-
-    document
-      .getElementById(
-        "profileAvatar"
-      )
-      .src =
-        safeImage(
-          profile.photoURL,
-          profile.displayName
-        );
-
-
     /*
-    Only allow edit button on own profile
+      We intentionally read the feed
+      and filter here so this works
+      without requiring another Firestore
+      composite index.
     */
 
-    document
-      .getElementById(
-        "editProfileButton"
-      )
-      .style.display =
-        currentUser &&
-        currentUser.uid === uid
-          ? "inline-block"
-          : "none";
+    onSnapshot(
+
+      postsQuery,
+
+      snapshot => {
+
+        container.innerHTML =
+          "";
 
 
-    /*
-    Profile posts
-    */
-
-    if (
-      unsubscribeProfilePosts
-    ) {
-
-      unsubscribeProfilePosts();
-
-    }
+        let found =
+          false;
 
 
-    const profilePostsQuery =
-      query(
-        collection(
-          db,
-          "posts"
-        ),
-        orderBy(
-          "createdAt",
-          "desc"
-        ),
-        limit(50)
-      );
+        snapshot.forEach(
+          postSnap => {
+
+            const post =
+              postSnap.data();
 
 
-    unsubscribeProfilePosts =
-      onSnapshot(
-        profilePostsQuery,
-        snapshot => {
+            if (
+              post.authorUID !==
+              uid
+            )
+              return;
 
-          const posts =
-            snapshot.docs
 
-              .map(
-                d => ({
-                  id:d.id,
-                  ...d.data()
-                })
-              )
+            found =
+              true;
 
-              .filter(
-                post =>
-                  post.authorUID ===
-                  uid
+
+            const card =
+              document.createElement(
+                "div"
               );
 
 
-          renderPosts(
-            posts,
-            "profilePosts"
-          );
+            card.className =
+              "post-card";
+
+
+            card.innerHTML = `
+
+              <div class="post-text">
+
+                ${escapeHTML(
+                  post.text
+                )}
+
+              </div>
+
+            `;
+
+
+            container.appendChild(
+              card
+            );
+
+          }
+        );
+
+
+        if (!found) {
+
+          container.innerHTML = `
+
+            <p>
+              This user hasn't posted anything yet.
+            </p>
+
+          `;
 
         }
-      );
 
+      }
 
-  } catch(error) {
+    );
+
+  } catch (error) {
 
     console.error(
       error
     );
 
-    showToast(
-      "Couldn't load profile."
-    );
+    container.innerHTML =
+      "<p>Could not load posts.</p>";
 
   }
 
 }
 
 
-/*
-===============================================================
-LOAD CURRENT PROFILE
-===============================================================
-*/
+/* =========================================================
+   POST FORM
+========================================================= */
 
-async function loadCurrentProfile() {
+document.addEventListener(
+  "submit",
+  event => {
 
-  if (!currentUser) return;
-
-  await loadProfile(
-    currentUser.uid
-  );
-
-}
+    const form =
+      event.target.closest(
+        "#postForm"
+      );
 
 
-/*
-===============================================================
-EDIT PROFILE
-===============================================================
-*/
-
-document
-  .getElementById(
-    "editProfileButton"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      if (!currentUser) return;
+    if (!form)
+      return;
 
 
-      const snap =
-        await getDoc(
-          doc(
-            db,
-            "profiles",
-            currentUser.uid
-          )
-        );
+    event.preventDefault();
 
+
+    const input =
+      form.querySelector(
+        "textarea"
+      );
+
+
+    if (!input)
+      return;
+
+
+    const text =
+      input.value;
+
+
+    createPost(
+      text
+    )
+    .then(
+      () => {
+
+        input.value =
+          "";
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   ACCOUNT BUTTON
+========================================================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    const account =
+      event.target.closest(
+        "[data-account]"
+      );
+
+
+    if (!account)
+      return;
+
+
+    if (currentUser) {
 
       if (
-        !snap.exists()
-      ) return;
-
-
-      const data =
-        snap.data();
-
-
-      document
-        .getElementById(
-          "editDisplayName"
+        confirm(
+          "Sign out of Lucky Store?"
         )
-        .value =
-          data.displayName ||
-          "";
+      ) {
 
-
-      document
-        .getElementById(
-          "editBio"
-        )
-        .value =
-          data.bio ||
-          "";
-
-
-      document
-        .getElementById(
-          "editPhotoURL"
-        )
-        .value =
-          data.photoURL ||
-          "";
-
-
-      document
-        .getElementById(
-          "editProfileBox"
-        )
-        .classList.toggle(
-          "active"
-        );
-
-    }
-  );
-
-
-/*
-===============================================================
-SAVE PROFILE
-===============================================================
-*/
-
-document
-  .getElementById(
-    "saveProfileButton"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      if (!currentUser) return;
-
-
-      const displayName =
-        document
-          .getElementById(
-            "editDisplayName"
-          )
-          .value
-          .trim();
-
-
-      const bio =
-        document
-          .getElementById(
-            "editBio"
-          )
-          .value
-          .trim();
-
-
-      const photoURL =
-        document
-          .getElementById(
-            "editPhotoURL"
-          )
-          .value
-          .trim();
-
-
-      if (!displayName) {
-
-        showToast(
-          "Enter a display name."
-        );
-
-        return;
+        logout();
 
       }
 
+    } else {
 
-      try {
+      if (
+        typeof openAuthModal ===
+        "function"
+      ) {
 
-        await updateDoc(
+        openAuthModal();
 
-          doc(
-            db,
-            "profiles",
-            currentUser.uid
-          ),
+      } else {
 
-          {
-
-            displayName:
-              displayName,
-
-            bio:
-              bio,
-
-            photoURL:
-              photoURL,
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-
-        );
-
-
-        /*
-        Update own post author info
-        */
-
-        const ownPostsQuery =
-          query(
-            collection(
-              db,
-              "posts"
-            ),
-            limit(100)
-          );
-
-
-        /*
-        We intentionally don't mass-edit old
-        posts from the client.
-
-        New posts will use the new profile.
-        */
-
-
-        await loadProfile(
-          currentUser.uid
-        );
-
-
-        document
-          .getElementById(
-            "editProfileBox"
-          )
-          .classList.remove(
-            "active"
-          );
-
-
-        showToast(
-          "Profile saved."
-        );
-
-
-      } catch(error) {
-
-        console.error(
-          error
-        );
-
-        showToast(
-          "Couldn't save profile."
-        );
+        openLoginFallback();
 
       }
 
     }
+
+  }
+);
+
+
+/* =========================================================
+   FALLBACK LOGIN MODAL
+========================================================= */
+
+function openLoginFallback() {
+
+  const old =
+    document.getElementById(
+      "simpleLoginModal"
+    );
+
+
+  if (old)
+    old.remove();
+
+
+  const modal =
+    document.createElement(
+      "div"
+    );
+
+
+  modal.id =
+    "simpleLoginModal";
+
+
+  modal.style.cssText = `
+
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
+
+  `;
+
+
+  modal.innerHTML = `
+
+    <div style="
+      width:min(420px,90vw);
+      padding:30px;
+      background:#071323;
+      border:1px solid rgba(60,190,255,.4);
+      box-shadow:0 20px 80px rgba(0,0,0,.6);
+    ">
+
+      <h2 style="
+        color:white;
+        margin-top:0;
+      ">
+        LUCKY STORE
+      </h2>
+
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Email"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding:13px;
+          margin-bottom:10px;
+        "
+      >
+
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+        style="
+          width:100%;
+          box-sizing:border-box;
+          padding:13px;
+          margin-bottom:12px;
+        "
+      >
+
+
+      <button
+        id="googleLogin"
+        style="
+          width:100%;
+          padding:13px;
+          margin-bottom:8px;
+        "
+      >
+        CONTINUE WITH GOOGLE
+      </button>
+
+
+      <button
+        id="emailLogin"
+        style="
+          width:100%;
+          padding:13px;
+          margin-bottom:8px;
+        "
+      >
+        SIGN IN
+      </button>
+
+
+      <button
+        id="createAccount"
+        style="
+          width:100%;
+          padding:13px;
+          margin-bottom:8px;
+        "
+      >
+        CREATE ACCOUNT
+      </button>
+
+
+      <button
+        id="forgotPassword"
+        style="
+          width:100%;
+          padding:10px;
+        "
+      >
+        FORGOT PASSWORD?
+      </button>
+
+
+      <button
+        id="closeLogin"
+        style="
+          width:100%;
+          padding:10px;
+          margin-top:12px;
+        "
+      >
+        CLOSE
+      </button>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    modal
   );
 
 
-/*
-===============================================================
-SECURITY HELPERS
-===============================================================
-*/
-
-function escapeHTML(
-  value
-) {
-
-  return String(
-    value || ""
-  )
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
+  document.getElementById(
+    "googleLogin"
+  ).onclick =
+    loginWithGoogle;
 
 
-function safeImage(
-  url,
-  name
-) {
+  document.getElementById(
+    "emailLogin"
+  ).onclick =
+    () => {
 
-  if (
-    typeof url === "string" &&
-    (
-      url.startsWith(
-        "https://"
-      ) ||
-      url.startsWith(
-        "http://"
-      )
-    )
-  ) {
+      loginWithEmail(
 
-    return url;
+        document.getElementById(
+          "loginEmail"
+        ).value,
 
-  }
+        document.getElementById(
+          "loginPassword"
+        ).value
 
-  return avatarURL(
-    name ||
-    "Lucky User"
-  );
+      );
 
-}
+    };
 
 
-/*
-===============================================================
-TIME
-===============================================================
-*/
+  document.getElementById(
+    "createAccount"
+  ).onclick =
+    () => {
 
-function formatTime(
-  timestamp
-) {
+      createAccount(
 
-  if (
-    !timestamp ||
-    !timestamp.toDate
-  ) {
+        document.getElementById(
+          "loginEmail"
+        ).value,
 
-    return "Just now";
+        document.getElementById(
+          "loginPassword"
+        ).value
 
-  }
+      );
 
-
-  const date =
-    timestamp.toDate();
+    };
 
 
-  const seconds =
-    Math.floor(
-      (
-        Date.now() -
-        date.getTime()
-      ) / 1000
-    );
+  document.getElementById(
+    "forgotPassword"
+  ).onclick =
+    () => {
+
+      resetPassword(
+
+        document.getElementById(
+          "loginEmail"
+        ).value
+
+      );
+
+    };
 
 
-  if (
-    seconds < 60
-  ) {
+  document.getElementById(
+    "closeLogin"
+  ).onclick =
+    () => {
 
-    return "Just now";
+      modal.remove();
 
-  }
-
-
-  if (
-    seconds < 3600
-  ) {
-
-    return (
-      Math.floor(
-        seconds / 60
-      ) +
-      "m ago"
-    );
-
-  }
-
-
-  if (
-    seconds < 86400
-  ) {
-
-    return (
-      Math.floor(
-        seconds / 3600
-      ) +
-      "h ago"
-    );
-
-  }
-
-
-  if (
-    seconds < 604800
-  ) {
-
-    return (
-      Math.floor(
-        seconds / 86400
-      ) +
-      "d ago"
-    );
-
-  }
-
-
-  return date.toLocaleDateString();
+    };
 
 }
 
 
-/*
-===============================================================
-ESCAPE KEY
-===============================================================
-*/
+/* =========================================================
+   REDIRECT LOGIN RESULT
+========================================================= */
+
+getRedirectResult(
+  auth
+)
+.catch(
+  error => {
+
+    if (error) {
+
+      console.warn(
+        "Redirect result:",
+        error
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
 
 document.addEventListener(
   "keydown",
   event => {
+
+    /* ESC */
 
     if (
       event.key ===
@@ -4872,23 +2722,35 @@ document.addEventListener(
 
       closeMenu();
 
-      closeAuth();
-
     }
 
 
+    /* M */
+
     if (
-      event.key ===
-      "/" &&
-      document.activeElement.tagName !==
-      "INPUT" &&
-      document.activeElement.tagName !==
-      "TEXTAREA"
+      event.key.toLowerCase()
+      === "m"
+      &&
+      !event.ctrlKey
+      &&
+      !event.metaKey
     ) {
 
-      event.preventDefault();
+      const tag =
+        document.activeElement
+          ?.tagName
+          ?.toLowerCase();
 
-      focusSearch();
+
+      if (
+        tag !== "input"
+        &&
+        tag !== "textarea"
+      ) {
+
+        openMenu();
+
+      }
 
     }
 
@@ -4896,17 +2758,65 @@ document.addEventListener(
 );
 
 
-/*
-===============================================================
-INITIAL
-===============================================================
-*/
+/* =========================================================
+   STARTUP
+========================================================= */
 
-showPage(
-  "home"
+loadLocalSettings();
+
+applySettings();
+
+createMenuIfMissing();
+
+setupMenuButton();
+
+setupMenuEvents();
+
+startCommunityFeed();
+
+
+/* =========================================================
+   MAKE FUNCTIONS AVAILABLE
+   TO YOUR EXISTING HTML
+========================================================= */
+
+window.openMenu =
+  openMenu;
+
+window.closeMenu =
+  closeMenu;
+
+window.loginWithGoogle =
+  loginWithGoogle;
+
+window.loginWithEmail =
+  loginWithEmail;
+
+window.createAccount =
+  createAccount;
+
+window.resetPassword =
+  resetPassword;
+
+window.logout =
+  logout;
+
+window.createPost =
+  createPost;
+
+window.openUserProfile =
+  openUserProfile;
+
+window.applySettings =
+  applySettings;
+
+
+/* =========================================================
+   DONE
+========================================================= */
+
+console.log(
+  "🍀 Lucky Store loaded."
 );
 
-</script>
-
-</body>
-</html>
+  </script>
