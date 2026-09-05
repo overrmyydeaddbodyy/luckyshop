@@ -2,1891 +2,1052 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>LuckyShop 🍀</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0b0d12;
-  color: white;
+body{
+  font-family:Arial,sans-serif;
+  background:#090b12;
+  color:white;
+  min-height:100vh;
 }
 
-body {
-  min-height: 100vh;
+header{
+  background:linear-gradient(135deg,#15192a,#101321);
+  border-bottom:1px solid #292e40;
+  padding:15px;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-
-  background: rgba(10,12,18,.96);
-  border-bottom: 1px solid #252a35;
-
-  padding: 12px;
+.logo{
+  font-size:27px;
+  font-weight:bold;
+  color:#7dff9b;
 }
 
-.header-inner {
-  max-width: 1100px;
-  margin: auto;
-
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.logo span{
+  color:white;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: 900;
-  white-space: nowrap;
+.search{
+  margin-top:12px;
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #343a50;
+  background:#0d1019;
+  color:white;
+  font-size:16px;
 }
 
-.logo span {
-  color: #62e98b;
-}
-
-.search {
-  flex: 1;
-
-  background: #171b23;
-  color: white;
-
-  border: 1px solid #2b313d;
-  border-radius: 10px;
-
-  padding: 11px 13px;
-  font-size: 14px;
-  outline: none;
-}
-
-.search:focus {
-  border-color: #62e98b;
-}
-
-/* =========================
-   APP
-========================= */
-
-.app {
-  max-width: 1100px;
-  margin: auto;
-  padding: 14px;
-}
-
-/* =========================
-   HOME HERO
-========================= */
-
-.hero {
+.hero{
+  padding:25px 15px;
   background:
-    linear-gradient(
-      135deg,
-      #16251d,
-      #111820
-    );
-
-  border: 1px solid #26372d;
-  border-radius: 18px;
-
-  padding: 22px;
-
-  margin-bottom: 18px;
+    radial-gradient(circle at top right,#234c36,transparent 45%),
+    linear-gradient(135deg,#111728,#0a0c13);
 }
 
-.hero-title {
-  font-size: 30px;
-  font-weight: 900;
-  margin-bottom: 6px;
+.hero h1{
+  font-size:30px;
+  margin-bottom:8px;
 }
 
-.hero-title span {
-  color: #62e98b;
+.hero p{
+  color:#aeb5c8;
 }
 
-.hero-text {
-  color: #aeb6c2;
-  font-size: 13px;
-  line-height: 1.5;
+.nav{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:12px 15px;
+  background:#0d1018;
 }
 
-/* =========================
-   NAV
-========================= */
-
-.nav {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 9px;
-
-  margin-bottom: 20px;
+.nav button,
+.filter button{
+  white-space:nowrap;
+  padding:10px 14px;
+  border-radius:9px;
+  border:1px solid #343a50;
+  background:#151925;
+  color:white;
+  cursor:pointer;
 }
 
-.nav-button {
-  background: #151922;
-  border: 1px solid #282e39;
-  color: white;
-
-  border-radius: 12px;
-
-  padding: 15px 8px;
-
-  text-align: center;
-
-  font-weight: bold;
-  font-size: 12px;
-
-  cursor: pointer;
+.nav button.active,
+.filter button.active{
+  background:#36b968;
+  border-color:#36b968;
+  color:#07130b;
+  font-weight:bold;
 }
 
-.nav-button:active {
-  transform: scale(.97);
+.filters{
+  padding:12px 15px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  border-bottom:1px solid #252a39;
 }
 
-.nav-button:hover {
-  border-color: #62e98b;
+.filter-title{
+  width:100%;
+  color:#8992a8;
+  font-size:13px;
+  margin-top:5px;
 }
 
-.nav-icon {
-  display: block;
-  font-size: 25px;
-  margin-bottom: 5px;
+.catalog{
+  padding:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:14px;
 }
 
-/* =========================
-   SECTION
-========================= */
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin: 20px 0 10px;
+.card{
+  background:#121621;
+  border:1px solid #282e40;
+  border-radius:13px;
+  overflow:hidden;
+  transition:.15s;
 }
 
-.section-title {
-  font-size: 20px;
-  font-weight: 900;
+.card:hover{
+  transform:translateY(-2px);
+  border-color:#4ade80;
 }
 
-.section-count {
-  color: #788291;
-  font-size: 12px;
+.cover{
+  width:100%;
+  height:155px;
+  object-fit:cover;
+  background:#202533;
+  display:block;
 }
 
-/* =========================
-   FILTERS
-========================= */
-
-.filters {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-
-  padding-bottom: 8px;
-  margin-bottom: 12px;
+.card-body{
+  padding:12px;
 }
 
-.filter {
-  flex-shrink: 0;
-
-  background: #151922;
-  border: 1px solid #282e39;
-
-  color: #b8c0cc;
-
-  padding: 8px 11px;
-
-  border-radius: 8px;
-
-  font-size: 11px;
-  font-weight: bold;
-
-  cursor: pointer;
+.title{
+  font-weight:bold;
+  font-size:17px;
+  margin-bottom:5px;
 }
 
-.filter.active {
-  background: #62e98b;
-  border-color: #62e98b;
-  color: #08100b;
+.creator{
+  color:#8f99af;
+  font-size:13px;
+  margin-bottom:9px;
 }
 
-/* =========================
-   GAME GRID
-========================= */
-
-.grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fill,minmax(155px,1fr));
-
-  gap: 12px;
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-bottom:10px;
 }
 
-/* =========================
-   GAME CARD
-========================= */
-
-.card {
-  background: #13161d;
-
-  border: 1px solid #252b36;
-
-  border-radius: 13px;
-
-  overflow: hidden;
-
-  cursor: pointer;
-
-  transition:
-    transform .15s,
-    border-color .15s;
+.tag{
+  font-size:11px;
+  padding:4px 7px;
+  border-radius:6px;
+  background:#22283a;
+  color:#c8cedc;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  border-color: #62e98b;
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
 }
 
-.card:active {
-  transform: scale(.98);
+.actions button{
+  padding:9px 5px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.cover {
-  width: 100%;
-  aspect-ratio: 1 / 1.15;
-
-  object-fit: cover;
-
-  display: block;
-
-  background:
-    linear-gradient(
-      135deg,
-      #1c2730,
-      #18251e
-    );
+.download{
+  background:#43d477;
+  color:#06150b;
 }
 
-.cover-placeholder {
-  width: 100%;
-  aspect-ratio: 1 / 1.15;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 52px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #18251e,
-      #18212b
-    );
+.info{
+  background:#252b3d;
+  color:white;
 }
 
-.card-body {
-  padding: 10px;
+.favorite{
+  margin-top:7px;
+  width:100%;
+  background:#191e2b;
+  color:#ffd86b;
+  border:1px solid #343a50;
+  padding:8px;
+  border-radius:8px;
 }
 
-.card-name {
-  font-weight: bold;
-  font-size: 13px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  color:#8d96a9;
 }
 
-.card-type {
-  color: #7f8997;
-  font-size: 10px;
-  margin-top: 4px;
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:15px;
 }
 
-.card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  margin-top: 8px;
+.modal{
+  background:#121722;
+  border:1px solid #343b50;
+  border-radius:15px;
+  width:100%;
+  max-width:520px;
+  max-height:90vh;
+  overflow:auto;
+  padding:20px;
 }
 
-.card-region {
-  color: #62e98b;
-  font-size: 9px;
+.modal img{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:15px;
 }
 
-.star {
-  font-size: 17px;
+.modal h2{
+  margin-bottom:7px;
 }
 
-/* =========================
-   DETAIL PAGE
-========================= */
-
-.page {
-  display: none;
+.modal p{
+  color:#aeb6c8;
+  line-height:1.5;
+  margin:10px 0;
 }
 
-.page.active {
-  display: block;
+.modal button{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
 }
 
-.back {
-  display: inline-block;
-
-  background: #171b23;
-  border: 1px solid #2a303b;
-
-  color: white;
-
-  border-radius: 9px;
-
-  padding: 9px 12px;
-
-  margin-bottom: 15px;
-
-  font-size: 12px;
-  font-weight: bold;
-
-  cursor: pointer;
+.close{
+  background:#282e40;
+  color:white;
 }
 
-.detail {
-  background: #13161d;
-
-  border: 1px solid #282e39;
-
-  border-radius: 18px;
-
-  overflow: hidden;
+.qr{
+  background:white;
+  padding:15px;
+  text-align:center;
+  border-radius:10px;
+  margin-top:12px;
 }
 
-.detail-top {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-
-  gap: 22px;
-
-  padding: 20px;
+.qr img{
+  width:200px;
+  height:200px;
+  object-fit:contain;
 }
 
-.detail-cover {
-  width: 100%;
-
-  border-radius: 12px;
-
-  aspect-ratio: 1 / 1.15;
-
-  object-fit: cover;
-
-  background: #1a2028;
+footer{
+  text-align:center;
+  color:#697286;
+  padding:30px 15px;
+  font-size:12px;
 }
 
-.detail-placeholder {
-  width: 100%;
-
-  aspect-ratio: 1 / 1.15;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 12px;
-
-  font-size: 75px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #18251e,
-      #18212b
-    );
-}
-
-.detail-title {
-  font-size: 28px;
-  font-weight: 900;
-
-  margin: 5px 0;
-}
-
-.detail-description {
-  color: #aab2bf;
-
-  line-height: 1.6;
-
-  font-size: 13px;
-
-  margin: 12px 0;
-}
-
-.detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-
-  margin: 12px 0;
-}
-
-.tag {
-  background: #202630;
-
-  color: #b9c2cf;
-
-  padding: 6px 8px;
-
-  border-radius: 7px;
-
-  font-size: 10px;
-}
-
-.detail-info {
-  color: #8993a2;
-
-  font-size: 12px;
-
-  line-height: 1.8;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-
-  margin-top: 15px;
-
-  flex-wrap: wrap;
-}
-
-.action {
-  border: 0;
-
-  border-radius: 9px;
-
-  padding: 12px 15px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-.download {
-  background: #62e98b;
-  color: #07100a;
-}
-
-.qr {
-  background: white;
-  color: black;
-}
-
-.favorite-button {
-  background: #252b35;
-  color: white;
-}
-
-/* =========================
-   QR
-========================= */
-
-.qr-screen {
-  display: none;
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 100;
-
-  background: rgba(0,0,0,.9);
-
-  padding: 20px;
-
-  overflow-y: auto;
-}
-
-.qr-box {
-  max-width: 400px;
-
-  margin: 40px auto;
-
-  background: #151922;
-
-  border: 1px solid #2a303b;
-
-  border-radius: 18px;
-
-  padding: 20px;
-
-  text-align: center;
-}
-
-.qr-box h2 {
-  margin-top: 0;
-}
-
-.qr-image {
-  width: 260px;
-  height: 260px;
-
-  max-width: 100%;
-
-  background: white;
-
-  padding: 10px;
-
-  border-radius: 10px;
-}
-
-.qr-url {
-  margin-top: 12px;
-
-  background: #0d1015;
-
-  color: #7f8997;
-
-  padding: 10px;
-
-  border-radius: 8px;
-
-  font-size: 10px;
-
-  word-break: break-all;
-
-  text-align: left;
-}
-
-/* =========================
-   EMPTY
-========================= */
-
-.empty {
-  text-align: center;
-
-  color: #7f8997;
-
-  padding: 50px 10px;
-
-  font-size: 13px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-  text-align: center;
-
-  color: #56606e;
-
-  font-size: 10px;
-
-  padding: 30px 10px;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px) {
-
-  .header-inner {
-    flex-wrap: wrap;
+@media(max-width:500px){
+  .catalog{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding:10px;
   }
 
-  .logo {
-    width: 100%;
+  .cover{
+    height:125px;
   }
 
-  .search {
-    width: 100%;
+  .card-body{
+    padding:9px;
   }
 
-  .grid {
-    grid-template-columns:
-      repeat(2,1fr);
+  .title{
+    font-size:14px;
   }
-
-  .detail-top {
-    grid-template-columns: 1fr;
-  }
-
-  .detail-cover,
-  .detail-placeholder {
-    max-width: 240px;
-    margin: auto;
-  }
-
-  .detail-title {
-    font-size: 23px;
-  }
-
-}
-
-@media(min-width:700px) {
-
-  .nav {
-    grid-template-columns:
-      repeat(3,200px);
-  }
-
 }
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="header">
-
-  <div class="header-inner">
-
-    <div
-      class="logo"
-      onclick="goHome()">
-
-      🍀 Lucky<span>Shop</span>
-
-    </div>
-
-    <input
-      id="search"
-      class="search"
-      type="search"
-      placeholder="Search LuckyShop..."
-      oninput="searchChanged()">
-
-  </div>
-
+<header>
+  <div class="logo">🍀 Lucky<span>Shop</span></div>
+  <input
+    id="search"
+    class="search"
+    placeholder="Search homebrew..."
+    oninput="render()"
+  >
 </header>
 
+<section class="hero">
+  <h1>Welcome to LuckyShop 🍀</h1>
+  <p>3DS & DS homebrew, apps and games.</p>
+</section>
 
-<main class="app">
+<nav class="nav">
+  <button class="active" onclick="setPlatform('All',this)">Everything</button>
+  <button onclick="setPlatform('3DS',this)">🎮 3DS</button>
+  <button onclick="setPlatform('DS',this)">🎮 DS</button>
+  <button onclick="setPlatform('Apps',this)">🛠 Apps</button>
+  <button onclick="setPlatform('Games',this)">🕹 Games</button>
+  <button onclick="setPlatform('Favorites',this)">⭐ Favorites</button>
+</nav>
 
+<section class="filters">
 
-<!-- =========================
-     HOME PAGE
-========================= -->
+  <div class="filter-title">REGION</div>
 
-<section
-  id="homePage"
-  class="page active">
+  <button class="active" onclick="setRegion('All',this)">All</button>
+  <button onclick="setRegion('USA',this)">🇺🇸 USA</button>
+  <button onclick="setRegion('EUR',this)">🇪🇺 Europe</button>
+  <button onclick="setRegion('JPN',this)">🇯🇵 Japan</button>
+  <button onclick="setRegion('Other',this)">Other</button>
 
+  <div class="filter-title">LANGUAGE</div>
 
-  <div class="hero">
-
-    <div class="hero-title">
-
-      Welcome to
-      <span>LuckyShop</span> 🍀
-
-    </div>
-
-    <div class="hero-text">
-
-      A lightweight homebrew catalog designed
-      for Nintendo 3DS and DS systems.
-
-      Browse apps, homebrew and authorized
-      downloadable files.
-
-    </div>
-
-  </div>
-
-
-  <!-- NAVIGATION -->
-
-  <div class="nav">
-
-    <div
-      class="nav-button"
-      onclick="setPlatform('DS')">
-
-      <span class="nav-icon">🎮</span>
-
-      DS GAMES
-
-    </div>
-
-
-    <div
-      class="nav-button"
-      onclick="setPlatform('3DS')">
-
-      <span class="nav-icon">🎮</span>
-
-      3DS APPS
-
-    </div>
-
-
-    <div
-      class="nav-button"
-      onclick="setPlatform('Homebrew')">
-
-      <span class="nav-icon">🛠️</span>
-
-      HOMEBREW
-
-    </div>
-
-  </div>
-
-
-  <!-- CATALOG -->
-
-  <div class="section-header">
-
-    <div class="section-title">
-      Browse
-    </div>
-
-    <div
-      id="count"
-      class="section-count">
-    </div>
-
-  </div>
-
-
-  <div
-    id="platformFilters"
-    class="filters">
-  </div>
-
-
-  <div
-    id="regionFilters"
-    class="filters">
-  </div>
-
-
-  <div
-    id="languageFilters"
-    class="filters">
-  </div>
-
-
-  <div
-    id="catalog"
-    class="grid">
-  </div>
-
+  <button class="active" onclick="setLanguage('All',this)">All</button>
+  <button onclick="setLanguage('English',this)">English</button>
+  <button onclick="setLanguage('Japanese',this)">Japanese</button>
+  <button onclick="setLanguage('French',this)">French</button>
+  <button onclick="setLanguage('German',this)">German</button>
+  <button onclick="setLanguage('Spanish',this)">Spanish</button>
+  <button onclick="setLanguage('Multi',this)">Multi</button>
 
 </section>
 
-
-<!-- =========================
-     DETAIL PAGE
-========================= -->
-
-<section
-  id="detailPage"
-  class="page">
-
-  <button
-    class="back"
-    onclick="goHome()">
-
-    ← Back to LuckyShop
-
-  </button>
-
-
-  <div class="detail">
-
-    <div class="detail-top">
-
-      <div id="detailCover"></div>
-
-
-      <div>
-
-        <div
-          id="detailTitle"
-          class="detail-title">
-        </div>
-
-
-        <div
-          id="detailDescription"
-          class="detail-description">
-        </div>
-
-
-        <div
-          id="detailTags"
-          class="detail-tags">
-        </div>
-
-
-        <div
-          id="detailInfo"
-          class="detail-info">
-        </div>
-
-
-        <div class="actions">
-
-          <button
-            id="downloadButton"
-            class="action download">
-
-            ⬇️ Download
-
-          </button>
-
-
-          <button
-            id="qrButton"
-            class="action qr">
-
-            📱 FBI QR
-
-          </button>
-
-
-          <button
-            id="favoriteButton"
-            class="action favorite-button">
-
-            ☆ Favorite
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-</main>
-
+<main id="catalog" class="catalog"></main>
 
 <footer>
-🍀 LuckyShop
+  🍀 LuckyShop<br>
+  Homebrew and authorized software only.
 </footer>
 
-
-<!-- =========================
-     QR SCREEN
-========================= -->
-
-<div
-  id="qrScreen"
-  class="qr-screen">
-
-  <div class="qr-box">
-
-    <button
-      class="back"
-      onclick="closeQR()">
-
-      ← Close
-
-    </button>
-
-    <h2>📱 FBI QR</h2>
-
-    <p>
-      Scan the QR code with FBI.
-    </p>
-
-    <img
-      id="qrImage"
-      class="qr-image"
-      alt="QR Code">
-
-    <div
-      id="qrURL"
-      class="qr-url">
-    </div>
-
-  </div>
-
+<div id="modalBg" class="modal-bg">
+  <div id="modal" class="modal"></div>
 </div>
-
 
 <script>
 
-/* =====================================================
-   LUCKYSHOP DATABASE
-=====================================================
+/*
+========================================================
+LUCKYSHOP CATALOG
+========================================================
 
 IMPORTANT:
 
-This catalog is intentionally populated with
-homebrew / legitimate project entries.
-
-For a file you are authorized to distribute,
-put its DIRECT download URL in:
-
-download: "..."
-
-Example:
-
-download:
-"https://example.com/myhomebrew.nds"
-
-For a CIA:
-
-download:
-"https://example.com/myhomebrew.cia"
-
-The QR button will encode that direct URL.
-
-===================================================== */
-
-
-const catalog = [
-
-  {
-    id: "twilight-menu",
-
-    name: "TWiLight Menu++",
-
-    platform: "DS",
-
-    region: "Other",
-
-    language: "Multi",
-
-    type: "Homebrew",
-
-    version: "Latest",
-
-    size: "Homebrew",
-
-    icon: "🎮",
-
-    cover: "",
-
-    description:
-      "A customizable menu for launching Nintendo DS software and homebrew.",
-
-    download: "",
-
-    source:
-      "https://github.com/DS-Homebrew/TWiLightMenu"
-  },
-
-
-  {
-    id: "nds-bootstrap",
-
-    name: "nds-bootstrap",
-
-    platform: "DS",
-
-    region: "Other",
-
-    language: "Multi",
-
-    type: "Homebrew",
-
-    version: "Latest",
-
-    size: "Homebrew",
-
-    icon: "🧩",
-
-    cover: "",
-
-    description:
-      "A component used by Nintendo DS homebrew projects.",
-
-    download: "",
-
-    source:
-      "https://github.com/DS-Homebrew/nds-bootstrap"
-  },
-
-
-  {
-    id: "universal-updater",
-
-    name: "Universal-Updater",
-
-    platform: "3DS",
-
-    region: "Other",
-
-    language: "Multi",
-
-    type: "Homebrew",
-
-    version: "Latest",
-
-    size: "Homebrew",
-
-    icon: "⬇️",
-
-    cover: "",
-
-    description:
-      "A homebrew application for discovering and updating software.",
-
-    download: "",
-
-    source:
-      "https://github.com/Universal-Team/Universal-Updater"
-  },
-
-
-  {
-    id: "godmode9",
-
-    name: "GodMode9",
-
-    platform: "3DS",
-
-    region: "Other",
-
-    language: "Multi",
-
-    type: "Homebrew",
-
-    version: "Latest",
-
-    size: "Homebrew",
-
-    icon: "🛠️",
-
-    cover: "",
-
-    description:
-      "A powerful file manager and utility for Nintendo 3DS systems.",
-
-    download: "",
-
-    source:
-      "https://github.com/d0k3/GodMode9"
-  },
-
-
-  {
-    id: "checkpoint",
-
-    name: "Checkpoint",
-
-    platform: "3DS",
-
-    region: "Other",
-
-    language: "Multi",
-
-    type: "Homebrew",
-
-    version: "Latest",
-
-    size: "Homebrew",
-
-    icon: "💾",
-
-    cover: "",
-
-    description:
-      "A save-management homebrew application.",
-
-    download: "",
-
-    source:
-      "https://github.com/BernardoGiordano/Checkpoint"
-  }
-
-];
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let selectedPlatform = "All";
-
-let selectedRegion = "All";
-
-let selectedLanguage = "All";
-
-let currentGame = null;
-
-
-/* =====================================================
-   FAVORITES
-===================================================== */
-
-let favorites =
-  JSON.parse(
-    localStorage.getItem(
-      "luckyshop-favorites"
-    ) || "[]"
-  );
-
-
-function saveFavorites() {
-
-  localStorage.setItem(
-    "luckyshop-favorites",
-    JSON.stringify(favorites)
-  );
-
+These are legitimate homebrew projects.
+
+"download" should point directly to a file whenever
+the project provides a direct public release file.
+
+CIA = FBI can install it.
+
+NDS = download it and use TWiLight Menu++.
+
+3DSX = Homebrew Launcher format.
+
+========================================================
+*/
+
+const games = [
+
+{
+ id:"checkpoint",
+ title:"Checkpoint",
+ creator:"Bernardo Giordano / Universal-Team",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"5.2.0",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/checkpoint.png",
+ description:"Fast and simple homebrew save-management application for Nintendo 3DS.",
+ source:"https://db.universal-team.net/3ds/checkpoint",
+ download:"https://github.com/BernardoGiordano/Checkpoint/releases/latest"
+},
+
+{
+ id:"pksm",
+ title:"PKSM",
+ creator:"FlagBrew",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"10.4.0",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/pksm.png",
+ description:"Save manager for Pokémon games spanning multiple generations.",
+ source:"https://db.universal-team.net/3ds/pksm",
+ download:"https://github.com/FlagBrew/PKSM/releases/latest"
+},
+
+{
+ id:"nimbus",
+ title:"Nimbus",
+ creator:"Universal-Team",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"2.1.1",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/nimbus.png",
+ description:"Homebrew application for switching between Nintendo Network and Pretendo Network.",
+ source:"https://db.universal-team.net/3ds/nimbus",
+ download:"https://github.com/PretendoNetwork/nimbus/releases/latest"
+},
+
+{
+ id:"universal-updater",
+ title:"Universal-Updater",
+ creator:"Universal-Team",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"3.4.1",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/universal-updater.png",
+ description:"A 3DS homebrew application designed to download and update homebrew software.",
+ source:"https://github.com/Universal-Team/Universal-Updater",
+ download:"https://github.com/Universal-Team/Universal-Updater/releases/latest"
+},
+
+{
+ id:"twilight",
+ title:"TWiLight Menu++",
+ creator:"DS-Homebrew",
+ platform:"DS",
+ category:"Apps",
+ language:["Multi"],
+ region:["Other"],
+ version:"Latest",
+ type:"NDS",
+ image:"https://db.universal-team.net/assets/images/twilightmenu.png",
+ description:"A menu replacement for Nintendo DS, DSi and 3DS that can launch DS homebrew and games.",
+ source:"https://github.com/DS-Homebrew/TWiLightMenu",
+ download:"https://github.com/DS-Homebrew/TWiLightMenu/releases/latest"
+},
+
+{
+ id:"nds-bootstrap",
+ title:"nds-bootstrap",
+ creator:"DS-Homebrew",
+ platform:"DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"Latest",
+ type:"NDS",
+ image:"https://db.universal-team.net/assets/images/nds-bootstrap.png",
+ description:"A project used by TWiLight Menu++ to load Nintendo DS software.",
+ source:"https://github.com/DS-Homebrew/nds-bootstrap",
+ download:"https://github.com/DS-Homebrew/nds-bootstrap/releases/latest"
+},
+
+{
+ id:"3deins",
+ title:"3DEins",
+ creator:"Universal-Team",
+ platform:"3DS",
+ category:"Games",
+ language:["Multi"],
+ region:["Other"],
+ version:"0.2.0",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/3deins.png",
+ description:"A card game made for Nintendo 3DS and DS(i).",
+ source:"https://db.universal-team.net/3ds/3deins",
+ download:"https://github.com/Universal-Team/3DEins/releases/latest"
+},
+
+{
+ id:"github3ds",
+ title:"GitHub3DS",
+ creator:"Morris / Artendo",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"1.0.2",
+ type:"CIA",
+ image:"https://db.universal-team.net/assets/images/github3ds.png",
+ description:"Browse GitHub repositories and download files directly from your 3DS.",
+ source:"https://db.universal-team.net/3ds/github3ds",
+ download:"https://github.com/MorrisTheDeveloper/GitHub3DS/releases/latest"
+},
+
+{
+ id:"cia-installer",
+ title:"CIA Installer",
+ creator:"Zachary-Rude",
+ platform:"3DS",
+ category:"Apps",
+ language:["English"],
+ region:["Other"],
+ version:"1.1.0",
+ type:"CIA / 3DSX",
+ image:"https://db.universal-team.net/assets/images/cia-installer.png",
+ description:"A simple homebrew application for installing CIA files.",
+ source:"https://db.universal-team.net/3ds/cia-installer",
+ download:"https://github.com/Zachary-Rude/CIA-Installer/releases/latest"
+},
+
+{
+ id:"level256",
+ title:"Level256 Installer",
+ creator:"Tekito_256",
+ platform:"3DS",
+ category:"Games",
+ language:["English"],
+ region:["Other"],
+ version:"1.0.0",
+ type:"CIA",
+ image:"https://db.universal-team.net/assets/images/level256-installer.png",
+ description:"A homebrew game/application available for Nintendo 3DS.",
+ source:"https://db.universal-team.net/3ds/level256-installer",
+ download:"https://db.universal-team.net/3ds/level256-installer"
 }
 
-
-/* =====================================================
-   FILTERS
-===================================================== */
-
-const platforms = [
-  "All",
-  "DS",
-  "3DS",
-  "Homebrew"
 ];
 
-const regions = [
-  "All",
-  "USA",
-  "Europe",
-  "Japan",
-  "Australia",
-  "Korea",
-  "China",
-  "Other"
-];
+/*
+========================================================
+STATE
+========================================================
+*/
 
-const languages = [
-  "All",
-  "English",
-  "Japanese",
-  "French",
-  "German",
-  "Spanish",
-  "Italian",
-  "Korean",
-  "Chinese",
-  "Multi"
-];
+let platform="All";
+let region="All";
+let language="All";
 
+let favorites=
+  JSON.parse(localStorage.getItem("luckyshopFavorites")||"[]");
 
-function createFilters(
-  elementID,
-  values,
-  selected,
-  callback
-) {
+/*
+========================================================
+FILTERS
+========================================================
+*/
 
-  const element =
-    document.getElementById(
-      elementID
-    );
+function setPlatform(value,button){
 
-  element.innerHTML = "";
+  platform=value;
 
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b=>b.classList.remove("active"));
 
-  values.forEach(value => {
+  button.classList.add("active");
 
-    const button =
-      document.createElement(
-        "button"
-      );
+  render();
+}
 
-    button.className = "filter";
+function setRegion(value,button){
 
-    button.textContent = value;
+  region=value;
 
+  const parent=button.parentElement;
 
-    if (value === selected) {
+  let buttons=parent.querySelectorAll("button");
 
-      button.classList.add(
-        "active"
-      );
+  buttons.forEach(b=>{
 
+    if(
+      b.textContent==="All" ||
+      b.textContent==="🇺🇸 USA" ||
+      b.textContent==="🇪🇺 Europe" ||
+      b.textContent==="🇯🇵 Japan" ||
+      b.textContent==="Other"
+    ){
+      b.classList.remove("active");
     }
-
-
-    button.onclick = () => {
-
-      callback(value);
-
-      renderFilters();
-
-      renderCatalog();
-
-    };
-
-
-    element.appendChild(button);
 
   });
 
+  button.classList.add("active");
+
+  render();
 }
 
+function setLanguage(value,button){
 
-function renderFilters() {
+  language=value;
 
-  createFilters(
-    "platformFilters",
-    platforms,
-    selectedPlatform,
-    value => {
-      selectedPlatform = value;
+  const buttons=document.querySelectorAll(".filters button");
+
+  buttons.forEach(b=>{
+
+    if([
+      "All",
+      "English",
+      "Japanese",
+      "French",
+      "German",
+      "Spanish",
+      "Multi"
+    ].includes(b.textContent)){
+
+      b.classList.remove("active");
+
     }
-  );
 
+  });
 
-  createFilters(
-    "regionFilters",
-    regions,
-    selectedRegion,
-    value => {
-      selectedRegion = value;
-    }
-  );
+  button.classList.add("active");
 
-
-  createFilters(
-    "languageFilters",
-    languages,
-    selectedLanguage,
-    value => {
-      selectedLanguage = value;
-    }
-  );
-
+  render();
 }
 
+/*
+========================================================
+SEARCH / FILTER
+========================================================
+*/
 
-/* =====================================================
-   SEARCH
-===================================================== */
+function getFiltered(){
 
-function searchChanged() {
-
-  if (
-    !document
-      .getElementById("homePage")
-      .classList
-      .contains("active")
-  ) {
-
-    goHome();
-
-  }
-
-  renderCatalog();
-
-}
-
-
-/* =====================================================
-   FILTER RESULTS
-===================================================== */
-
-function getResults() {
-
-  const search =
+  const search=
     document
       .getElementById("search")
       .value
       .toLowerCase()
       .trim();
 
+  return games.filter(game=>{
 
-  return catalog.filter(game => {
+    if(
+      search &&
+      !(
+        game.title.toLowerCase().includes(search) ||
+        game.creator.toLowerCase().includes(search) ||
+        game.description.toLowerCase().includes(search)
+      )
+    ){
+      return false;
+    }
 
-    const searchMatch =
-      !search ||
+    if(platform==="3DS" && game.platform!=="3DS")
+      return false;
 
-      game.name
-        .toLowerCase()
-        .includes(search) ||
+    if(platform==="DS" && game.platform!=="DS")
+      return false;
 
-      game.description
-        .toLowerCase()
-        .includes(search);
+    if(platform==="Apps" && game.category!=="Apps")
+      return false;
 
+    if(platform==="Games" && game.category!=="Games")
+      return false;
 
-    const platformMatch =
-      selectedPlatform === "All" ||
-      game.platform === selectedPlatform;
+    if(
+      platform==="Favorites" &&
+      !favorites.includes(game.id)
+    ){
+      return false;
+    }
 
+    if(
+      region!=="All" &&
+      region!=="Other" &&
+      !game.region.includes(region)
+    ){
+      return false;
+    }
 
-    const regionMatch =
-      selectedRegion === "All" ||
-      game.region === selectedRegion;
+    if(
+      language!=="All" &&
+      !game.language.includes(language)
+    ){
+      return false;
+    }
 
-
-    const languageMatch =
-      selectedLanguage === "All" ||
-      game.language === selectedLanguage;
-
-
-    return (
-      searchMatch &&
-      platformMatch &&
-      regionMatch &&
-      languageMatch
-    );
+    return true;
 
   });
 
 }
 
+/*
+========================================================
+RENDER
+========================================================
+*/
 
-/* =====================================================
-   CATALOG
-===================================================== */
+function render(){
 
-function renderCatalog() {
+  const catalog=document.getElementById("catalog");
 
-  const box =
-    document.getElementById(
-      "catalog"
-    );
+  const filtered=getFiltered();
 
-  const results =
-    getResults();
+  catalog.innerHTML="";
 
+  if(filtered.length===0){
 
-  box.innerHTML = "";
-
-
-  document.getElementById(
-    "count"
-  ).textContent =
-    results.length +
-    " item" +
-    (results.length === 1 ? "" : "s");
-
-
-  if (results.length === 0) {
-
-    box.innerHTML = `
+    catalog.innerHTML=`
       <div class="empty">
-        🍀 Nothing found.
-        <br><br>
-        Try another search or filter.
+        <h2>🍀 Nothing found</h2>
+        <p>Try another category or search.</p>
       </div>
     `;
 
     return;
-
   }
 
+  filtered.forEach(game=>{
 
-  results.forEach(game => {
+    const favorite=favorites.includes(game.id);
 
-    const card =
-      document.createElement(
-        "div"
-      );
+    const card=document.createElement("article");
 
-    card.className = "card";
+    card.className="card";
 
-    card.onclick = () =>
-      openGame(game.id);
+    card.innerHTML=`
 
-
-    let cover;
-
-
-    if (game.cover) {
-
-      cover = `
-        <img
-          class="cover"
-          src="${escapeHTML(game.cover)}"
-          alt="${escapeHTML(game.name)}"
-          onerror="
-            this.style.display='none';
-            this.nextElementSibling.style.display='flex';
-          "
-        >
-
-        <div
-          class="cover-placeholder"
-          style="display:none">
-
-          ${game.icon}
-
-        </div>
-      `;
-
-    } else {
-
-      cover = `
-        <div class="cover-placeholder">
-          ${game.icon}
-        </div>
-      `;
-
-    }
-
-
-    const favorite =
-      favorites.includes(
-        game.id
-      );
-
-
-    card.innerHTML = `
-
-      ${cover}
+      <img
+        class="cover"
+        src="${game.image}"
+        alt="${escapeHtml(game.title)}"
+        onerror="this.style.display='none'"
+      >
 
       <div class="card-body">
 
-        <div class="card-name">
-          ${escapeHTML(game.name)}
+        <div class="title">
+          ${escapeHtml(game.title)}
         </div>
 
-        <div class="card-type">
-          ${escapeHTML(game.type)}
+        <div class="creator">
+          ${escapeHtml(game.creator)}
         </div>
 
-        <div class="card-bottom">
+        <div class="tags">
 
-          <div class="card-region">
-            ${escapeHTML(game.region)}
-          </div>
+          <span class="tag">
+            ${game.platform}
+          </span>
 
-          <div class="star">
-            ${favorite ? "⭐" : "☆"}
-          </div>
+          <span class="tag">
+            ${game.category}
+          </span>
+
+          <span class="tag">
+            ${game.type}
+          </span>
 
         </div>
+
+        <div class="actions">
+
+          <button
+            class="download"
+            onclick="downloadGame('${game.id}')"
+          >
+            ⬇ Download
+          </button>
+
+          <button
+            class="info"
+            onclick="showDetails('${game.id}')"
+          >
+            ℹ Info
+          </button>
+
+        </div>
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite('${game.id}')"
+        >
+          ${favorite ? "★ Favorited" : "☆ Favorite"}
+        </button>
 
       </div>
-
     `;
 
-
-    box.appendChild(card);
+    catalog.appendChild(card);
 
   });
 
 }
 
+/*
+========================================================
+DOWNLOAD
+========================================================
+*/
 
-/* =====================================================
-   OPEN GAME
-===================================================== */
+function downloadGame(id){
 
-function openGame(id) {
+  const game=games.find(g=>g.id===id);
 
-  const game =
-    catalog.find(
-      item => item.id === id
-    );
+  if(!game) return;
 
+  /*
+    For safety and compatibility, release pages are used
+    here rather than pretending every release page is a
+    direct CIA file.
 
-  if (!game) return;
+    A direct CIA URL can be placed into "download" when
+    the project officially provides one.
+  */
 
-
-  currentGame = game;
-
-
-  document
-    .getElementById("homePage")
-    .classList
-    .remove("active");
-
-
-  document
-    .getElementById("detailPage")
-    .classList
-    .add("active");
-
-
-  renderDetails();
-
-  window.scrollTo(
-    0,
-    0
-  );
+  window.open(game.download,"_blank");
 
 }
 
+/*
+========================================================
+FAVORITES
+========================================================
+*/
 
-/* =====================================================
-   DETAILS
-===================================================== */
+function toggleFavorite(id){
 
-function renderDetails() {
+  if(favorites.includes(id)){
 
-  const game =
-    currentGame;
+    favorites=favorites.filter(x=>x!==id);
 
+  }else{
 
-  document.getElementById(
-    "detailTitle"
-  ).textContent =
-    game.icon +
-    " " +
-    game.name;
-
-
-  document.getElementById(
-    "detailDescription"
-  ).textContent =
-    game.description;
-
-
-  document.getElementById(
-    "detailTags"
-  ).innerHTML = `
-
-    <span class="tag">
-      ${escapeHTML(game.platform)}
-    </span>
-
-    <span class="tag">
-      ${escapeHTML(game.region)}
-    </span>
-
-    <span class="tag">
-      ${escapeHTML(game.language)}
-    </span>
-
-    <span class="tag">
-      ${escapeHTML(game.type)}
-    </span>
-
-  `;
-
-
-  document.getElementById(
-    "detailInfo"
-  ).innerHTML = `
-
-    Version:
-    ${escapeHTML(game.version)}
-
-    <br>
-
-    Size:
-    ${escapeHTML(game.size)}
-
-  `;
-
-
-  const cover =
-    document.getElementById(
-      "detailCover"
-    );
-
-
-  if (game.cover) {
-
-    cover.innerHTML = `
-
-      <img
-        class="detail-cover"
-        src="${escapeHTML(game.cover)}"
-        alt="${escapeHTML(game.name)}">
-
-    `;
-
-  } else {
-
-    cover.innerHTML = `
-
-      <div class="detail-placeholder">
-        ${game.icon}
-      </div>
-
-    `;
+    favorites.push(id);
 
   }
 
-
-  updateFavoriteButton();
-
-}
-
-
-/* =====================================================
-   FAVORITE BUTTON
-===================================================== */
-
-function updateFavoriteButton() {
-
-  const button =
-    document.getElementById(
-      "favoriteButton"
-    );
-
-
-  if (
-    favorites.includes(
-      currentGame.id
-    )
-  ) {
-
-    button.textContent =
-      "⭐ Remove Favorite";
-
-  } else {
-
-    button.textContent =
-      "☆ Add Favorite";
-
-  }
-
-}
-
-
-document
-  .getElementById(
-    "favoriteButton"
-  )
-  .onclick = () => {
-
-    if (
-      favorites.includes(
-        currentGame.id
-      )
-    ) {
-
-      favorites =
-        favorites.filter(
-          id =>
-            id !== currentGame.id
-        );
-
-    } else {
-
-      favorites.push(
-        currentGame.id
-      );
-
-    }
-
-
-    saveFavorites();
-
-    updateFavoriteButton();
-
-  };
-
-
-/* =====================================================
-   DOWNLOAD
-===================================================== */
-
-document
-  .getElementById(
-    "downloadButton"
-  )
-  .onclick = () => {
-
-    if (
-      !currentGame.download
-    ) {
-
-      alert(
-        "This item does not have a direct authorized download URL yet."
-      );
-
-      return;
-
-    }
-
-
-    window.open(
-      currentGame.download,
-      "_blank"
-    );
-
-  };
-
-
-/* =====================================================
-   QR
-===================================================== */
-
-document
-  .getElementById(
-    "qrButton"
-  )
-  .onclick = () => {
-
-    if (
-      !currentGame.download
-    ) {
-
-      alert(
-        "This item does not have a direct authorized file URL yet."
-      );
-
-      return;
-
-    }
-
-
-    const encoded =
-      encodeURIComponent(
-        currentGame.download
-      );
-
-
-    const qrURL =
-      "https://api.qrserver.com/v1/create-qr-code/" +
-      "?size=300x300&data=" +
-      encoded;
-
-
-    document.getElementById(
-      "qrImage"
-    ).src =
-      qrURL;
-
-
-    document.getElementById(
-      "qrURL"
-    ).textContent =
-      currentGame.download;
-
-
-    document.getElementById(
-      "qrScreen"
-    ).style.display =
-      "block";
-
-  };
-
-
-function closeQR() {
-
-  document.getElementById(
-    "qrScreen"
-  ).style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   PLATFORM SHORTCUTS
-===================================================== */
-
-function setPlatform(value) {
-
-  selectedPlatform =
-    value;
-
-  renderFilters();
-
-  renderCatalog();
-
-  window.scrollTo(
-    0,
-    0
+  localStorage.setItem(
+    "luckyshopFavorites",
+    JSON.stringify(favorites)
   );
 
-}
-
-
-/* =====================================================
-   HOME
-===================================================== */
-
-function goHome() {
-
-  document
-    .getElementById("detailPage")
-    .classList
-    .remove("active");
-
-
-  document
-    .getElementById("homePage")
-    .classList
-    .add("active");
-
-
-  renderFilters();
-
-  renderCatalog();
-
-  window.scrollTo(
-    0,
-    0
-  );
+  render();
 
 }
 
+/*
+========================================================
+DETAILS
+========================================================
+*/
 
-/* =====================================================
-   HTML ESCAPING
-===================================================== */
+function showDetails(id){
 
-function escapeHTML(value) {
+  const game=games.find(g=>g.id===id);
 
-  return String(value)
+  if(!game) return;
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
+  const modal=document.getElementById("modal");
 
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
+  modal.innerHTML=`
 
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
+    <img
+      src="${game.image}"
+      onerror="this.style.display='none'"
+    >
 
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
+    <h2>${escapeHtml(game.title)}</h2>
 
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    <p>
+      <b>Creator:</b>
+      ${escapeHtml(game.creator)}
+    </p>
+
+    <p>
+      <b>Platform:</b>
+      ${game.platform}
+    </p>
+
+    <p>
+      <b>Category:</b>
+      ${game.category}
+    </p>
+
+    <p>
+      <b>Version:</b>
+      ${game.version}
+    </p>
+
+    <p>
+      <b>Type:</b>
+      ${game.type}
+    </p>
+
+    <p>
+      ${escapeHtml(game.description)}
+    </p>
+
+    <button
+      style="background:#43d477;color:#06150b"
+      onclick="downloadGame('${game.id}')"
+    >
+      ⬇ Open Official Download
+    </button>
+
+    <button
+      style="background:#252b3d;color:white"
+      onclick="openSource('${game.id}')"
+    >
+      🔗 Project Source
+    </button>
+
+    <button
+      style="background:#252b3d;color:white"
+      onclick="showQR('${game.id}')"
+    >
+      📷 QR Code
+    </button>
+
+    <button
+      class="close"
+      onclick="closeModal()"
+    >
+      Close
+    </button>
+
+    <div id="qrArea"></div>
+
+  `;
+
+  document.getElementById("modalBg").style.display="flex";
 
 }
 
+/*
+========================================================
+SOURCE
+========================================================
+*/
 
-/* =====================================================
-   START
-===================================================== */
+function openSource(id){
 
-renderFilters();
+  const game=games.find(g=>g.id===id);
 
-renderCatalog();
+  if(!game) return;
+
+  window.open(game.source,"_blank");
+
+}
+
+/*
+========================================================
+QR
+========================================================
+*/
+
+function showQR(id){
+
+  const game=games.find(g=>g.id===id);
+
+  if(!game) return;
+
+  const area=document.getElementById("qrArea");
+
+  const qrURL=
+    "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
+    +encodeURIComponent(game.download);
+
+  area.innerHTML=`
+
+    <div class="qr">
+
+      <p style="color:#222;margin-bottom:10px">
+        Scan this QR code
+      </p>
+
+      <img src="${qrURL}" alt="QR">
+
+      <p style="color:#555;margin-top:10px">
+        This QR opens the project's download source.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+/*
+========================================================
+MODAL
+========================================================
+*/
+
+function closeModal(){
+
+  document.getElementById("modalBg").style.display="none";
+
+}
+
+document
+  .getElementById("modalBg")
+  .addEventListener("click",function(e){
+
+    if(e.target===this)
+      closeModal();
+
+  });
+
+/*
+========================================================
+HTML ESCAPE
+========================================================
+*/
+
+function escapeHtml(text){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+/*
+========================================================
+START
+========================================================
+*/
+
+render();
 
 </script>
 
