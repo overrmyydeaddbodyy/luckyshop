@@ -1,17 +1,463 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>LuckyShop Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LuckyShop 🍀</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg,
+    #ff4d4d,
+    #ff9f43,
+    #ffe066,
+    #51cf66,
+    #339af0,
+    #845ef7
+  );
+  background-size: 400% 400%;
+  animation: rainbow 12s ease infinite;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  width: 94%;
+  max-width: 1000px;
+  margin: auto;
+  padding-bottom: 40px;
+}
+
+header {
+  text-align: center;
+  padding: 30px 10px 20px;
+}
+
+.logo {
+  font-size: 42px;
+  font-weight: bold;
+  text-shadow: 0 3px 8px black;
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.box {
+  background: rgba(0,0,0,0.4);
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.search {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+select,
+button {
+  padding: 12px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button {
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+.stats {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: rgba(0,0,0,0.5);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 5px 8px;
+  border-radius: 7px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.card button {
+  width: 100%;
+  margin-top: 7px;
+}
+
+.favorite {
+  background: #ffd43b;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+}
+
+footer {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 25px;
+}
+</style>
 </head>
+
 <body>
 
-<h1>🍀 LuckyShop</h1>
+<div class="container">
 
-<p>If you can see this, GitHub Pages is working!</p>
+<header>
+  <div class="logo">🍀 LuckyShop</div>
+  <div class="subtitle">
+    Your homebrew shop for Nintendo 3DS
+  </div>
+</header>
 
-<button onclick="alert('LuckyShop works!')">
-  Test Button
-</button>
+<div class="box">
+
+<input
+  class="search"
+  id="search"
+  type="text"
+  placeholder="🔎 Search LuckyShop..."
+>
+
+<div class="filters">
+
+<select id="platform">
+  <option value="all">All Platforms</option>
+  <option value="3ds">3DS</option>
+  <option value="ds">DS</option>
+  <option value="homebrew">Homebrew</option>
+</select>
+
+<select id="region">
+  <option value="all">All Regions</option>
+  <option value="usa">USA</option>
+  <option value="eur">Europe</option>
+  <option value="jpn">Japan</option>
+  <option value="aus">Australia</option>
+  <option value="kor">Korea</option>
+  <option value="chn">China</option>
+  <option value="other">Other</option>
+</select>
+
+<select id="language">
+  <option value="all">All Languages</option>
+  <option value="english">English</option>
+  <option value="japanese">Japanese</option>
+  <option value="french">French</option>
+  <option value="german">German</option>
+  <option value="spanish">Spanish</option>
+  <option value="italian">Italian</option>
+  <option value="korean">Korean</option>
+  <option value="chinese">Chinese</option>
+  <option value="multi">Multi-language</option>
+</select>
+
+<select id="type">
+  <option value="all">All File Types</option>
+  <option value="cia">CIA</option>
+  <option value="nds">NDS</option>
+  <option value="3dsfile">3DS</option>
+  <option value="zip">ZIP</option>
+  <option value="other">Other</option>
+</select>
+
+</div>
+
+<div class="buttons">
+  <button id="allButton">📦 All</button>
+  <button id="favoriteButton">⭐ Favorites</button>
+  <button id="resetButton">🔄 Reset</button>
+</div>
+
+</div>
+
+<div class="box">
+
+<div class="stats" id="stats">
+  Loading...
+</div>
+
+<div class="games" id="games"></div>
+
+</div>
+
+<footer>
+🍀 LuckyShop
+</footer>
+
+</div>
+
+<script>
+
+var games = [
+
+  {
+    name: "TWiLight Menu++",
+    platform: "ds",
+    region: "other",
+    language: "multi",
+    type: "other",
+    description: "Nintendo DS homebrew menu.",
+    source: "https://github.com/DS-Homebrew/TWiLightMenu"
+  },
+
+  {
+    name: "Universal-Updater",
+    platform: "3ds",
+    region: "other",
+    language: "multi",
+    type: "cia",
+    description: "Homebrew application for finding and updating 3DS homebrew.",
+    source: "https://github.com/Universal-Team/Universal-Updater"
+  },
+
+  {
+    name: "nds-bootstrap",
+    platform: "ds",
+    region: "other",
+    language: "multi",
+    type: "other",
+    description: "Homebrew software used with several DS projects.",
+    source: "https://github.com/DS-Homebrew/nds-bootstrap"
+  },
+
+  {
+    name: "GodMode9",
+    platform: "3ds",
+    region: "other",
+    language: "english",
+    type: "other",
+    description: "Utility and file manager for modded 3DS systems.",
+    source: "https://github.com/d0k3/GodMode9"
+  }
+
+];
+
+var favorites = [];
+
+function showGames() {
+
+  var search = document.getElementById("search").value.toLowerCase();
+  var platform = document.getElementById("platform").value;
+  var region = document.getElementById("region").value;
+  var language = document.getElementById("language").value;
+  var type = document.getElementById("type").value;
+
+  var results = [];
+
+  for (var i = 0; i < games.length; i++) {
+
+    var game = games[i];
+
+    var matchesSearch =
+      game.name.toLowerCase().indexOf(search) !== -1;
+
+    var matchesPlatform =
+      platform === "all" || game.platform === platform;
+
+    var matchesRegion =
+      region === "all" || game.region === region;
+
+    var matchesLanguage =
+      language === "all" || game.language === language;
+
+    var matchesType =
+      type === "all" || game.type === type;
+
+    if (
+      matchesSearch &&
+      matchesPlatform &&
+      matchesRegion &&
+      matchesLanguage &&
+      matchesType
+    ) {
+      results.push(i);
+    }
+  }
+
+  document.getElementById("stats").innerHTML =
+    results.length + " item(s) found";
+
+  var html = "";
+
+  if (results.length === 0) {
+
+    html = '<div class="empty">🍀 Nothing found.</div>';
+
+  } else {
+
+    for (var j = 0; j < results.length; j++) {
+
+      var index = results[j];
+      var item = games[index];
+
+      var star = favorites.indexOf(index) !== -1
+        ? "⭐ Favorited"
+        : "☆ Favorite";
+
+      html +=
+        '<div class="card">' +
+
+        '<h2>🍀 ' + item.name + '</h2>' +
+
+        '<span class="tag">' +
+        item.platform +
+        '</span>' +
+
+        '<span class="tag">' +
+        item.region +
+        '</span>' +
+
+        '<span class="tag">' +
+        item.language +
+        '</span>' +
+
+        '<span class="tag">' +
+        item.type +
+        '</span>' +
+
+        '<p>' +
+        item.description +
+        '</p>' +
+
+        '<button onclick="openSource(' +
+        index +
+        ')">🌐 Source</button>' +
+
+        '<button onclick="toggleFavorite(' +
+        index +
+        ')">' +
+        star +
+        '</button>' +
+
+        '</div>';
+    }
+  }
+
+  document.getElementById("games").innerHTML = html;
+}
+
+function openSource(index) {
+
+  window.open(
+    games[index].source,
+    "_blank"
+  );
+
+}
+
+function toggleFavorite(index) {
+
+  var position = favorites.indexOf(index);
+
+  if (position === -1) {
+    favorites.push(index);
+  } else {
+    favorites.splice(position, 1);
+  }
+
+  showGames();
+
+}
+
+function showFavorites() {
+
+  var oldGames = games;
+  var favoriteGames = [];
+
+  for (var i = 0; i < favorites.length; i++) {
+    favoriteGames.push(games[favorites[i]]);
+  }
+
+  games = favoriteGames;
+
+  showGames();
+
+  games = oldGames;
+
+}
+
+function resetFilters() {
+
+  document.getElementById("search").value = "";
+  document.getElementById("platform").value = "all";
+  document.getElementById("region").value = "all";
+  document.getElementById("language").value = "all";
+  document.getElementById("type").value = "all";
+
+  showGames();
+
+}
+
+document.getElementById("search").oninput = showGames;
+document.getElementById("platform").onchange = showGames;
+document.getElementById("region").onchange = showGames;
+document.getElementById("language").onchange = showGames;
+document.getElementById("type").onchange = showGames;
+
+document.getElementById("allButton").onclick = showGames;
+document.getElementById("favoriteButton").onclick = showFavorites;
+document.getElementById("resetButton").onclick = resetFilters;
+
+showGames();
+
+</script>
 
 </body>
 </html>
