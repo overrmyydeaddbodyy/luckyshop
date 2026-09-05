@@ -3,390 +3,1524 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070d">
 
-<title>🍀 LuckyShop</title>
+<title>Lucky Store</title>
 
 <style>
 
-*{
-    box-sizing:border-box;
+/* =========================================================
+   LUCKY STORE
+   Persona-inspired animated interface
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html{
-    scroll-behavior:smooth;
+:root {
+    --bg: #05070d;
+    --panel: #0b101a;
+    --panel2: #101722;
+    --blue: #39a7ff;
+    --cyan: #69d7ff;
+    --white: #f5f9ff;
+    --muted: #778399;
+    --line: rgba(255,255,255,.12);
+    --red: #ff416c;
 }
 
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#080b12;
-    color:white;
+html,
+body {
+    width: 100%;
+    min-height: 100%;
 }
 
-/* =========================
-   HEADER
-========================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:#111725;
-    border-bottom:1px solid #293247;
-    padding:15px;
-}
-
-.logo{
-    font-size:29px;
-    font-weight:bold;
-    color:#5bea8d;
-}
-
-.logo span{
-    color:white;
-}
-
-.search{
-    width:100%;
-    margin-top:12px;
-    padding:13px;
-    border-radius:10px;
-    border:1px solid #30394e;
-    background:#080c14;
-    color:white;
-    font-size:16px;
-    outline:none;
-}
-
-.search:focus{
-    border-color:#4ade80;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    padding:35px 18px;
+body {
+    overflow-x: hidden;
     background:
-        radial-gradient(circle at 90% 20%,#1e5638,transparent 35%),
-        linear-gradient(135deg,#101827,#080b12);
+        radial-gradient(
+            circle at 75% 10%,
+            rgba(57,167,255,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 15% 80%,
+            rgba(57,100,255,.10),
+            transparent 35%
+        ),
+        var(--bg);
+
+    color: var(--white);
+
+    font-family:
+        "Barlow Condensed",
+        "Arial Narrow",
+        Arial,
+        sans-serif;
 }
 
-.hero h1{
-    margin:0 0 8px;
-    font-size:34px;
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.backgroundGrid {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    transform: perspective(500px) rotateX(55deg) scale(1.7);
+    transform-origin: center bottom;
+
+    opacity: .25;
 }
 
-.hero p{
-    margin:0;
-    color:#9ba6b9;
-    font-size:15px;
-}
+.backgroundGlow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
 
-/* =========================
-   NAV
-========================= */
+    border-radius: 50%;
 
-.nav{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding:12px 15px;
-    background:#0d111a;
-    border-bottom:1px solid #252d3e;
-}
-
-.nav button{
-    white-space:nowrap;
-    padding:10px 15px;
-    border-radius:9px;
-    background:#181f2d;
-    border:1px solid #30394e;
-    color:white;
-    font-weight:bold;
-}
-
-.nav button.active{
-    background:#43d879;
-    color:#06130a;
-    border-color:#43d879;
-}
-
-/* =========================
-   FILTERS
-========================= */
-
-.filters{
-    padding:12px 15px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    background:#0b0f17;
-}
-
-.filters button{
-    padding:8px 11px;
-    border-radius:8px;
-    background:#171e2c;
-    color:white;
-    border:1px solid #30394e;
-}
-
-.filters button.active{
-    background:#43d879;
-    color:#06130a;
-}
-
-/* =========================
-   CATALOG
-========================= */
-
-.catalog{
-    padding:15px;
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:14px;
-}
-
-.card{
-    overflow:hidden;
-    background:#121824;
-    border:1px solid #293247;
-    border-radius:13px;
-    transition:.15s;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-    border-color:#4ade80;
-}
-
-.cover{
-    width:100%;
-    height:155px;
-    object-fit:cover;
-    display:block;
-    background:#202738;
-}
-
-.cardbody{
-    padding:11px;
-}
-
-.title{
-    font-size:17px;
-    font-weight:bold;
-}
-
-.creator{
-    margin-top:5px;
-    color:#8994aa;
-    font-size:12px;
-}
-
-.tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:5px;
-    margin-top:9px;
-}
-
-.tag{
-    background:#222a3b;
-    color:#c7cfdd;
-    padding:4px 7px;
-    border-radius:6px;
-    font-size:10px;
-}
-
-.actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:6px;
-    margin-top:10px;
-}
-
-.actions button{
-    padding:9px 4px;
-    border-radius:8px;
-    font-weight:bold;
-}
-
-.download{
-    background:#43d879;
-    color:#06130a;
-}
-
-.details{
-    background:#252d40;
-    color:white;
-}
-
-.favorite{
-    width:100%;
-    margin-top:7px;
-    padding:8px;
-    border-radius:8px;
-    background:#181f2c;
-    color:#ffd866;
-    border:1px solid #30394e;
-}
-
-.empty{
-    grid-column:1/-1;
-    text-align:center;
-    padding:60px 20px;
-    color:#8994a9;
-}
-
-/* =========================
-   QR SECTION
-========================= */
-
-.qr-section{
-    margin-top:25px;
-    padding:35px 15px 40px;
-    text-align:center;
     background:
-        radial-gradient(circle at center,#173d29,transparent 45%),
-        #0d121c;
-    border-top:1px solid #293247;
-    border-bottom:1px solid #293247;
+        radial-gradient(
+            circle,
+            rgba(57,167,255,.12),
+            transparent 70%
+        );
+
+    top: -250px;
+    right: -200px;
+
+    z-index: -2;
+
+    pointer-events: none;
 }
 
-.qr-section h2{
-    margin:0 0 8px;
-    color:#5bea8d;
-    font-size:27px;
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+    min-height: 100vh;
+    position: relative;
 }
 
-.qr-section p{
-    margin:6px auto 20px;
-    max-width:500px;
-    color:#9ba6b9;
-    line-height:1.5;
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+.header {
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 18px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,7,13,.96),
+            rgba(8,13,23,.88)
+        );
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(15px);
 }
 
-.qr-frame{
-    display:inline-block;
-    padding:15px;
-    background:white;
-    border-radius:15px;
-    box-shadow:0 0 30px rgba(0,0,0,.5);
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    cursor: pointer;
+
+    user-select: none;
 }
 
-.qr-frame svg{
-    display:block;
-    width:260px;
-    height:260px;
+.logoIcon {
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5bc5ff,
+            #1264d8
+        );
+
+    clip-path: polygon(
+        10% 0,
+        100% 0,
+        90% 100%,
+        0 100%
+    );
+
+    transform: skew(-5deg);
+
+    box-shadow:
+        0 0 25px rgba(57,167,255,.3);
+
+    transition: .25s;
 }
 
-.qr-url{
-    margin-top:17px;
-    color:#707c91;
-    font-size:11px;
-    word-break:break-all;
+.logo:hover .logoIcon {
+    transform:
+        skew(-5deg)
+        rotate(-5deg)
+        scale(1.08);
 }
 
-/* =========================
-   MODAL
-========================= */
-
-.modal-background{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:100;
-    background:rgba(0,0,0,.82);
-    padding:15px;
-    align-items:center;
-    justify-content:center;
+.logoText {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: .5px;
 }
 
-.modal{
-    width:100%;
-    max-width:520px;
-    max-height:90vh;
-    overflow:auto;
-    background:#121824;
-    border:1px solid #374158;
-    border-radius:15px;
-    padding:20px;
+.logoText span {
+    color: var(--cyan);
 }
 
-.modal img{
-    width:100%;
-    max-height:230px;
-    object-fit:cover;
-    border-radius:10px;
+/* =========================================================
+   OPTION BUTTON
+   ========================================================= */
+
+.optionButton {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 11px 17px;
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    clip-path: polygon(
+        7% 0,
+        100% 0,
+        93% 100%,
+        0 100%
+    );
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 800;
+
+    transition: .2s;
 }
 
-.modal h2{
-    margin:14px 0 7px;
+.optionButton:hover {
+    background: rgba(57,167,255,.16);
 }
 
-.modal p{
-    color:#aeb7c8;
-    line-height:1.5;
+.optionButton:active {
+    transform: scale(.95);
 }
 
-.modal button{
-    width:100%;
-    margin-top:8px;
-    padding:12px;
-    border-radius:9px;
-    font-weight:bold;
+.optionLines {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-.green{
-    background:#43d879;
-    color:#06130a;
+.optionLines i {
+    width: 18px;
+    height: 2px;
+    background: white;
+    display: block;
 }
 
-.dark{
-    background:#252d40;
-    color:white;
+/* =========================================================
+   ADDRESS BAR
+   ========================================================= */
+
+.browserBar {
+    position: fixed;
+
+    top: 70px;
+    left: 0;
+    right: 0;
+
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 15px;
+
+    background:
+        rgba(5,7,13,.93);
+
+    border-bottom: 1px solid rgba(255,255,255,.07);
+
+    z-index: 80;
+
+    backdrop-filter: blur(15px);
 }
 
-/* =========================
-   FOOTER
-========================= */
+.navButton {
+    width: 39px;
+    height: 39px;
 
-footer{
-    padding:30px 15px;
-    text-align:center;
-    color:#68748a;
-    font-size:12px;
+    display: grid;
+    place-items: center;
+
+    border: 0;
+
+    color: #9aa7ba;
+
+    background: transparent;
+
+    font-size: 20px;
+
+    cursor: pointer;
 }
 
-/* =========================
+.navButton:hover {
+    color: white;
+    background: rgba(255,255,255,.06);
+}
+
+.address {
+    flex: 1;
+
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: #0d131e;
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    clip-path: polygon(
+        1% 0,
+        100% 0,
+        99% 100%,
+        0 100%
+    );
+}
+
+.addressIcon {
+    color: var(--cyan);
+    margin-right: 9px;
+}
+
+.address input {
+    flex: 1;
+
+    width: 100%;
+
+    color: white;
+
+    background: transparent;
+
+    border: 0;
+    outline: 0;
+
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.address input::placeholder {
+    color: #5f6b7d;
+}
+
+.addressStar {
+    cursor: pointer;
+    font-size: 21px;
+    color: #657185;
+}
+
+.addressStar.active {
+    color: #ffd85c;
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main {
+    min-height: 100vh;
+
+    padding-top: 128px;
+}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home {
+    min-height: calc(100vh - 128px);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 70px 20px 60px;
+
+    position: relative;
+}
+
+.hero {
+    text-align: center;
+
+    animation:
+        heroIn .65s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes heroIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(45px)
+            skewY(4deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            skewY(0);
+    }
+}
+
+.heroLogo {
+    width: 95px;
+    height: 95px;
+
+    display: grid;
+    place-items: center;
+
+    margin: auto auto 22px;
+
+    font-size: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6bd8ff,
+            #165fc9
+        );
+
+    clip-path: polygon(
+        12% 0,
+        100% 0,
+        88% 100%,
+        0 100%
+    );
+
+    box-shadow:
+        0 20px 60px rgba(40,145,255,.22);
+
+    animation:
+        logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-7px) rotate(2deg);
+    }
+}
+
+.hero h1 {
+    font-size: clamp(52px,10vw,90px);
+
+    line-height: .85;
+
+    letter-spacing: -2px;
+
+    text-transform: uppercase;
+
+    font-weight: 900;
+
+    transform: skew(-5deg);
+}
+
+.hero h1 span {
+    color: var(--cyan);
+
+    text-shadow:
+        4px 4px 0 rgba(57,167,255,.12);
+}
+
+.hero p {
+    margin-top: 15px;
+
+    color: var(--muted);
+
+    font-size: 18px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.searchContainer {
+    width: min(700px,100%);
+
+    margin-top: 45px;
+
+    animation:
+        searchIn .7s .12s both
+        cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes searchIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-80px)
+            skewX(-8deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(0)
+            skewX(0);
+    }
+}
+
+.search {
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px;
+
+    background: rgba(13,19,30,.9);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    clip-path: polygon(
+        2% 0,
+        100% 0,
+        98% 100%,
+        0 100%
+    );
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+.search input {
+    flex: 1;
+
+    height: 100%;
+
+    border: 0;
+    outline: 0;
+
+    padding: 0 18px;
+
+    background: transparent;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 20px;
+}
+
+.search input::placeholder {
+    color: #637087;
+}
+
+.searchButton {
+    width: 55px;
+    height: 55px;
+
+    border: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5bd2ff,
+            #1470e4
+        );
+
+    color: white;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    clip-path: polygon(
+        10% 0,
+        100% 0,
+        90% 100%,
+        0 100%
+    );
+
+    transition: .2s;
+}
+
+.searchButton:hover {
+    transform: translateX(-3px);
+}
+
+/* =========================================================
+   QUICK LINKS
+   ========================================================= */
+
+.quickTitle {
+    width: min(900px,100%);
+
+    margin-top: 50px;
+    margin-bottom: 14px;
+
+    color: #748197;
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    animation:
+        fadeUp .6s .2s both;
+}
+
+.quickLinks {
+    width: min(900px,100%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(170px,1fr));
+
+    gap: 12px;
+}
+
+.quickCard {
+    min-height: 115px;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17,24,37,.92),
+            rgba(9,14,23,.92)
+        );
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    cursor: pointer;
+
+    clip-path: polygon(
+        5% 0,
+        100% 0,
+        95% 100%,
+        0 100%
+    );
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .25s,
+        border .25s;
+}
+
+.quickCard::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            100deg,
+            transparent,
+            rgba(255,255,255,.08),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: .55s;
+}
+
+.quickCard:hover::before {
+    left: 120%;
+}
+
+.quickCard:hover {
+    transform:
+        translateX(6px)
+        skewX(-1deg);
+
+    border-color:
+        rgba(91,210,255,.4);
+}
+
+.quickIcon {
+    font-size: 28px;
+
+    margin-bottom: 14px;
+}
+
+.quickCard strong {
+    display: block;
+
+    font-size: 21px;
+
+    text-transform: uppercase;
+}
+
+.quickCard small {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   MENU OVERLAY
+   ========================================================= */
+
+.menuOverlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    pointer-events: none;
+
+    visibility: hidden;
+}
+
+.menuOverlay.open {
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* dark layer */
+
+.menuBackdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,.73);
+
+    opacity: 0;
+
+    transition: opacity .35s;
+}
+
+.menuOverlay.open .menuBackdrop {
+    opacity: 1;
+}
+
+/* menu */
+
+.menuPanel {
+    position: absolute;
+
+    top: 70px;
+    right: 0;
+
+    width: min(460px,92vw);
+
+    min-height: calc(100vh - 70px);
+
+    padding: 55px 30px 40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111b2a,
+            #070b13 75%
+        );
+
+    border-left:
+        1px solid rgba(105,215,255,.22);
+
+    transform:
+        translateX(110%)
+        skewX(-7deg);
+
+    opacity: 0;
+
+    transition:
+        transform .48s cubic-bezier(.16,1,.3,1),
+        opacity .25s;
+}
+
+.menuOverlay.open .menuPanel {
+
+    transform:
+        translateX(0)
+        skewX(0);
+
+    opacity: 1;
+}
+
+/* decorative stripe */
+
+.menuPanel::before {
+    content: "";
+
+    position: absolute;
+
+    left: -20px;
+    top: 0;
+
+    width: 10px;
+    height: 100%;
+
+    background:
+        var(--cyan);
+
+    transform: skewX(-8deg);
+
+    box-shadow:
+        0 0 25px rgba(105,215,255,.4);
+}
+
+.menuHeader {
+    margin-bottom: 35px;
+
+    transform:
+        translateX(50px);
+
+    opacity: 0;
+
+    transition:
+        .45s .15s
+        cubic-bezier(.16,1,.3,1);
+}
+
+.menuOverlay.open .menuHeader {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.menuHeader small {
+    display: block;
+
+    color: var(--cyan);
+
+    letter-spacing: 4px;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+.menuHeader h2 {
+    font-size: 54px;
+
+    text-transform: uppercase;
+
+    line-height: .9;
+
+    transform: skewX(-5deg);
+}
+
+/* menu items */
+
+.menuItems {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.menuItem {
+    width: 100%;
+
+    min-height: 63px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    padding: 0 18px;
+
+    border: 0;
+
+    color: white;
+
+    background:
+        transparent;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    font-family: inherit;
+
+    position: relative;
+
+    transform:
+        translateX(100px)
+        skewX(-5deg);
+
+    opacity: 0;
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        opacity .3s,
+        background .2s;
+}
+
+.menuOverlay.open .menuItem {
+    transform:
+        translateX(0)
+        skewX(0);
+
+    opacity: 1;
+}
+
+.menuOverlay.open .menuItem:nth-child(1) {
+    transition-delay: .20s;
+}
+
+.menuOverlay.open .menuItem:nth-child(2) {
+    transition-delay: .26s;
+}
+
+.menuOverlay.open .menuItem:nth-child(3) {
+    transition-delay: .32s;
+}
+
+.menuOverlay.open .menuItem:nth-child(4) {
+    transition-delay: .38s;
+}
+
+.menuOverlay.open .menuItem:nth-child(5) {
+    transition-delay: .44s;
+}
+
+.menuOverlay.open .menuItem:nth-child(6) {
+    transition-delay: .50s;
+}
+
+.menuItem::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(57,167,255,.2),
+            transparent
+        );
+
+    transform:
+        translateX(-105%);
+
+    transition: .25s;
+}
+
+.menuItem:hover::before,
+.menuItem.selected::before {
+    transform: translateX(0);
+}
+
+.menuItem:hover,
+.menuItem.selected {
+    background:
+        rgba(57,167,255,.07);
+}
+
+.menuIcon {
+    width: 37px;
+    height: 37px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 20px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    clip-path: polygon(
+        10% 0,
+        100% 0,
+        90% 100%,
+        0 100%
+    );
+
+    z-index: 1;
+}
+
+.menuText {
+    font-size: 25px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+
+    z-index: 1;
+}
+
+.menuArrow {
+    margin-left: auto;
+
+    font-size: 22px;
+
+    color: var(--cyan);
+
+    transform: translateX(-10px);
+
+    opacity: 0;
+
+    transition: .2s;
+}
+
+.menuItem:hover .menuArrow,
+.menuItem.selected .menuArrow {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+.transition {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #39a7ff 0%,
+            #39a7ff 45%,
+            #05070d 45.5%,
+            #05070d 100%
+        );
+
+    transform:
+        translateX(-110%)
+        skewX(-10deg);
+}
+
+.transition.active {
+    animation:
+        screenWipe .65s cubic-bezier(.76,0,.24,1);
+}
+
+@keyframes screenWipe {
+
+    0% {
+        opacity: 1;
+        transform:
+            translateX(-110%)
+            skewX(-10deg);
+    }
+
+    40% {
+        opacity: 1;
+        transform:
+            translateX(0)
+            skewX(-10deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform:
+            translateX(0)
+            skewX(-10deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateX(110%)
+            skewX(-10deg);
+    }
+}
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+
+.page {
+    min-height: calc(100vh - 128px);
+
+    animation:
+        pageIn .45s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes pageIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(40px)
+            skewX(-2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(0)
+            skewX(0);
+    }
+}
+
+/* =========================================================
+   SETTINGS / BOOKMARKS / HISTORY
+   ========================================================= */
+
+.contentPage {
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 55px 20px;
+}
+
+.pageTitle {
+    font-size: 58px;
+
+    text-transform: uppercase;
+
+    line-height: .9;
+
+    transform: skewX(-5deg);
+
+    margin-bottom: 35px;
+}
+
+.pageTitle span {
+    color: var(--cyan);
+}
+
+.cardList {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.listCard {
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background:
+        rgba(13,19,30,.9);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    clip-path: polygon(
+        1% 0,
+        100% 0,
+        99% 100%,
+        0 100%
+    );
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.listCard:hover {
+    transform: translateX(8px);
+
+    border-color:
+        rgba(105,215,255,.35);
+}
+
+.listCardIcon {
+    font-size: 25px;
+}
+
+.listCardInfo {
+    flex: 1;
+}
+
+.listCardInfo strong {
+    display: block;
+
+    font-size: 20px;
+}
+
+.listCardInfo small {
+    color: var(--muted);
+
+    word-break: break-all;
+}
+
+.deleteButton {
+    border: 0;
+
+    background: transparent;
+
+    color: #687489;
+
+    font-size: 19px;
+
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    color: var(--red);
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.settingBox {
+    padding: 22px;
+
+    background:
+        rgba(13,19,30,.9);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    margin-bottom: 12px;
+}
+
+.settingBox strong {
+    display: block;
+
+    font-size: 22px;
+
+    margin-bottom: 5px;
+}
+
+.settingBox p {
+    color: var(--muted);
+
+    font-size: 16px;
+}
+
+.clearButton {
+    margin-top: 20px;
+
+    padding: 13px 20px;
+
+    background:
+        rgba(255,65,108,.1);
+
+    border:
+        1px solid rgba(255,65,108,.35);
+
+    color: #ff6687;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   BROWSER FRAME
+   ========================================================= */
+
+.browserPage {
+    min-height: calc(100vh - 128px);
+}
+
+.browserFrame {
+    width: 100%;
+
+    height: calc(100vh - 128px);
+
+    border: 0;
+
+    background: white;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 30px;
+
+    z-index: 600;
+
+    padding: 13px 22px;
+
+    background:
+        #111b2a;
+
+    border:
+        1px solid rgba(105,215,255,.35);
+
+    color: white;
+
+    transform:
+        translate(-50%,30px)
+        skewX(-4deg);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .3s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%,0)
+        skewX(-4deg);
+}
+
+/* =========================================================
+   FADE
+   ========================================================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
    MOBILE
-========================= */
+   ========================================================= */
 
-@media(max-width:500px){
+@media(max-width:700px) {
 
-    .catalog{
-        grid-template-columns:repeat(2,1fr);
-        gap:9px;
-        padding:10px;
+    .header {
+        height: 60px;
+
+        padding: 8px 10px;
     }
 
-    .cover{
-        height:125px;
+    .logoText {
+        font-size: 20px;
     }
 
-    .title{
-        font-size:14px;
+    .logoIcon {
+        width: 40px;
+        height: 40px;
     }
 
-    .creator{
-        font-size:10px;
+    .optionButton {
+        padding: 9px 12px;
     }
 
-    .qr-frame svg{
-        width:220px;
-        height:220px;
+    .optionText {
+        display: none;
+    }
+
+    .browserBar {
+        top: 60px;
+
+        height: 57px;
+
+        padding: 8px;
+    }
+
+    .navButton {
+        width: 34px;
+    }
+
+    .main {
+        padding-top: 117px;
+    }
+
+    .home {
+        min-height: calc(100vh - 117px);
+
+        padding-top: 55px;
+    }
+
+    .heroLogo {
+        width: 75px;
+        height: 75px;
+
+        font-size: 40px;
+    }
+
+    .hero h1 {
+        font-size: 53px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .searchContainer {
+        margin-top: 35px;
+    }
+
+    .search {
+        height: 57px;
+    }
+
+    .searchButton {
+        width: 47px;
+        height: 47px;
+    }
+
+    .quickLinks {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .quickCard {
+        min-height: 100px;
+        padding: 14px;
+    }
+
+    .quickCard strong {
+        font-size: 18px;
+    }
+
+    .quickTitle {
+        margin-top: 35px;
+    }
+
+    .menuPanel {
+        top: 60px;
+
+        min-height:
+            calc(100vh - 60px);
+
+        width: 92vw;
+
+        padding:
+            45px 20px 30px;
+    }
+
+    .menuHeader h2 {
+        font-size: 48px;
+    }
+
+    .menuText {
+        font-size: 22px;
+    }
+
+    .pageTitle {
+        font-size: 45px;
+    }
+
+    .browserFrame {
+        height:
+            calc(100vh - 117px);
+    }
+}
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media(prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
     }
 }
 
@@ -395,196 +1529,284 @@ footer{
 
 <body>
 
-<header>
+<div class="backgroundGrid"></div>
+<div class="backgroundGlow"></div>
 
-    <div class="logo">
-        🍀 Lucky<span>Shop</span>
-    </div>
+<div class="app">
 
-    <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="Search LuckyShop..."
-        oninput="render()"
-    >
+    <!-- =================================================
+         HEADER
+         ================================================= -->
 
-</header>
+    <header class="header">
 
+        <div
+            class="logo"
+            onclick="goHome()"
+        >
 
-<section class="hero">
+            <div class="logoIcon">
+                🍀
+            </div>
 
-    <h1>Welcome to LuckyShop 🍀</h1>
+            <div class="logoText">
+                LUCKY <span>STORE</span>
+            </div>
 
-    <p>
-        Your homebrew hub for Nintendo 3DS and DS.
-    </p>
-
-</section>
-
-
-<nav class="nav">
-
-    <button
-        class="active"
-        onclick="setPlatform('All',this)"
-    >
-        🏠 Everything
-    </button>
-
-    <button
-        onclick="setPlatform('3DS',this)"
-    >
-        🎮 3DS
-    </button>
-
-    <button
-        onclick="setPlatform('DS',this)"
-    >
-        🎮 DS
-    </button>
-
-    <button
-        onclick="setPlatform('Games',this)"
-    >
-        🕹 Games
-    </button>
-
-    <button
-        onclick="setPlatform('Apps',this)"
-    >
-        🛠 Apps
-    </button>
-
-    <button
-        onclick="setPlatform('Favorites',this)"
-    >
-        ⭐ Favorites
-    </button>
-
-</nav>
+        </div>
 
 
-<section class="filters">
+        <button
+            class="optionButton"
+            onclick="toggleMenu()"
+        >
 
-    <button
-        class="active"
-        onclick="setRegion('All',this)"
-    >
-        🌎 All Regions
-    </button>
+            <div class="optionLines">
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
 
-    <button onclick="setRegion('USA',this)">
-        🇺🇸 USA
-    </button>
+            <span class="optionText">
+                OPTIONS
+            </span>
 
-    <button onclick="setRegion('EUR',this)">
-        🇪🇺 Europe
-    </button>
+        </button>
 
-    <button onclick="setRegion('JPN',this)">
-        🇯🇵 Japan
-    </button>
-
-    <button
-        class="active"
-        onclick="setLanguage('All',this)"
-    >
-        🗣 All Languages
-    </button>
-
-    <button onclick="setLanguage('English',this)">
-        English
-    </button>
-
-    <button onclick="setLanguage('Japanese',this)">
-        Japanese
-    </button>
-
-    <button onclick="setLanguage('French',this)">
-        French
-    </button>
-
-    <button onclick="setLanguage('German',this)">
-        German
-    </button>
-
-    <button onclick="setLanguage('Spanish',this)">
-        Spanish
-    </button>
-
-    <button onclick="setLanguage('Multi',this)">
-        Multi
-    </button>
-
-</section>
+    </header>
 
 
-<main
-    id="catalog"
-    class="catalog"
-></main>
+    <!-- =================================================
+         BROWSER BAR
+         ================================================= -->
+
+    <div class="browserBar">
+
+        <button
+            class="navButton"
+            onclick="goBack()"
+        >‹</button>
+
+        <button
+            class="navButton"
+            onclick="goForward()"
+        >›</button>
+
+        <button
+            class="navButton"
+            onclick="reloadPage()"
+        >↻</button>
 
 
-<!-- ==================================================
-     PERMANENT LUCKYSHOP QR
-     
-     THIS QR IS GENERATED LOCALLY BY JAVASCRIPT.
-     
-     NO QR WEBSITE/API IS REQUIRED.
-     
-     IT CONTAINS:
-     https://overrmyydeaddbodyy.github.io/luckyshop/
-================================================== -->
+        <div class="address">
 
-<section class="qr-section">
+            <span class="addressIcon">
+                ●
+            </span>
 
-    <h2>🍀 Get LuckyShop</h2>
+            <input
+                id="address"
+                placeholder="Search or enter a website..."
+                autocomplete="off"
+                onkeydown="addressKey(event)"
+            >
 
-    <p>
-        Scan this QR code with your 3DS to open
-        LuckyShop.
-    </p>
+            <span
+                id="star"
+                class="addressStar"
+                onclick="toggleBookmark()"
+            >☆</span>
 
-    <div class="qr-frame">
-
-        <svg
-            id="luckyShopQR"
-            viewBox="0 0 210 210"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="LuckyShop QR Code"
-        ></svg>
+        </div>
 
     </div>
 
-    <div class="qr-url">
-        https://overrmyydeaddbodyy.github.io/luckyshop/
-    </div>
 
-</section>
+    <!-- =================================================
+         MAIN
+         ================================================= -->
 
-
-<footer>
-
-    🍀 LuckyShop<br><br>
-
-    Homebrew and authorized software only.
-
-</footer>
+    <main
+        class="main"
+        id="main"
+    ></main>
 
 
-<!-- ==================================================
-     DETAILS MODAL
-================================================== -->
-
-<div
-    id="modalBackground"
-    class="modal-background"
->
+    <!-- =================================================
+         MENU
+         ================================================= -->
 
     <div
-        id="modal"
-        class="modal"
+        class="menuOverlay"
+        id="menuOverlay"
+    >
+
+        <div
+            class="menuBackdrop"
+            onclick="toggleMenu()"
+        ></div>
+
+
+        <aside class="menuPanel">
+
+            <div class="menuHeader">
+
+                <small>
+                    LUCKY STORE
+                </small>
+
+                <h2>
+                    OPTIONS
+                </h2>
+
+            </div>
+
+
+            <div class="menuItems">
+
+                <button
+                    class="menuItem selected"
+                    onclick="menuNavigate('home',this)"
+                >
+
+                    <span class="menuIcon">
+                        🍀
+                    </span>
+
+                    <span class="menuText">
+                        Home
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menuItem"
+                    onclick="menuNavigate('bookmarks',this)"
+                >
+
+                    <span class="menuIcon">
+                        ★
+                    </span>
+
+                    <span class="menuText">
+                        Bookmarks
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menuItem"
+                    onclick="menuNavigate('history',this)"
+                >
+
+                    <span class="menuIcon">
+                        ◷
+                    </span>
+
+                    <span class="menuText">
+                        History
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menuItem"
+                    onclick="menuNavigate('settings',this)"
+                >
+
+                    <span class="menuIcon">
+                        ⚙
+                    </span>
+
+                    <span class="menuText">
+                        Settings
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menuItem"
+                    onclick="openSearch(this)"
+                >
+
+                    <span class="menuIcon">
+                        🔎
+                    </span>
+
+                    <span class="menuText">
+                        Search
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menuItem"
+                    onclick="aboutLucky(this)"
+                >
+
+                    <span class="menuIcon">
+                        ?
+                    </span>
+
+                    <span class="menuText">
+                        About
+                    </span>
+
+                    <span class="menuArrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =================================================
+         SCREEN TRANSITION
+         ================================================= -->
+
+    <div
+        class="transition"
+        id="transition"
+    ></div>
+
+
+    <!-- =================================================
+         TOAST
+         ================================================= -->
+
+    <div
+        class="toast"
+        id="toast"
     ></div>
 
 </div>
@@ -592,901 +1814,1250 @@ footer{
 
 <script>
 
-/* =====================================================
-   LUCKYSHOP URL
-===================================================== */
-
-const LUCKYSHOP_URL =
-    "https://overrmyydeaddbodyy.github.io/luckyshop/";
-
-
-/* =====================================================
-   CATALOG
-===================================================== */
-
-const games = [
-
-    {
-        id:"universal-updater",
-
-        title:"Universal-Updater",
-
-        creator:"Universal-Team",
-
-        platform:"3DS",
-
-        category:"Apps",
-
-        language:["English","Multi"],
-
-        region:["USA","EUR","JPN"],
-
-        version:"3.4.1",
-
-        type:"CIA",
-
-        image:
-        "https://raw.githubusercontent.com/Universal-Team/Universal-Updater/master/resources/icon.png",
-
-        description:
-        "A homebrew application for downloading and updating Nintendo 3DS homebrew.",
-
-        source:
-        "https://github.com/Universal-Team/Universal-Updater",
-
-        download:
-        "https://github.com/Universal-Team/Universal-Updater/releases/latest"
-    },
-
-    {
-        id:"3deins",
-
-        title:"3DEins",
-
-        creator:"Universal-Team",
-
-        platform:"3DS",
-
-        category:"Games",
-
-        language:[
-            "English",
-            "French",
-            "German",
-            "Italian",
-            "Japanese",
-            "Spanish",
-            "Multi"
-        ],
-
-        region:["USA","EUR","JPN"],
-
-        version:"0.2.0",
-
-        type:"CIA",
-
-        image:
-        "https://raw.githubusercontent.com/Universal-Team/3DEins/master/resources/icon.png",
-
-        description:
-        "A homebrew card game made for Nintendo 3DS.",
-
-        source:
-        "https://github.com/Universal-Team/3DEins",
-
-        download:
-        "https://github.com/Universal-Team/3DEins/releases/latest"
-    },
-
-    {
-        id:"pksm",
-
-        title:"PKSM",
-
-        creator:"FlagBrew",
-
-        platform:"3DS",
-
-        category:"Apps",
-
-        language:["English","Multi"],
-
-        region:["USA","EUR","JPN"],
-
-        version:"Latest",
-
-        type:"CIA",
-
-        image:
-        "https://raw.githubusercontent.com/FlagBrew/PKSM/master/resources/icon.png",
-
-        description:
-        "A Pokémon save manager for Nintendo 3DS.",
-
-        source:
-        "https://github.com/FlagBrew/PKSM",
-
-        download:
-        "https://github.com/FlagBrew/PKSM/releases/latest"
-    },
-
-    {
-        id:"checkpoint",
-
-        title:"Checkpoint",
-
-        creator:"BernardoGiordano",
-
-        platform:"3DS",
-
-        category:"Apps",
-
-        language:["English","Multi"],
-
-        region:["USA","EUR","JPN"],
-
-        version:"Latest",
-
-        type:"CIA",
-
-        image:
-        "https://raw.githubusercontent.com/BernardoGiordano/Checkpoint/master/resources/icon.png",
-
-        description:
-        "A save-management application for Nintendo 3DS.",
-
-        source:
-        "https://github.com/BernardoGiordano/Checkpoint",
-
-        download:
-        "https://github.com/BernardoGiordano/Checkpoint/releases/latest"
-    },
-
-    {
-        id:"twilight",
-
-        title:"TWiLight Menu++",
-
-        creator:"DS-Homebrew",
-
-        platform:"DS",
-
-        category:"Apps",
-
-        language:["Multi"],
-
-        region:["USA","EUR","JPN"],
-
-        version:"Latest",
-
-        type:"NDS",
-
-        image:
-        "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/booter_fc/arm9/source/icon.png",
-
-        description:
-        "A menu replacement for Nintendo DS, DSi and 3DS.",
-
-        source:
-        "https://github.com/DS-Homebrew/TWiLightMenu",
-
-        download:
-        "https://github.com/DS-Homebrew/TWiLightMenu/releases/latest"
-    },
-
-    {
-        id:"nds-bootstrap",
-
-        title:"nds-bootstrap",
-
-        creator:"DS-Homebrew",
-
-        platform:"DS",
-
-        category:"Apps",
-
-        language:["English"],
-
-        region:["USA","EUR","JPN"],
-
-        version:"Latest",
-
-        type:"NDS",
-
-        image:
-        "https://raw.githubusercontent.com/DS-Homebrew/nds-bootstrap/master/icon.png",
-
-        description:
-        "Software used by TWiLight Menu++ to launch DS software.",
-
-        source:
-        "https://github.com/DS-Homebrew/nds-bootstrap",
-
-        download:
-        "https://github.com/DS-Homebrew/nds-bootstrap/releases/latest"
-    }
-
-];
-
-
-/* =====================================================
+/* =========================================================
    STATE
-===================================================== */
+   ========================================================= */
 
-let currentPlatform="All";
+const state = {
 
-let currentRegion="All";
+    currentPage: "home",
 
-let currentLanguage="All";
+    bookmarks:
+        JSON.parse(
+            localStorage.getItem(
+                "luckyBookmarks"
+            ) || "[]"
+        ),
 
-let favorites =
-    JSON.parse(
-        localStorage.getItem("LuckyShopFavorites") || "[]"
-    );
+    history:
+        JSON.parse(
+            localStorage.getItem(
+                "luckyHistory"
+            ) || "[]"
+        )
 
-
-/* =====================================================
-   FILTERS
-===================================================== */
-
-function setPlatform(value,button){
-
-    currentPlatform=value;
-
-    document
-        .querySelectorAll(".nav button")
-        .forEach(b=>b.classList.remove("active"));
-
-    button.classList.add("active");
-
-    render();
-}
+};
 
 
-function setRegion(value,button){
+/* =========================================================
+   INIT
+   ========================================================= */
 
-    currentRegion=value;
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    document
-        .querySelectorAll(".filters button")
-        .forEach(b=>{
+        renderHome();
 
-            if(
-                b.textContent.includes("Region") ||
-                ["🇺🇸 USA","🇪🇺 Europe","🇯🇵 Japan"]
-                .includes(b.textContent)
-            ){
-                b.classList.remove("active");
-            }
+        document.addEventListener(
+            "keydown",
+            keyboardShortcuts
+        );
 
-        });
-
-    button.classList.add("active");
-
-    render();
-}
+    }
+);
 
 
-function setLanguage(value,button){
+/* =========================================================
+   HOME
+   ========================================================= */
 
-    currentLanguage=value;
+function renderHome() {
 
-    document
-        .querySelectorAll(".filters button")
-        .forEach(b=>{
+    state.currentPage = "home";
 
-            if(
-                [
-                    "🗣 All Languages",
-                    "English",
-                    "Japanese",
-                    "French",
-                    "German",
-                    "Spanish",
-                    "Multi"
-                ].includes(b.textContent)
-            ){
-                b.classList.remove("active");
-            }
+    const main =
+        document.getElementById("main");
 
-        });
+    main.innerHTML = `
 
-    button.classList.add("active");
+        <section class="page home">
 
-    render();
-}
+            <div class="hero">
 
+                <div class="heroLogo">
+                    🍀
+                </div>
 
-/* =====================================================
-   FILTER DATA
-===================================================== */
-
-function getGames(){
-
-    const search =
-        document
-            .getElementById("search")
-            .value
-            .toLowerCase()
-            .trim();
-
-    return games.filter(game=>{
-
-        if(search){
-
-            const text =
-                (
-                    game.title+
-                    " "+
-                    game.creator+
-                    " "+
-                    game.description
-                ).toLowerCase();
-
-            if(!text.includes(search)){
-                return false;
-            }
-        }
-
-        if(
-            currentPlatform==="3DS" &&
-            game.platform!=="3DS"
-        ){
-            return false;
-        }
-
-        if(
-            currentPlatform==="DS" &&
-            game.platform!=="DS"
-        ){
-            return false;
-        }
-
-        if(
-            currentPlatform==="Games" &&
-            game.category!=="Games"
-        ){
-            return false;
-        }
-
-        if(
-            currentPlatform==="Apps" &&
-            game.category!=="Apps"
-        ){
-            return false;
-        }
-
-        if(
-            currentPlatform==="Favorites" &&
-            !favorites.includes(game.id)
-        ){
-            return false;
-        }
-
-        if(
-            currentRegion!=="All" &&
-            !game.region.includes(currentRegion)
-        ){
-            return false;
-        }
-
-        if(
-            currentLanguage!=="All" &&
-            !game.language.includes(currentLanguage)
-        ){
-            return false;
-        }
-
-        return true;
-
-    });
-
-}
-
-
-/* =====================================================
-   RENDER
-===================================================== */
-
-function render(){
-
-    const catalog =
-        document.getElementById("catalog");
-
-    catalog.innerHTML="";
-
-    const list=getGames();
-
-    if(list.length===0){
-
-        catalog.innerHTML=`
-
-            <div class="empty">
-
-                <h2>🍀 Nothing found</h2>
+                <h1>
+                    LUCKY
+                    <span>STORE</span>
+                </h1>
 
                 <p>
-                    Try another category or search.
+                    Your web. Your way.
                 </p>
 
             </div>
 
-        `;
+
+            <form
+                class="searchContainer"
+                onsubmit="homeSearch(event)"
+            >
+
+                <div class="search">
+
+                    <input
+                        id="homeSearch"
+                        placeholder="SEARCH THE WEB..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        class="searchButton"
+                        type="submit"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="quickTitle">
+                Quick Access
+            </div>
+
+
+            <div class="quickLinks">
+
+                ${quickCard(
+                    "🔎",
+                    "Google",
+                    "Search",
+                    "https://www.google.com"
+                )}
+
+                ${quickCard(
+                    "📚",
+                    "Wikipedia",
+                    "Knowledge",
+                    "https://www.wikipedia.org"
+                )}
+
+                ${quickCard(
+                    "▶",
+                    "YouTube",
+                    "Videos",
+                    "https://www.youtube.com"
+                )}
+
+                ${quickCard(
+                    "💻",
+                    "GitHub",
+                    "Projects",
+                    "https://github.com"
+                )}
+
+            </div>
+
+        </section>
+
+    `;
+
+    setAddress("");
+
+    updateStar();
+
+}
+
+
+/* =========================================================
+   QUICK CARD
+   ========================================================= */
+
+function quickCard(
+    icon,
+    title,
+    subtitle,
+    url
+) {
+
+    return `
+
+        <div
+            class="quickCard"
+            onclick="navigate('${url}')"
+        >
+
+            <div class="quickIcon">
+                ${icon}
+            </div>
+
+            <strong>
+                ${title}
+            </strong>
+
+            <small>
+                ${subtitle}
+            </small>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+function homeSearch(event) {
+
+    event.preventDefault();
+
+    const input =
+        document.getElementById(
+            "homeSearch"
+        );
+
+    if(!input) return;
+
+    const value =
+        input.value.trim();
+
+    if(!value) return;
+
+    navigate(
+        createURL(value)
+    );
+
+}
+
+
+function addressKey(event) {
+
+    if(event.key !== "Enter")
+        return;
+
+    const value =
+        event.target.value.trim();
+
+    if(!value) return;
+
+    navigate(
+        createURL(value)
+    );
+
+}
+
+
+function createURL(value) {
+
+    if(
+        /^https?:\/\//i.test(value)
+    ) {
+
+        return value;
+
+    }
+
+    if(
+        /^[\w-]+\.[\w.-]+/.test(value)
+    ) {
+
+        return "https://" + value;
+
+    }
+
+    return (
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(value)
+    );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function navigate(url) {
+
+    if(!url) return;
+
+    screenTransition(
+        () => {
+
+            state.currentPage =
+                "browser";
+
+            const main =
+                document.getElementById(
+                    "main"
+                );
+
+            let title = "Website";
+
+            try {
+
+                title =
+                    new URL(url).hostname;
+
+            }
+            catch {}
+
+            main.innerHTML = `
+
+                <section class="page browserPage">
+
+                    <iframe
+                        class="browserFrame"
+                        src="${escapeAttribute(url)}"
+                        sandbox="allow-forms allow-modals allow-popups allow-scripts allow-same-origin"
+                    ></iframe>
+
+                </section>
+
+            `;
+
+            setAddress(url);
+
+            addHistory(
+                title,
+                url
+            );
+
+            updateStar();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function addHistory(title,url) {
+
+    state.history.unshift({
+
+        title:title,
+        url:url,
+        time:Date.now()
+
+    });
+
+    state.history =
+        state.history.slice(0,50);
+
+    localStorage.setItem(
+        "luckyHistory",
+        JSON.stringify(
+            state.history
+        )
+    );
+
+}
+
+
+/* =========================================================
+   BOOKMARKS
+   ========================================================= */
+
+function toggleBookmark() {
+
+    const url =
+        document.getElementById(
+            "address"
+        ).value.trim();
+
+    if(!url) {
+
+        toast(
+            "Nothing to bookmark."
+        );
 
         return;
     }
 
-    list.forEach(game=>{
+    const index =
+        state.bookmarks.findIndex(
+            item =>
+                item.url === url
+        );
 
-        const isFavorite =
-            favorites.includes(game.id);
+    if(index >= 0) {
 
-        const card =
-            document.createElement("article");
+        state.bookmarks.splice(
+            index,
+            1
+        );
 
-        card.className="card";
+        toast(
+            "Bookmark removed."
+        );
 
-        card.innerHTML=`
+    } else {
 
-            <img
-                class="cover"
-                src="${game.image}"
-                alt="${escapeHTML(game.title)}"
-                onerror="this.style.display='none'"
-            >
+        let title = url;
 
-            <div class="cardbody">
+        try {
+            title =
+                new URL(url).hostname;
+        }
+        catch {}
 
-                <div class="title">
-                    ${escapeHTML(game.title)}
+        state.bookmarks.push({
+
+            title:title,
+            url:url
+
+        });
+
+        toast(
+            "Added to bookmarks."
+        );
+
+    }
+
+    localStorage.setItem(
+        "luckyBookmarks",
+        JSON.stringify(
+            state.bookmarks
+        )
+    );
+
+    updateStar();
+
+}
+
+
+function updateStar() {
+
+    const star =
+        document.getElementById(
+            "star"
+        );
+
+    if(!star) return;
+
+    const url =
+        document.getElementById(
+            "address"
+        ).value.trim();
+
+    const exists =
+        state.bookmarks.some(
+            item =>
+                item.url === url
+        );
+
+    if(exists) {
+
+        star.textContent = "★";
+
+        star.classList.add(
+            "active"
+        );
+
+    } else {
+
+        star.textContent = "☆";
+
+        star.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BOOKMARK PAGE
+   ========================================================= */
+
+function renderBookmarks() {
+
+    state.currentPage =
+        "bookmarks";
+
+    const main =
+        document.getElementById(
+            "main"
+        );
+
+    let cards = "";
+
+    if(
+        state.bookmarks.length === 0
+    ) {
+
+        cards = `
+
+            <div class="listCard">
+
+                <div class="listCardIcon">
+                    ★
                 </div>
 
-                <div class="creator">
-                    ${escapeHTML(game.creator)}
-                </div>
+                <div class="listCardInfo">
 
-                <div class="tags">
+                    <strong>
+                        No bookmarks yet
+                    </strong>
 
-                    <span class="tag">
-                        ${game.platform}
-                    </span>
-
-                    <span class="tag">
-                        ${game.category}
-                    </span>
-
-                    <span class="tag">
-                        ${game.type}
-                    </span>
-
-                    <span class="tag">
-                        v${game.version}
-                    </span>
+                    <small>
+                        Bookmark a website using
+                        the star in the address bar.
+                    </small>
 
                 </div>
-
-                <div class="actions">
-
-                    <button
-                        class="download"
-                        onclick="downloadGame('${game.id}')"
-                    >
-                        ⬇ Download
-                    </button>
-
-                    <button
-                        class="details"
-                        onclick="showDetails('${game.id}')"
-                    >
-                        ℹ Info
-                    </button>
-
-                </div>
-
-                <button
-                    class="favorite"
-                    onclick="toggleFavorite('${game.id}')"
-                >
-                    ${
-                        isFavorite
-                        ? "★ Favorited"
-                        : "☆ Favorite"
-                    }
-                </button>
 
             </div>
 
         `;
 
-        catalog.appendChild(card);
+    } else {
 
-    });
+        cards =
+            state.bookmarks.map(
+                (item,index) => `
 
-}
+                    <div
+                        class="listCard"
+                        onclick="navigate('${escapeAttribute(item.url)}')"
+                    >
 
+                        <div class="listCardIcon">
+                            ★
+                        </div>
 
-/* =====================================================
-   DOWNLOAD
-===================================================== */
+                        <div class="listCardInfo">
 
-function downloadGame(id){
+                            <strong>
+                                ${escapeHTML(item.title)}
+                            </strong>
 
-    const game =
-        games.find(x=>x.id===id);
+                            <small>
+                                ${escapeHTML(item.url)}
+                            </small>
 
-    if(!game)return;
+                        </div>
 
-    window.open(
-        game.download,
-        "_blank"
-    );
-}
+                        <button
+                            class="deleteButton"
+                            onclick="deleteBookmark(event,${index})"
+                        >
+                            ×
+                        </button>
 
+                    </div>
 
-/* =====================================================
-   FAVORITES
-===================================================== */
+                `
+            ).join("");
 
-function toggleFavorite(id){
-
-    if(favorites.includes(id)){
-
-        favorites =
-            favorites.filter(x=>x!==id);
-
-    }else{
-
-        favorites.push(id);
     }
 
-    localStorage.setItem(
-        "LuckyShopFavorites",
-        JSON.stringify(favorites)
-    );
+    main.innerHTML = `
 
-    render();
-}
+        <section class="page contentPage">
 
+            <h1 class="pageTitle">
+                BOOK<span>MARKS</span>
+            </h1>
 
-/* =====================================================
-   DETAILS
-===================================================== */
+            <div class="cardList">
+                ${cards}
+            </div>
 
-function showDetails(id){
-
-    const game =
-        games.find(x=>x.id===id);
-
-    if(!game)return;
-
-    const modal =
-        document.getElementById("modal");
-
-    modal.innerHTML=`
-
-        <img
-            src="${game.image}"
-            onerror="this.style.display='none'"
-        >
-
-        <h2>
-            ${escapeHTML(game.title)}
-        </h2>
-
-        <p>
-            <b>Creator:</b>
-            ${escapeHTML(game.creator)}
-        </p>
-
-        <p>
-            <b>Platform:</b>
-            ${game.platform}
-        </p>
-
-        <p>
-            <b>Version:</b>
-            ${game.version}
-        </p>
-
-        <p>
-            <b>Type:</b>
-            ${game.type}
-        </p>
-
-        <p>
-            ${escapeHTML(game.description)}
-        </p>
-
-        <button
-            class="green"
-            onclick="downloadGame('${game.id}')"
-        >
-            ⬇ Open Download
-        </button>
-
-        <button
-            class="dark"
-            onclick="window.open('${game.source}','_blank')"
-        >
-            🔗 Official Project
-        </button>
-
-        <button
-            class="dark"
-            onclick="closeModal()"
-        >
-            Close
-        </button>
+        </section>
 
     `;
 
-    document
-        .getElementById("modalBackground")
-        .style.display="flex";
+    setAddress("");
+
 }
 
 
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
+function deleteBookmark(
+    event,
+    index
+) {
 
-function closeModal(){
+    event.stopPropagation();
 
-    document
-        .getElementById("modalBackground")
-        .style.display="none";
-}
-
-
-document
-    .getElementById("modalBackground")
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(event.target===this){
-                closeModal();
-            }
-
-        }
+    state.bookmarks.splice(
+        index,
+        1
     );
 
+    localStorage.setItem(
+        "luckyBookmarks",
+        JSON.stringify(
+            state.bookmarks
+        )
+    );
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+    renderBookmarks();
 
-function escapeHTML(text){
+    toast(
+        "Bookmark deleted."
+    );
 
-    return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
 }
 
 
-/* =====================================================
-   LOCAL QR GENERATOR
-=====================================================
+/* =========================================================
+   HISTORY PAGE
+   ========================================================= */
 
-   This creates a QR directly inside the webpage.
+function renderHistory() {
 
-   No QR API.
-   No QR website.
-   No external QR image.
+    state.currentPage =
+        "history";
 
-===================================================== */
-
-/*
-   Tiny QR implementation.
-
-   The QR is generated from the fixed LuckyShop URL.
-*/
-
-(function(){
-
-    const svg =
-        document.getElementById("luckyShopQR");
-
-    /*
-       We use a compact QR-compatible visual matrix
-       containing the LuckyShop address.
-
-       The three finder patterns make it recognizable
-       to QR readers.
-    */
-
-    const size=21;
-
-    let matrix=[];
-
-    for(let y=0;y<size;y++){
-
-        matrix[y]=[];
-
-        for(let x=0;x<size;x++){
-
-            matrix[y][x]=false;
-
-        }
-
-    }
-
-
-    function finder(x,y){
-
-        for(let yy=0;yy<7;yy++){
-
-            for(let xx=0;xx<7;xx++){
-
-                const outer =
-                    xx===0 ||
-                    xx===6 ||
-                    yy===0 ||
-                    yy===6;
-
-                const inner =
-                    xx>=2 &&
-                    xx<=4 &&
-                    yy>=2 &&
-                    yy<=4;
-
-                matrix[y+yy][x+xx] =
-                    outer || inner;
-
-            }
-
-        }
-
-    }
-
-
-    finder(0,0);
-    finder(size-7,0);
-    finder(0,size-7);
-
-
-    /*
-       Generate deterministic data pattern
-       from the LuckyShop URL.
-
-       This is intentionally deterministic so
-       the same URL always produces the same
-       visual code.
-    */
-
-    let hash=0;
-
-    for(
-        let i=0;
-        i<LUCKYSHOP_URL.length;
-        i++
-    ){
-
-        hash =
-            (
-                (hash<<5) -
-                hash+
-                LUCKYSHOP_URL.charCodeAt(i)
-            ) | 0;
-
-    }
-
-
-    for(let y=0;y<size;y++){
-
-        for(let x=0;x<size;x++){
-
-            if(
-                (x<8 && y<8) ||
-                (x>=13 && y<8) ||
-                (x<8 && y>=13)
-            ){
-                continue;
-            }
-
-            hash =
-                (hash*1664525+1013904223)|0;
-
-            matrix[y][x] =
-                (hash & 0x40000000)!==0;
-
-        }
-
-    }
-
-
-    /*
-       Timing patterns
-    */
-
-    for(let i=8;i<size-8;i++){
-
-        matrix[6][i]=i%2===0;
-        matrix[i][6]=i%2===0;
-
-    }
-
-
-    const module=10;
-
-    const total=size*module;
-
-    svg.setAttribute(
-        "viewBox",
-        `0 0 ${total} ${total}`
-    );
-
-    svg.innerHTML="";
-
-    const background =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "rect"
+    const main =
+        document.getElementById(
+            "main"
         );
 
-    background.setAttribute("x","0");
-    background.setAttribute("y","0");
-    background.setAttribute("width",total);
-    background.setAttribute("height",total);
-    background.setAttribute("fill","white");
+    let cards = "";
 
-    svg.appendChild(background);
+    if(
+        state.history.length === 0
+    ) {
 
+        cards = `
 
-    for(let y=0;y<size;y++){
+            <div class="listCard">
 
-        for(let x=0;x<size;x++){
+                <div class="listCardIcon">
+                    ◷
+                </div>
 
-            if(!matrix[y][x])continue;
+                <div class="listCardInfo">
 
-            const rect =
-                document.createElementNS(
-                    "http://www.w3.org/2000/svg",
-                    "rect"
-                );
+                    <strong>
+                        No history yet
+                    </strong>
 
-            rect.setAttribute(
-                "x",
-                x*module
-            );
+                    <small>
+                        Websites you visit will
+                        appear here.
+                    </small>
 
-            rect.setAttribute(
-                "y",
-                y*module
-            );
+                </div>
 
-            rect.setAttribute(
-                "width",
-                module
-            );
+            </div>
 
-            rect.setAttribute(
-                "height",
-                module
-            );
+        `;
 
-            rect.setAttribute(
-                "fill",
-                "black"
-            );
+    } else {
 
-            svg.appendChild(rect);
+        cards =
+            state.history.map(
+                (item,index) => `
 
-        }
+                    <div
+                        class="listCard"
+                        onclick="navigate('${escapeAttribute(item.url)}')"
+                    >
+
+                        <div class="listCardIcon">
+                            ◷
+                        </div>
+
+                        <div class="listCardInfo">
+
+                            <strong>
+                                ${escapeHTML(item.title)}
+                            </strong>
+
+                            <small>
+                                ${escapeHTML(item.url)}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                `
+            ).join("");
 
     }
 
-})();
+    main.innerHTML = `
+
+        <section class="page contentPage">
+
+            <h1 class="pageTitle">
+                HIS<span>TORY</span>
+            </h1>
+
+            <div class="cardList">
+                ${cards}
+            </div>
+
+            ${
+                state.history.length
+                ? `
+                    <button
+                        class="clearButton"
+                        onclick="clearHistory()"
+                    >
+                        CLEAR HISTORY
+                    </button>
+                  `
+                : ""
+            }
+
+        </section>
+
+    `;
+
+    setAddress("");
+
+}
 
 
-/* =====================================================
-   START
-===================================================== */
+function clearHistory() {
 
-render();
+    state.history = [];
+
+    localStorage.setItem(
+        "luckyHistory",
+        "[]"
+    );
+
+    renderHistory();
+
+    toast(
+        "History cleared."
+    );
+
+}
+
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+function renderSettings() {
+
+    state.currentPage =
+        "settings";
+
+    const main =
+        document.getElementById(
+            "main"
+        );
+
+    main.innerHTML = `
+
+        <section class="page contentPage">
+
+            <h1 class="pageTitle">
+                SET<span>TINGS</span>
+            </h1>
+
+
+            <div class="settingBox">
+
+                <strong>
+                    🍀 Lucky Store
+                </strong>
+
+                <p>
+                    A modern browser-style
+                    interface with animated
+                    navigation.
+                </p>
+
+            </div>
+
+
+            <div class="settingBox">
+
+                <strong>
+                    Local Storage
+                </strong>
+
+                <p>
+                    Bookmarks and history are
+                    stored locally in your browser.
+                </p>
+
+            </div>
+
+
+            <div class="settingBox">
+
+                <strong>
+                    Motion
+                </strong>
+
+                <p>
+                    Lucky Store uses animated
+                    transitions throughout the interface.
+                </p>
+
+            </div>
+
+
+            <div class="settingBox">
+
+                <strong>
+                    Data
+                </strong>
+
+                <p>
+                    Clear all locally stored Lucky
+                    Store information.
+                </p>
+
+                <button
+                    class="clearButton"
+                    onclick="clearAllData()"
+                >
+                    CLEAR ALL DATA
+                </button>
+
+            </div>
+
+        </section>
+
+    `;
+
+    setAddress("");
+
+}
+
+
+function clearAllData() {
+
+    if(
+        !confirm(
+            "Clear Lucky Store bookmarks and history?"
+        )
+    ) return;
+
+    state.bookmarks = [];
+    state.history = [];
+
+    localStorage.removeItem(
+        "luckyBookmarks"
+    );
+
+    localStorage.removeItem(
+        "luckyHistory"
+    );
+
+    toast(
+        "All Lucky Store data cleared."
+    );
+
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+function toggleMenu() {
+
+    const menu =
+        document.getElementById(
+            "menuOverlay"
+        );
+
+    menu.classList.toggle(
+        "open"
+    );
+
+}
+
+
+function closeMenu() {
+
+    document
+        .getElementById(
+            "menuOverlay"
+        )
+        .classList.remove(
+            "open"
+        );
+
+}
+
+
+function menuNavigate(
+    page,
+    button
+) {
+
+    document
+        .querySelectorAll(
+            ".menuItem"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "selected"
+                )
+        );
+
+    button.classList.add(
+        "selected"
+    );
+
+    setTimeout(
+        () => {
+
+            closeMenu();
+
+            screenTransition(
+                () => {
+
+                    if(page === "home")
+                        renderHome();
+
+                    if(page === "bookmarks")
+                        renderBookmarks();
+
+                    if(page === "history")
+                        renderHistory();
+
+                    if(page === "settings")
+                        renderSettings();
+
+                }
+            );
+
+        },
+        180
+    );
+
+}
+
+
+function openSearch(button) {
+
+    closeMenu();
+
+    setTimeout(
+        () => {
+
+            goHome();
+
+            setTimeout(
+                () => {
+
+                    const input =
+                        document.getElementById(
+                            "homeSearch"
+                        );
+
+                    if(input)
+                        input.focus();
+
+                },
+                250
+            );
+
+        },
+        180
+    );
+
+}
+
+
+function aboutLucky(button) {
+
+    closeMenu();
+
+    setTimeout(
+        () => {
+
+            toast(
+                "Lucky Store 🍀 — Web interface"
+            );
+
+        },
+        250
+    );
+
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+function goHome() {
+
+    screenTransition(
+        () => {
+
+            renderHome();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SCREEN TRANSITION
+   ========================================================= */
+
+function screenTransition(
+    callback
+) {
+
+    const transition =
+        document.getElementById(
+            "transition"
+        );
+
+    transition.classList.remove(
+        "active"
+    );
+
+    void transition.offsetWidth;
+
+    transition.classList.add(
+        "active"
+    );
+
+    setTimeout(
+        () => {
+
+            callback();
+
+        },
+        310
+    );
+
+}
+
+
+/* =========================================================
+   BROWSER CONTROLS
+   ========================================================= */
+
+function goBack() {
+
+    try {
+
+        history.back();
+
+    } catch {
+
+        toast(
+            "Back unavailable."
+        );
+
+    }
+
+}
+
+
+function goForward() {
+
+    try {
+
+        history.forward();
+
+    } catch {
+
+        toast(
+            "Forward unavailable."
+        );
+
+    }
+
+}
+
+
+function reloadPage() {
+
+    const frame =
+        document.querySelector(
+            ".browserFrame"
+        );
+
+    if(frame) {
+
+        try {
+
+            frame.contentWindow.location.reload();
+
+        } catch {
+
+            frame.src =
+                frame.src;
+
+        }
+
+    } else {
+
+        goHome();
+
+    }
+
+}
+
+
+/* =========================================================
+   ADDRESS
+   ========================================================= */
+
+function setAddress(value) {
+
+    const address =
+        document.getElementById(
+            "address"
+        );
+
+    if(address)
+        address.value = value;
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+   ========================================================= */
+
+function keyboardShortcuts(event) {
+
+    if(
+        event.key === "Escape"
+    ) {
+
+        closeMenu();
+
+    }
+
+    if(
+        event.key === "/" &&
+        !isTyping()
+    ) {
+
+        event.preventDefault();
+
+        goHome();
+
+        setTimeout(
+            () => {
+
+                const input =
+                    document.getElementById(
+                        "homeSearch"
+                    );
+
+                if(input)
+                    input.focus();
+
+            },
+            300
+        );
+
+    }
+
+}
+
+
+function isTyping() {
+
+    const active =
+        document.activeElement;
+
+    return (
+        active &&
+        (
+            active.tagName === "INPUT" ||
+            active.tagName === "TEXTAREA"
+        )
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function toast(message) {
+
+    const element =
+        document.getElementById(
+            "toast"
+        );
+
+    element.textContent =
+        message;
+
+    element.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        window.toastTimeout
+    );
+
+    window.toastTimeout =
+        setTimeout(
+            () => {
+
+                element.classList.remove(
+                    "show"
+                );
+
+            },
+            2300
+        );
+
+}
+
+
+/* =========================================================
+   SECURITY / HTML HELPERS
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value)
+        .replaceAll(
+            "`",
+            "&#096;"
+        );
+
+}
 
 </script>
 
