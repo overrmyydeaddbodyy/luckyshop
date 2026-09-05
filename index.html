@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
 
-<title>LuckyShop 🍀</title>
+<title>🍀 LuckyShop</title>
 
 <style>
-
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -18,268 +20,328 @@ body {
   color: white;
   min-height: 100vh;
 
-  background: linear-gradient(
-    135deg,
-    #ff4d4d,
-    #ff9f43,
-    #ffe066,
-    #51cf66,
-    #339af0,
-    #845ef7
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #ff4ecd,
+      #7657ff,
+      #17d9ff,
+      #24df89,
+      #ffe05a
+    );
 
   background-size: 400% 400%;
   animation: rainbow 12s ease infinite;
 }
 
 @keyframes rainbow {
-
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-
-}
-
-.container {
-  width: 94%;
-  max-width: 1050px;
-  margin: auto;
-  padding-bottom: 40px;
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 header {
   text-align: center;
-  padding: 30px 10px 20px;
+  padding: 18px 10px 12px;
 }
 
 .logo {
-  font-size: 42px;
+  font-size: 34px;
   font-weight: bold;
-  text-shadow: 0 3px 8px black;
+  text-shadow: 0 3px 8px rgba(0,0,0,.4);
 }
 
 .subtitle {
-  margin-top: 8px;
-  font-size: 16px;
+  font-size: 13px;
+  opacity: .9;
 }
 
-.box {
-  background: rgba(0,0,0,0.4);
-  padding: 18px;
-  border-radius: 18px;
-  margin-bottom: 18px;
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px;
+}
+
+.panel {
+  background: rgba(0,0,0,.42);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.25);
 }
 
 .search {
   width: 100%;
   padding: 14px;
   border: 0;
+  outline: none;
   border-radius: 12px;
   font-size: 16px;
-  margin-bottom: 14px;
 }
 
-.section-title {
-  font-size: 18px;
+.title {
   font-weight: bold;
-  margin: 15px 0 8px;
-}
-
-.category-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 8px;
-}
-
-.category-buttons button {
-  background: rgba(255,255,255,0.9);
+  margin: 10px 0 6px;
+  font-size: 13px;
 }
 
 .filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-select,
 button {
-  padding: 12px;
   border: 0;
-  border-radius: 10px;
-  font-size: 14px;
+  border-radius: 9px;
+  padding: 9px 12px;
+  background: rgba(255,255,255,.18);
+  color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
-button {
-  font-weight: bold;
+button:active {
+  transform: scale(.96);
 }
 
-.buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
+button.active {
+  background: white;
+  color: black;
 }
 
-.buttons button {
-  flex: 1;
+.reset {
+  background: #ff506b;
 }
 
 .stats {
   text-align: center;
-  font-weight: bold;
-  margin-bottom: 15px;
+  font-size: 12px;
 }
 
-.games {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+  gap: 12px;
 }
 
 .card {
-  background: rgba(0,0,0,0.5);
-  border-radius: 16px;
-  padding: 15px;
-  overflow: hidden;
   position: relative;
+  background: rgba(0,0,0,.48);
+  border-radius: 16px;
+  padding: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(0,0,0,.25);
 }
 
 .cover {
   width: 100%;
-  height: 190px;
-  object-fit: cover;
+  height: 220px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.15);
+  object-fit: cover;
+  background: #222;
+  display: block;
 }
 
-.card h2 {
-  margin-bottom: 8px;
-}
-
-.badge {
-  display: inline-block;
-  background: #ff4757;
-  padding: 5px 8px;
-  border-radius: 7px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 7px;
-}
-
-.tag {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  padding: 5px 8px;
-  border-radius: 7px;
-  margin: 2px;
-  font-size: 12px;
-}
-
-.info {
-  font-size: 13px;
-  opacity: 0.9;
-}
-
-.card button {
+.cover-fallback {
   width: 100%;
-  margin-top: 7px;
+  height: 220px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 70px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1fd1f9,
+      #b621fe
+    );
+}
+
+.new {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+  background: #ffd000;
+  color: black;
+
+  padding: 5px 8px;
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .favorite {
-  background: #ffd43b;
+  position: absolute;
+  right: 19px;
+  top: 17px;
+
+  font-size: 23px;
+  cursor: pointer;
+
+  text-shadow: 0 2px 5px black;
+}
+
+.name {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 5px;
+  font-size: 12px;
+  opacity: .85;
+  min-height: 38px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.tag {
+  background: rgba(255,255,255,.15);
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 10px;
+}
+
+.info {
+  margin-top: 8px;
+  font-size: 11px;
+  opacity: .75;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.card-buttons button {
+  flex: 1;
+  font-size: 11px;
 }
 
 .download {
-  background: #51cf66;
+  background: #22d477;
+  color: black;
 }
 
-.qrbutton {
-  background: #339af0;
-  color: white;
+.qr {
+  background: white;
+  color: black;
+}
+
+.details {
+  background: #6d62ff;
 }
 
 .empty {
   text-align: center;
-  padding: 30px;
+  padding: 40px 10px;
+  font-size: 15px;
 }
 
-footer {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 25px;
-}
-
-
-/* MODAL */
-
-#modal {
+.modal {
   display: none;
 
   position: fixed;
   inset: 0;
 
-  background: rgba(0,0,0,0.75);
+  z-index: 100;
 
-  align-items: center;
-  justify-content: center;
+  background: rgba(0,0,0,.78);
 
-  padding: 20px;
+  padding: 15px;
 
-  z-index: 1000;
+  overflow-y: auto;
 }
 
 .modal-box {
-  background: #222;
+  max-width: 600px;
 
-  width: 100%;
-  max-width: 500px;
+  margin: 35px auto;
 
-  max-height: 90vh;
+  background: #171717;
 
-  overflow-y: auto;
+  border-radius: 17px;
 
-  border-radius: 18px;
-
-  padding: 20px;
-}
-
-.modal-cover {
-  width: 100%;
-  max-height: 250px;
-  object-fit: cover;
-  border-radius: 12px;
+  padding: 18px;
 }
 
 .close {
-  background: #ff4757;
-  color: white;
+  float: right;
+  background: #ff526d;
 }
 
-#qr {
+.modal-cover {
+  width: 180px;
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin: 15px auto;
+}
+
+.qr-container {
   background: white;
   padding: 15px;
   border-radius: 12px;
-  text-align: center;
-  margin-top: 15px;
+  width: fit-content;
+  margin: 15px auto;
 }
 
+.qr-container img {
+  width: 220px;
+  height: 220px;
+  display: block;
+}
+
+.url {
+  background: #292929;
+  border-radius: 8px;
+  padding: 10px;
+  word-break: break-all;
+  font-size: 11px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+  opacity: .8;
+}
+
+@media(max-width:500px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cover,
+  .cover-fallback {
+    height: 200px;
+  }
+
+  .logo {
+    font-size: 29px;
+  }
+}
 </style>
 </head>
 
-
 <body>
-
-
-<div class="container">
-
 
 <header>
 
@@ -288,1145 +350,1097 @@ footer {
   </div>
 
   <div class="subtitle">
-    Your homebrew shop for Nintendo 3DS
+    Fast 3DS / DS Homebrew Store
   </div>
 
 </header>
 
 
+<div class="container">
 
-<div class="box">
+  <!-- SEARCH / FILTERS -->
 
+  <div class="panel">
 
-<input
-  class="search"
-  id="search"
-  type="text"
-  placeholder="🔎 Search LuckyShop..."
->
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="🔎 Search games & apps..."
+      oninput="render()"
+    >
 
+    <div class="title">
+      Platform
+    </div>
 
-
-<div class="section-title">
-🎮 Platform
-</div>
-
-
-<div class="category-buttons">
-
-<button onclick="choosePlatform('all')">
-📦 All
-</button>
-
-<button onclick="choosePlatform('3ds')">
-🎮 3DS
-</button>
-
-<button onclick="choosePlatform('ds')">
-🎮 DS
-</button>
-
-<button onclick="choosePlatform('homebrew')">
-🛠️ Homebrew
-</button>
-
-</div>
+    <div
+      class="filters"
+      id="platformFilters">
+    </div>
 
 
+    <div class="title">
+      Region
+    </div>
 
-<div class="section-title">
-🌎 Region
-</div>
-
-
-<div class="category-buttons">
-
-<button onclick="chooseRegion('all')">
-🌎 All
-</button>
-
-<button onclick="chooseRegion('usa')">
-🇺🇸 USA
-</button>
-
-<button onclick="chooseRegion('eur')">
-🇪🇺 Europe
-</button>
-
-<button onclick="chooseRegion('jpn')">
-🇯🇵 Japan
-</button>
-
-<button onclick="chooseRegion('aus')">
-🇦🇺 Australia
-</button>
-
-<button onclick="chooseRegion('kor')">
-🇰🇷 Korea
-</button>
-
-<button onclick="chooseRegion('chn')">
-🇨🇳 China
-</button>
-
-<button onclick="chooseRegion('other')">
-🌐 Other
-</button>
-
-</div>
+    <div
+      class="filters"
+      id="regionFilters">
+    </div>
 
 
+    <div class="title">
+      Language
+    </div>
 
-<div class="section-title">
-🗣️ Language
-</div>
+    <div
+      class="filters"
+      id="languageFilters">
+    </div>
 
 
-<div class="category-buttons">
+    <div class="title">
+      File Type
+    </div>
 
-<button onclick="chooseLanguage('all')">
-🗣️ All
-</button>
+    <div
+      class="filters"
+      id="typeFilters">
+    </div>
 
-<button onclick="chooseLanguage('english')">
-🇺🇸 English
-</button>
+    <br>
 
-<button onclick="chooseLanguage('japanese')">
-🇯🇵 Japanese
-</button>
+    <button onclick="showFavorites()">
+      ⭐ Favorites
+    </button>
 
-<button onclick="chooseLanguage('french')">
-🇫🇷 French
-</button>
+    <button
+      class="reset"
+      onclick="resetFilters()">
+      Reset
+    </button>
 
-<button onclick="chooseLanguage('german')">
-🇩🇪 German
-</button>
+  </div>
 
-<button onclick="chooseLanguage('spanish')">
-🇪🇸 Spanish
-</button>
 
-<button onclick="chooseLanguage('italian')">
-🇮🇹 Italian
-</button>
+  <!-- STATS -->
 
-<button onclick="chooseLanguage('korean')">
-🇰🇷 Korean
-</button>
+  <div
+    class="panel stats"
+    id="stats">
+  </div>
 
-<button onclick="chooseLanguage('chinese')">
-🇨🇳 Chinese
-</button>
 
-<button onclick="chooseLanguage('multi')">
-🌐 Multi
-</button>
+  <!-- CATALOG -->
+
+  <div
+    id="catalog"
+    class="grid">
+  </div>
 
 </div>
-
-
-
-<div class="section-title">
-📦 File Type
-</div>
-
-
-<div class="filters">
-
-<select id="type">
-
-<option value="all">
-All File Types
-</option>
-
-<option value="cia">
-CIA
-</option>
-
-<option value="nds">
-NDS
-</option>
-
-<option value="3dsfile">
-3DS
-</option>
-
-<option value="zip">
-ZIP
-</option>
-
-<option value="other">
-Other
-</option>
-
-</select>
-
-</div>
-
-
-
-<div class="buttons">
-
-<button onclick="showGames()">
-📦 Show All
-</button>
-
-<button onclick="showFavorites()">
-⭐ Favorites
-</button>
-
-<button onclick="resetFilters()">
-🔄 Reset
-</button>
-
-</div>
-
-</div>
-
-
-
-<div class="box">
-
-
-<div
-class="stats"
-id="stats">
-Loading...
-</div>
-
-
-<div
-class="games"
-id="games">
-</div>
-
-
-</div>
-
 
 
 <footer>
-
-🍀 LuckyShop
-
-<br>
-
-Homebrew & authorized files only
-
+  🍀 LuckyShop • Homebrew & authorized files
 </footer>
 
 
-</div>
+<!-- DETAILS -->
 
+<div
+  class="modal"
+  id="detailsModal">
 
+  <div class="modal-box">
 
-<!-- DETAILS MODAL -->
+    <button
+      class="close"
+      onclick="closeDetails()">
+      Close
+    </button>
 
+    <h2 id="detailsName"></h2>
 
-<div id="modal">
+    <div id="detailsContent"></div>
 
-<div class="modal-box">
-
-<img
-id="modalCover"
-class="modal-cover"
-src=""
-alt="Cover"
->
-
-
-<h2 id="modalTitle">
-LuckyShop
-</h2>
-
-
-<div id="modalText">
-</div>
-
-
-<div id="qr">
-</div>
-
-
-<button
-class="close"
-onclick="closeModal()">
-
-✖ Close
-
-</button>
+  </div>
 
 </div>
 
-</div>
 
+<!-- QR -->
+
+<div
+  class="modal"
+  id="qrModal">
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeQR()">
+      Close
+    </button>
+
+    <h2>📱 FBI QR Code</h2>
+
+    <p>
+      Scan this code with FBI.
+    </p>
+
+    <div class="qr-container">
+
+      <img
+        id="qrImage"
+        alt="QR Code">
+
+    </div>
+
+    <div
+      class="url"
+      id="qrURL">
+    </div>
+
+  </div>
+
+</div>
 
 
 <script>
 
-
 /*
-==================================================
+=========================================================
 LUCKYSHOP CATALOG
-==================================================
+=========================================================
 
-To add an authorized file later:
+Each item has:
+
+name
+platform
+region
+language
+type
+version
+size
+description
+cover
+download
+source
+
+IMPORTANT:
+
+"download" must be a DIRECT URL to an authorized file.
+
+Example:
 
 download:
-"YOUR_DIRECT_FILE_URL"
+"https://example.com/files/myhomebrew.nds"
 
-For example, a file you have permission
-to distribute.
+Do not use a normal webpage/repository URL
+as the download URL.
 
-==================================================
+=========================================================
 */
 
 
-var games = [
+const games = [
 
   {
+    id: "twilight-menu",
 
     name: "TWiLight Menu++",
 
-    platform: "ds",
+    platform: "DS",
 
-    region: "other",
+    region: "Other",
 
-    language: "multi",
+    language: "Multi",
 
-    type: "other",
+    type: "Other",
 
     version: "Latest",
 
-    size: "N/A",
+    size: "Homebrew",
 
-    newItem: true,
+    new: true,
+
+    icon: "🎮",
+
+    cover: "",
 
     description:
-      "Nintendo DS homebrew menu.",
+      "A customizable menu for Nintendo DS and homebrew software.",
 
-    image:
-      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/boilerplate/romfs/banner.png",
+    download: "",
 
     source:
-      "https://github.com/DS-Homebrew/TWiLightMenu",
-
-    download: ""
-
+      "https://github.com/DS-Homebrew/TWiLightMenu"
   },
 
 
   {
-
-    name: "Universal-Updater",
-
-    platform: "3ds",
-
-    region: "other",
-
-    language: "multi",
-
-    type: "cia",
-
-    version: "Latest",
-
-    size: "N/A",
-
-    newItem: true,
-
-    description:
-      "Homebrew application for finding and updating 3DS homebrew.",
-
-    image:
-      "https://raw.githubusercontent.com/Universal-Team/Universal-Updater/master/assets/icon.png",
-
-    source:
-      "https://github.com/Universal-Team/Universal-Updater",
-
-    download: ""
-
-  },
-
-
-  {
+    id: "nds-bootstrap",
 
     name: "nds-bootstrap",
 
-    platform: "ds",
+    platform: "DS",
 
-    region: "other",
+    region: "Other",
 
-    language: "multi",
+    language: "Multi",
 
-    type: "other",
+    type: "Other",
 
     version: "Latest",
 
-    size: "N/A",
+    size: "Homebrew",
 
-    newItem: false,
+    new: false,
+
+    icon: "🧩",
+
+    cover: "",
 
     description:
-      "Homebrew software used with several DS projects.",
+      "A component used by DS homebrew software including TWiLight Menu++.",
 
-    image:
-      "",
+    download: "",
 
     source:
-      "https://github.com/DS-Homebrew/nds-bootstrap",
-
-    download: ""
-
+      "https://github.com/DS-Homebrew/nds-bootstrap"
   },
 
 
   {
+    id: "universal-updater",
+
+    name: "Universal-Updater",
+
+    platform: "3DS",
+
+    region: "Other",
+
+    language: "Multi",
+
+    type: "Other",
+
+    version: "Latest",
+
+    size: "Homebrew",
+
+    new: true,
+
+    icon: "⬇️",
+
+    cover: "",
+
+    description:
+      "A homebrew application for discovering and updating software.",
+
+    download: "",
+
+    source:
+      "https://github.com/Universal-Team/Universal-Updater"
+  },
+
+
+  {
+    id: "godmode9",
 
     name: "GodMode9",
 
-    platform: "3ds",
+    platform: "3DS",
 
-    region: "other",
+    region: "Other",
 
-    language: "english",
+    language: "Multi",
 
-    type: "other",
+    type: "Other",
 
     version: "Latest",
 
-    size: "N/A",
+    size: "Homebrew",
 
-    newItem: false,
+    new: false,
+
+    icon: "🛠️",
+
+    cover: "",
 
     description:
-      "Utility and file manager for modded 3DS systems.",
+      "A powerful file manager and utility for Nintendo 3DS systems.",
 
-    image:
-      "",
+    download: "",
 
     source:
-      "https://github.com/d0k3/GodMode9",
-
-    download: ""
-
+      "https://github.com/d0k3/GodMode9"
   },
 
 
   {
+    id: "checkpoint",
 
     name: "Checkpoint",
 
-    platform: "3ds",
+    platform: "3DS",
 
-    region: "other",
+    region: "Other",
 
-    language: "multi",
+    language: "Multi",
 
-    type: "other",
+    type: "Other",
 
     version: "Latest",
 
-    size: "N/A",
+    size: "Homebrew",
 
-    newItem: false,
+    new: false,
+
+    icon: "💾",
+
+    cover: "",
 
     description:
-      "Save manager for Nintendo 3DS.",
+      "A save-management homebrew application.",
 
-    image:
-      "",
+    download: "",
 
     source:
-      "https://github.com/FlagBrew/Checkpoint",
+      "https://github.com/BernardoGiordano/Checkpoint"
+  },
 
-    download: ""
 
+  /*
+  =======================================================
+  ADD YOUR OWN AUTHORIZED DS HOMEBREW HERE
+  =======================================================
+
+  Copy this format:
+
+  {
+    id: "my-game",
+
+    name: "My DS Homebrew",
+
+    platform: "DS",
+
+    region: "USA",
+
+    language: "English",
+
+    type: "NDS",
+
+    version: "1.0",
+
+    size: "5 MB",
+
+    new: true,
+
+    icon: "🎮",
+
+    cover: "YOUR-COVER-IMAGE-URL",
+
+    description:
+      "Description of the game.",
+
+    download:
+      "DIRECT-AUTHORIZED-NDS-URL",
+
+    source:
+      "PROJECT-SOURCE-URL"
   }
+
+  =======================================================
+  */
 
 ];
 
 
+/* FILTER OPTIONS */
 
-var favorites = [];
+const platformOptions = [
+  "All",
+  "3DS",
+  "DS",
+  "Homebrew"
+];
 
-var selectedPlatform = "all";
+const regionOptions = [
+  "All",
+  "USA",
+  "Europe",
+  "Japan",
+  "Australia",
+  "Korea",
+  "China",
+  "Other"
+];
 
-var selectedRegion = "all";
+const languageOptions = [
+  "All",
+  "English",
+  "Japanese",
+  "French",
+  "German",
+  "Spanish",
+  "Italian",
+  "Korean",
+  "Chinese",
+  "Multi"
+];
 
-var selectedLanguage = "all";
+const typeOptions = [
+  "All",
+  "NDS",
+  "CIA",
+  "3DS",
+  "ZIP",
+  "Other"
+];
 
 
+/* FILTER STATE */
 
-function choosePlatform(value) {
+let platform = "All";
+let region = "All";
+let language = "All";
+let type = "All";
+let favoritesOnly = false;
 
-  selectedPlatform = value;
 
-  showGames();
+/* FAVORITES */
+
+let favorites =
+  JSON.parse(
+    localStorage.getItem("luckyshop-favorites") || "[]"
+  );
+
+
+function saveFavorites() {
+
+  localStorage.setItem(
+    "luckyshop-favorites",
+    JSON.stringify(favorites)
+  );
 
 }
 
 
+/* FILTER BUTTON CREATOR */
 
-function chooseRegion(value) {
+function createFilterButtons(
+  elementID,
+  options,
+  selected,
+  callback
+) {
 
-  selectedRegion = value;
+  const box =
+    document.getElementById(elementID);
 
-  showGames();
+  box.innerHTML = "";
+
+  options.forEach(option => {
+
+    const button =
+      document.createElement("button");
+
+    button.textContent = option;
+
+    if (option === selected) {
+      button.classList.add("active");
+    }
+
+    button.onclick = () => {
+
+      callback(option);
+
+      updateFilters();
+
+      render();
+
+    };
+
+    box.appendChild(button);
+
+  });
 
 }
 
 
+/* UPDATE FILTERS */
 
-function chooseLanguage(value) {
+function updateFilters() {
 
-  selectedLanguage = value;
+  createFilterButtons(
+    "platformFilters",
+    platformOptions,
+    platform,
+    value => {
+
+      platform = value;
+      favoritesOnly = false;
+
+    }
+  );
+
+
+  createFilterButtons(
+    "regionFilters",
+    regionOptions,
+    region,
+    value => {
+
+      region = value;
+      favoritesOnly = false;
+
+    }
+  );
+
+
+  createFilterButtons(
+    "languageFilters",
+    languageOptions,
+    language,
+    value => {
+
+      language = value;
+      favoritesOnly = false;
+
+    }
+  );
+
+
+  createFilterButtons(
+    "typeFilters",
+    typeOptions,
+    type,
+    value => {
+
+      type = value;
+      favoritesOnly = false;
+
+    }
+  );
 
 }
 
 
+/* GET FILTERED */
 
-function showGames() {
+function getFilteredGames() {
 
-
-  var search =
+  const search =
     document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-
-  var type =
-    document
-    .getElementById("type")
-    .value;
-
-
-  var results = [];
-
-
-  for (
-    var i = 0;
-    i < games.length;
-    i++
-  ) {
-
-
-    var game = games[i];
-
-
-    var matchesSearch =
-      game.name
+      .getElementById("search")
+      .value
       .toLowerCase()
-      .indexOf(search) !== -1;
+      .trim();
 
 
-    var matchesPlatform =
-      selectedPlatform === "all" ||
-      game.platform === selectedPlatform;
+  return games.filter(game => {
+
+    const matchesSearch =
+      !search ||
+
+      game.name
+        .toLowerCase()
+        .includes(search) ||
+
+      game.description
+        .toLowerCase()
+        .includes(search);
 
 
-    var matchesRegion =
-      selectedRegion === "all" ||
-      game.region === selectedRegion;
+    const matchesPlatform =
+      platform === "All" ||
+      game.platform === platform;
 
 
-    var matchesLanguage =
-      selectedLanguage === "all" ||
-      game.language === selectedLanguage;
+    const matchesRegion =
+      region === "All" ||
+      game.region === region;
 
 
-    var matchesType =
-      type === "all" ||
+    const matchesLanguage =
+      language === "All" ||
+      game.language === language;
+
+
+    const matchesType =
+      type === "All" ||
       game.type === type;
 
 
-    if (
+    const matchesFavorites =
+      !favoritesOnly ||
+      favorites.includes(game.id);
+
+
+    return (
       matchesSearch &&
       matchesPlatform &&
       matchesRegion &&
       matchesLanguage &&
-      matchesType
-    ) {
+      matchesType &&
+      matchesFavorites
+    );
 
-      results.push(i);
+  });
 
-    }
-
-  }
-
+}
 
 
-  document
-  .getElementById("stats")
-  .innerHTML =
-    results.length +
-    " item(s) found";
+/* RENDER */
 
+function render() {
 
+  const container =
+    document.getElementById("catalog");
 
-  var html = "";
+  const results =
+    getFilteredGames();
 
+  container.innerHTML = "";
 
 
   if (results.length === 0) {
 
+    container.innerHTML = `
+      <div class="empty">
+        🍀 Nothing found.
+        <br><br>
+        Try another search or press Reset.
+      </div>
+    `;
 
-    html =
-      '<div class="empty">' +
-      '🍀 Nothing found.' +
-      '</div>';
+    updateStats(0);
 
-
-  } else {
-
-
-    for (
-      var j = 0;
-      j < results.length;
-      j++
-    ) {
+    return;
+  }
 
 
-      var index =
-        results[j];
+  results.forEach(game => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
 
 
-      var item =
-        games[index];
+    const favorite =
+      favorites.includes(game.id);
 
 
-      var star =
-        favorites.indexOf(index) !== -1
-        ? "⭐ Favorited"
-        : "☆ Favorite";
+    let coverHTML;
 
 
-      var imageHTML = "";
+    if (game.cover) {
 
+      coverHTML = `
+        <img
+          class="cover"
+          src="${escapeHTML(game.cover)}"
+          alt="${escapeHTML(game.name)}"
+          onerror="this.style.display='none';
+          this.nextElementSibling.style.display='flex';"
+        >
 
-      if (item.image !== "") {
+        <div
+          class="cover-fallback"
+          style="display:none">
+          ${game.icon}
+        </div>
+      `;
 
+    } else {
 
-        imageHTML =
-          '<img class="cover" src="' +
-          item.image +
-          '" alt="Cover">';
-
-
-      } else {
-
-
-        imageHTML =
-          '<div class="cover"></div>';
-
-      }
-
-
-
-      var newBadge =
-        item.newItem
-        ? '<div class="badge">🆕 NEW</div>'
-        : '';
-
-
-
-      html +=
-
-        '<div class="card">' +
-
-        imageHTML +
-
-        newBadge +
-
-        '<h2>🍀 ' +
-        item.name +
-        '</h2>' +
-
-        '<span class="tag">' +
-        item.platform +
-        '</span>' +
-
-        '<span class="tag">' +
-        item.region +
-        '</span>' +
-
-        '<span class="tag">' +
-        item.language +
-        '</span>' +
-
-        '<span class="tag">' +
-        item.type +
-        '</span>' +
-
-        '<p>' +
-        item.description +
-        '</p>' +
-
-        '<div class="info">' +
-        'Version: ' +
-        item.version +
-        '<br>' +
-        'Size: ' +
-        item.size +
-        '</div>' +
-
-        '<button onclick="showDetails(' +
-        index +
-        ')">' +
-
-        'ℹ️ Details' +
-
-        '</button>' +
-
-        '<button onclick="openSource(' +
-        index +
-        ')">' +
-
-        '🌐 Source' +
-
-        '</button>' +
-
-
-        (
-          item.download !== ""
-          ?
-
-          '<button class="download" onclick="downloadFile(' +
-          index +
-          ')">' +
-          '⬇️ Download' +
-          '</button>'
-
-          :
-
-          '<button disabled>' +
-          '⬇️ Download not added' +
-          '</button>'
-        ) +
-
-
-        (
-          item.download !== ""
-          ?
-
-          '<button class="qrbutton" onclick="showQR(' +
-          index +
-          ')">' +
-          '📱 FBI QR' +
-          '</button>'
-
-          :
-
-          ''
-        ) +
-
-
-        '<button class="' +
-        (
-          favorites.indexOf(index) !== -1
-          ? "favorite"
-          : ""
-        ) +
-        '" onclick="toggleFavorite(' +
-        index +
-        ')">' +
-
-        star +
-
-        '</button>' +
-
-        '</div>';
+      coverHTML = `
+        <div class="cover-fallback">
+          ${game.icon}
+        </div>
+      `;
 
     }
 
-  }
+
+    card.innerHTML = `
+
+      ${
+        game.new
+        ? `<div class="new">NEW</div>`
+        : ""
+      }
+
+      <div
+        class="favorite"
+        onclick="toggleFavorite('${game.id}')">
+
+        ${favorite ? "⭐" : "☆"}
+
+      </div>
+
+      ${coverHTML}
+
+      <div class="name">
+        ${escapeHTML(game.name)}
+      </div>
+
+      <div class="description">
+        ${escapeHTML(game.description)}
+      </div>
+
+      <div class="tags">
+
+        <span class="tag">
+          ${escapeHTML(game.platform)}
+        </span>
+
+        <span class="tag">
+          ${escapeHTML(game.region)}
+        </span>
+
+        <span class="tag">
+          ${escapeHTML(game.language)}
+        </span>
+
+        <span class="tag">
+          ${escapeHTML(game.type)}
+        </span>
+
+      </div>
+
+      <div class="info">
+
+        Version:
+        ${escapeHTML(game.version)}
+
+        <br>
+
+        Size:
+        ${escapeHTML(game.size)}
+
+      </div>
+
+      <div class="card-buttons">
+
+        <button
+          class="details"
+          onclick="showDetails('${game.id}')">
+          Info
+        </button>
+
+        <button
+          class="download"
+          onclick="downloadGame('${game.id}')">
+          ⬇️
+        </button>
+
+        <button
+          class="qr"
+          onclick="showQR('${game.id}')">
+          QR
+        </button>
+
+      </div>
+    `;
 
 
+    container.appendChild(card);
 
-  document
-  .getElementById("games")
-  .innerHTML =
-    html;
+  });
+
+
+  updateStats(results.length);
 
 }
 
 
+/* STATS */
 
-function openSource(index) {
+function updateStats(count) {
 
-  window.open(
-    games[index].source,
-    "_blank"
-  );
-
-}
-
-
-
-function downloadFile(index) {
-
-  if (
-    games[index].download === ""
-  ) {
-
-    alert(
-      "No authorized download has been added."
-    );
-
-    return;
-
-  }
-
-
-  window.open(
-    games[index].download,
-    "_blank"
-  );
+  document.getElementById("stats").textContent =
+    `${count} shown • ${games.length} total • 🍀 LuckyShop`;
 
 }
 
 
+/* FAVORITES */
 
-function toggleFavorite(index) {
+function toggleFavorite(id) {
 
+  if (favorites.includes(id)) {
 
-  var position =
-    favorites.indexOf(index);
-
-
-  if (position === -1) {
-
-    favorites.push(index);
+    favorites =
+      favorites.filter(
+        favoriteID => favoriteID !== id
+      );
 
   } else {
 
-    favorites.splice(
-      position,
-      1
-    );
+    favorites.push(id);
 
   }
 
+  saveFavorites();
 
-  showGames();
+  render();
 
 }
 
 
+/* SHOW FAVORITES */
 
 function showFavorites() {
 
+  favoritesOnly = true;
 
-  if (
-    favorites.length === 0
-  ) {
+  platform = "All";
+  region = "All";
+  language = "All";
+  type = "All";
 
-    document
-    .getElementById("stats")
-    .innerHTML =
-      "0 favorite(s)";
+  updateFilters();
 
-
-    document
-    .getElementById("games")
-    .innerHTML =
-      '<div class="empty">' +
-      '⭐ No favorites yet.' +
-      '</div>';
-
-    return;
-
-  }
-
-
-
-  var oldPlatform =
-    selectedPlatform;
-
-  var oldRegion =
-    selectedRegion;
-
-  var oldLanguage =
-    selectedLanguage;
-
-
-  selectedPlatform = "all";
-
-  selectedRegion = "all";
-
-  selectedLanguage = "all";
-
-
-  var html = "";
-
-
-  for (
-    var i = 0;
-    i < favorites.length;
-    i++
-  ) {
-
-
-    var index =
-      favorites[i];
-
-
-    var item =
-      games[index];
-
-
-    html +=
-
-      '<div class="card">' +
-
-      '<h2>🍀 ' +
-      item.name +
-      '</h2>' +
-
-      '<span class="tag">' +
-      item.platform +
-      '</span>' +
-
-      '<span class="tag">' +
-      item.region +
-      '</span>' +
-
-      '<span class="tag">' +
-      item.language +
-      '</span>' +
-
-      '<p>' +
-      item.description +
-      '</p>' +
-
-      '<button onclick="openSource(' +
-      index +
-      ')">' +
-
-      '🌐 Source' +
-
-      '</button>' +
-
-      '<button class="favorite" onclick="toggleFavorite(' +
-      index +
-      ')">' +
-
-      '⭐ Remove Favorite' +
-
-      '</button>' +
-
-      '</div>';
-
-  }
-
-
-  document
-  .getElementById("stats")
-  .innerHTML =
-    favorites.length +
-    " favorite(s)";
-
-
-  document
-  .getElementById("games")
-  .innerHTML =
-    html;
-
-
-  selectedPlatform =
-    oldPlatform;
-
-  selectedRegion =
-    oldRegion;
-
-  selectedLanguage =
-    oldLanguage;
+  render();
 
 }
 
 
+/* RESET */
 
 function resetFilters() {
 
+  platform = "All";
+  region = "All";
+  language = "All";
+  type = "All";
 
-  document
-  .getElementById("search")
-  .value = "";
+  favoritesOnly = false;
 
+  document.getElementById("search").value = "";
 
-  document
-  .getElementById("type")
-  .value = "all";
+  updateFilters();
 
-
-  selectedPlatform =
-    "all";
-
-
-  selectedRegion =
-    "all";
-
-
-  selectedLanguage =
-    "all";
-
-
-  showGames();
+  render();
 
 }
 
 
+/* DETAILS */
 
-function showDetails(index) {
+function showDetails(id) {
 
+  const game =
+    games.find(game => game.id === id);
 
-  var item =
-    games[index];
-
-
-  document
-  .getElementById("modalTitle")
-  .innerHTML =
-    "🍀 " +
-    item.name;
+  if (!game) return;
 
 
-  document
-  .getElementById("modalCover")
-  .src =
-    item.image;
+  document.getElementById("detailsName").textContent =
+    game.icon + " " + game.name;
 
 
-  document
-  .getElementById("modalText")
-  .innerHTML =
+  let cover = "";
 
-    "<p>" +
-    item.description +
-    "</p>" +
+  if (game.cover) {
 
-    "<p>" +
-    "<strong>Platform:</strong> " +
-    item.platform +
-    "</p>" +
-
-    "<p>" +
-    "<strong>Region:</strong> " +
-    item.region +
-    "</p>" +
-
-    "<p>" +
-    "<strong>Language:</strong> " +
-    item.language +
-    "</p>" +
-
-    "<p>" +
-    "<strong>File type:</strong> " +
-    item.type +
-    "</p>" +
-
-    "<p>" +
-    "<strong>Version:</strong> " +
-    item.version +
-    "</p>" +
-
-    "<p>" +
-    "<strong>Size:</strong> " +
-    item.size +
-    "</p>";
-
-
-  document
-  .getElementById("qr")
-  .innerHTML = "";
-
-
-  document
-  .getElementById("modal")
-  .style.display =
-    "flex";
-
-}
-
-
-
-function showQR(index) {
-
-
-  var item =
-    games[index];
-
-
-  if (
-    item.download === ""
-  ) {
-
-    alert(
-      "This item does not have a direct authorized file URL yet."
-    );
-
-    return;
+    cover = `
+      <img
+        class="modal-cover"
+        src="${escapeHTML(game.cover)}">
+    `;
 
   }
 
 
-  document
-  .getElementById("modalTitle")
-  .innerHTML =
-    "📱 FBI QR";
+  document.getElementById("detailsContent").innerHTML = `
+
+    ${cover}
+
+    <p>
+      ${escapeHTML(game.description)}
+    </p>
+
+    <hr>
+
+    <p>
+      <b>Platform:</b>
+      ${escapeHTML(game.platform)}
+    </p>
+
+    <p>
+      <b>Region:</b>
+      ${escapeHTML(game.region)}
+    </p>
+
+    <p>
+      <b>Language:</b>
+      ${escapeHTML(game.language)}
+    </p>
+
+    <p>
+      <b>File type:</b>
+      ${escapeHTML(game.type)}
+    </p>
+
+    <p>
+      <b>Version:</b>
+      ${escapeHTML(game.version)}
+    </p>
+
+    <p>
+      <b>Size:</b>
+      ${escapeHTML(game.size)}
+    </p>
+
+    <br>
+
+    <button
+      onclick="openSource('${game.id}')">
+      🔗 Project Source
+    </button>
+
+  `;
 
 
-  document
-  .getElementById("modalText")
-  .innerHTML =
-    "QR code for " +
-    item.name;
-
-
-  document
-  .getElementById("qr")
-  .innerHTML =
-    "<p>QR code requires a direct authorized file URL.</p>";
-
-
-  document
-  .getElementById("modal")
-  .style.display =
-    "flex";
+  document.getElementById("detailsModal").style.display =
+    "block";
 
 }
 
 
+function closeDetails() {
 
-function closeModal() {
-
-  document
-  .getElementById("modal")
-  .style.display =
+  document.getElementById("detailsModal").style.display =
     "none";
 
 }
 
 
+/* SOURCE */
 
-document
-.getElementById("search")
-.oninput =
-  showGames;
+function openSource(id) {
+
+  const game =
+    games.find(game => game.id === id);
+
+  if (!game || !game.source) {
+
+    alert("No source link available.");
+
+    return;
+
+  }
+
+  window.open(
+    game.source,
+    "_blank"
+  );
+
+}
 
 
-document
-.getElementById("type")
-.onchange =
-  showGames;
+/* DOWNLOAD */
+
+function downloadGame(id) {
+
+  const game =
+    games.find(game => game.id === id);
+
+  if (!game || !game.download) {
+
+    alert(
+      "This item does not have a direct authorized download yet."
+    );
+
+    return;
+
+  }
+
+  window.open(
+    game.download,
+    "_blank"
+  );
+
+}
 
 
-showGames();
+/* QR */
+
+function showQR(id) {
+
+  const game =
+    games.find(game => game.id === id);
+
+  if (!game || !game.download) {
+
+    alert(
+      "No direct authorized file URL is configured for this item yet."
+    );
+
+    return;
+
+  }
+
+
+  const encoded =
+    encodeURIComponent(game.download);
+
+
+  const qr =
+    "https://api.qrserver.com/v1/create-qr-code/?" +
+    "size=300x300&data=" +
+    encoded;
+
+
+  document.getElementById("qrImage").src =
+    qr;
+
+
+  document.getElementById("qrURL").textContent =
+    game.download;
+
+
+  document.getElementById("qrModal").style.display =
+    "block";
+
+}
+
+
+function closeQR() {
+
+  document.getElementById("qrModal").style.display =
+    "none";
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value) {
+
+  return String(value)
+
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* START */
+
+updateFilters();
+
+render();
 
 </script>
-
 
 </body>
 </html>
