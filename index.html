@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0,user-scalable=no">
+
+<title>LuckyShop 🍀</title>
+
+<style>
+/* =========================================================
+   LUCKYSHOP
+   Rainbow 3DS-style storefront
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    color: #17351f;
+    background:
+        linear-gradient(
+            135deg,
+            #ff595e 0%,
+            #ff924c 20%,
+            #ffca3a 38%,
+            #8ac926 55%,
+            #1982c4 73%,
+            #6a4c93 100%
+        );
+    background-attachment: fixed;
+}
+
+/* ---------------------------------------------------------
+   TOP BAR
+   --------------------------------------------------------- */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.96);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    padding: 8px 12px;
+}
+
+.topbar-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-small {
+    font-size: 27px;
+}
+
+.brand-small {
+    font-weight: 900;
+    font-size: 21px;
+    color: #279b4d;
+}
+
+.version {
+    margin-left: auto;
+    font-size: 12px;
+    color: #777;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.hero {
+    text-align: center;
+    color: white;
+    padding: 35px 15px 30px;
+    text-shadow: 0 3px 7px rgba(0,0,0,0.35);
+}
+
+.clover {
+    font-size: 70px;
+    line-height: 1;
+}
+
+.bags {
+    font-size: 35px;
+    margin-top: 7px;
+    letter-spacing: 5px;
+}
+
+.logo {
+    font-size: 48px;
+    font-weight: 1000;
+    margin-top: 5px;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+/* ---------------------------------------------------------
+   MAIN
+   --------------------------------------------------------- */
+
+.container {
+    width: 94%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* ---------------------------------------------------------
+   NOTICE
+   --------------------------------------------------------- */
+
+.notice {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 17px;
+    margin-bottom: 18px;
+    box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+}
+
+.notice-title {
+    font-weight: 900;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.notice p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* ---------------------------------------------------------
+   SEARCH
+   --------------------------------------------------------- */
+
+.controls {
+    background: rgba(255,255,255,0.95);
+    padding: 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+}
+
+.search-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search:focus {
+    border-color: #39a957;
+}
+
+.category-select {
+    padding: 14px;
+    border: 2px solid #ddd;
+    border-radius: 14px;
+    background: white;
+    font-size: 15px;
+}
+
+/* ---------------------------------------------------------
+   CATEGORY BUTTONS
+   --------------------------------------------------------- */
+
+.categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-top: 12px;
+    padding-bottom: 2px;
+}
+
+.category-button {
+    flex: 0 0 auto;
+    border: none;
+    border-radius: 50px;
+    padding: 9px 15px;
+    background: #e8f7eb;
+    color: #238743;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.category-button.active {
+    background: #2fab52;
+    color: white;
+}
+
+/* ---------------------------------------------------------
+   SECTION TITLE
+   --------------------------------------------------------- */
+
+.section-title {
+    color: white;
+    font-size: 25px;
+    font-weight: 900;
+    margin: 15px 0;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.35);
+}
+
+/* ---------------------------------------------------------
+   GAME GRID
+   --------------------------------------------------------- */
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(210px, 1fr));
+    gap: 17px;
+    padding-bottom: 30px;
+}
+
+/* ---------------------------------------------------------
+   GAME CARD
+   --------------------------------------------------------- */
+
+.card {
+    background: rgba(255,255,255,0.97);
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.cover {
+    width: 100%;
+    aspect-ratio: 1 / 0.88;
+    border-radius: 15px;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            135deg,
+            #dfffe7,
+            #ffffff
+        );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-cover {
+    font-size: 62px;
+}
+
+.card-category {
+    display: inline-block;
+    margin-top: 11px;
+    padding: 4px 9px;
+    border-radius: 30px;
+    background: #35ad56;
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.card h3 {
+    margin: 7px 0 4px;
+    font-size: 19px;
+}
+
+.card-description {
+    color: #666;
+    font-size: 13px;
+    min-height: 38px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.size {
+    color: #777;
+    font-size: 12px;
+}
+
+.get-button {
+    border: none;
+    border-radius: 12px;
+    background: #31aa52;
+    color: white;
+    padding: 10px 13px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.get-button:hover {
+    background: #238b40;
+}
+
+/* ---------------------------------------------------------
+   EMPTY RESULTS
+   --------------------------------------------------------- */
+
+.empty {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.empty-icon {
+    font-size: 50px;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 30px 15px 45px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.footer-logo {
+    font-size: 35px;
+    font-weight: 900;
+}
+
+/* ---------------------------------------------------------
+   PHONE / 3DS
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    .logo {
+        font-size: 38px;
+    }
+
+    .clover {
+        font-size: 58px;
+    }
+
+    .bags {
+        font-size: 29px;
+    }
+
+    .grid {
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 9px;
+        border-radius: 15px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+    }
+
+    .card-description {
+        font-size: 12px;
+    }
+
+    .get-button {
+        padding: 9px;
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     TOP BAR
+     ===================================================== -->
+
+<div class="topbar">
+
+    <div class="topbar-inner">
+
+        <div class="logo-small">🍀</div>
+
+        <div class="brand-small">
+            LuckyShop
+        </div>
+
+        <div class="version">
+            v1.0
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<header class="hero">
+
+    <div class="clover">
+        🍀
+    </div>
+
+    <div class="bags">
+        🛍️ 🛍️ 🛍️
+    </div>
+
+    <div class="logo">
+        LuckyShop
+    </div>
+
+    <div class="subtitle">
+        Your lucky little homebrew shop!
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     NOTICE
+     ===================================================== -->
+
+<div class="notice">
+
+    <div class="notice-title">
+        🍀 Welcome to LuckyShop!
+    </div>
+
+    <p>
+        Browse homebrew, freeware, public-domain software,
+        and other content that is authorized for redistribution.
+    </p>
+
+    <p>
+        Pick a category or search for something above.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     SEARCH / FILTERS
+     ===================================================== -->
+
+<div class="controls">
+
+    <div class="search-row">
+
+        <input
+            id="search"
+            class="search"
+            type="text"
+            placeholder="🔎 Search LuckyShop..."
+            oninput="renderShop()"
+        >
+
+        <select
+            id="categorySelect"
+            class="category-select"
+            onchange="selectCategory(this.value)"
+        >
+            <option value="All">
+                🍀 All Categories
+            </option>
+        </select>
+
+    </div>
+
+
+    <div
+        id="categories"
+        class="categories">
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULTS
+     ===================================================== -->
+
+<div class="section-title">
+    🍀 LuckyShop Catalog
+</div>
+
+<div
+    id="grid"
+    class="grid">
+</div>
+
+
+<div
+    id="empty"
+    class="empty"
+    style="display:none;">
+
+    <div class="empty-icon">
+        😔
+    </div>
+
+    <h2>
+        Nothing found!
+    </h2>
+
+    <p>
+        Try another search or category.
+    </p>
+
+</div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        🍀 LuckyShop 🛍️
+    </div>
+
+    <p>
+        Rainbow Edition
+    </p>
+
+    <p>
+        Homebrew • Freeware • Public Domain
+    </p>
+
+</footer>
+
+
+<script>
+
+/* ========================================================
+   LUCKYSHOP CATALOG
+
+   Add your own authorized entries here.
+
+   cover:
+   - Put an image URL here
+   - Or leave it blank to use the emoji placeholder
+
+   download:
+   - Put the authorized download URL here
+   ======================================================== */
+
+const catalog = [
+
+    {
+        title: "TWiLight Menu++",
+        category: "Homebrew",
+        icon: "🌙",
+
+        description:
+            "A homebrew menu for launching Nintendo DS software.",
+
+        size: "Homebrew",
+
+        cover:
+            "",
+
+        download:
+            "https://github.com/DS-Homebrew/TWiLightMenu"
+    },
+
+
+    {
+        title: "nds-bootstrap",
+        category: "Tools",
+        icon: "⚙️",
+
+        description:
+            "Open-source software used by TWiLight Menu++.",
+
+        size: "Homebrew",
+
+        cover:
+            "",
+
+        download:
+            "https://github.com/DS-Homebrew/nds-bootstrap"
+    },
+
+
+    {
+        title: "Universal-Updater",
+        category: "3DS Tools",
+        icon: "⬇️",
+
+        description:
+            "A homebrew updater for Nintendo 3DS software.",
+
+        size: "Homebrew",
+
+        cover:
+            "",
+
+        download:
+            "https://github.com/Universal-Team/Universal-Updater"
+    },
+
+
+    {
+        title: "Lucky Homebrew Demo",
+        category: "Demos",
+        icon: "🍀",
+
+        description:
+            "Example LuckyShop entry. Replace this with your own authorized content.",
+
+        size: "Demo",
+
+        cover:
+            "",
+
+        download:
+            "#"
+    }
+
+];
+
+
+/* ========================================================
+   STATE
+   ======================================================== */
+
+let selectedCategory = "All";
+
+
+/* ========================================================
+   CREATE CATEGORY LIST
+   ======================================================== */
+
+function buildCategories() {
+
+    const categories =
+        [...new Set(
+            catalog.map(item => item.category)
+        )].sort();
+
+    const select =
+        document.getElementById("categorySelect");
+
+    const buttons =
+        document.getElementById("categories");
+
+    select.innerHTML =
+        `<option value="All">
+            🍀 All Categories
+         </option>`;
+
+    categories.forEach(category => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = category;
+        option.textContent = "🍀 " + category;
+
+        select.appendChild(option);
+
+    });
+
+
+    buttons.innerHTML = "";
+
+    const allButton =
+        document.createElement("button");
+
+    allButton.className =
+        "category-button active";
+
+    allButton.textContent =
+        "🍀 All";
+
+    allButton.onclick =
+        () => selectCategory("All");
+
+    buttons.appendChild(allButton);
+
+
+    categories.forEach(category => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "category-button";
+
+        button.textContent =
+            "🍀 " + category;
+
+        button.onclick =
+            () => selectCategory(category);
+
+        buttons.appendChild(button);
+
+    });
+}
+
+
+/* ========================================================
+   CHANGE CATEGORY
+   ======================================================== */
+
+function selectCategory(category) {
+
+    selectedCategory = category;
+
+    document.getElementById(
+        "categorySelect"
+    ).value = category;
+
+    document.querySelectorAll(
+        ".category-button"
+    ).forEach(button => {
+
+        button.classList.remove("active");
+
+        const text =
+            button.textContent
+            .replace("🍀 ", "");
+
+        if (text === category) {
+
+            button.classList.add("active");
+
+        }
+
+    });
+
+    renderShop();
+}
+
+
+/* ========================================================
+   RENDER SHOP
+   ======================================================== */
+
+function renderShop() {
+
+    const grid =
+        document.getElementById("grid");
+
+    const empty =
+        document.getElementById("empty");
+
+    const query =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const results =
+        catalog.filter(item => {
+
+            const matchesSearch =
+                item.title
+                    .toLowerCase()
+                    .includes(query)
+                ||
+                item.description
+                    .toLowerCase()
+                    .includes(query);
+
+
+            const matchesCategory =
+                selectedCategory === "All"
+                ||
+                item.category === selectedCategory;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory
+            );
+
+        });
+
+
+    grid.innerHTML = "";
+
+
+    if (results.length === 0) {
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    results.forEach(item => {
+
+        const card =
+            document.createElement("article");
+
+        card.className = "card";
+
+
+        /* COVER */
+
+        let coverHTML;
+
+        if (item.cover) {
+
+            coverHTML =
+                `<img
+                    src="${item.cover}"
+                    alt="${escapeHTML(item.title)} cover"
+                    loading="lazy"
+                 >`;
+
+        } else {
+
+            coverHTML =
+                `<div class="placeholder-cover">
+                    ${item.icon}
+                 </div>`;
+
+        }
+
+
+        /* CARD */
+
+        card.innerHTML = `
+
+            <div class="cover">
+                ${coverHTML}
+            </div>
+
+            <span class="card-category">
+                ${escapeHTML(item.category)}
+            </span>
+
+            <h3>
+                ${escapeHTML(item.title)}
+            </h3>
+
+            <div class="card-description">
+                ${escapeHTML(item.description)}
+            </div>
+
+            <div class="card-footer">
+
+                <span class="size">
+                    ${escapeHTML(item.size)}
+                </span>
+
+                <button
+                    class="get-button"
+                    onclick="openItem('${escapeAttribute(item.download)}')">
+
+                    🛍️ Get
+
+                </button>
+
+            </div>
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* ========================================================
+   OPEN DOWNLOAD / PAGE
+   ======================================================== */
+
+function openItem(url) {
+
+    if (!url || url === "#") {
+
+        alert(
+            "🍀 This is a sample LuckyShop entry."
+        );
+
+        return;
+
+    }
+
+    window.location.href = url;
+
+}
+
+
+/* ========================================================
+   BASIC HTML ESCAPING
+   ======================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(text) {
+
+    return String(text)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+}
+
+
+/* ========================================================
+   START LUCKYSHOP
+   ======================================================== */
+
+buildCategories();
+
+renderShop();
+
+</script>
+
+</body>
+</html>
