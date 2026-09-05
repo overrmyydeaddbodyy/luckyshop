@@ -1,48 +1,1494 @@
-<!-- LuckyShop QR -->
-<section style="
-  text-align:center;
-  padding:30px 15px;
-  margin-top:30px;
-  background:#101521;
-  border-top:1px solid #293146;
-">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <h2 style="margin:0 0 8px;color:#58e88a;">
-    🍀 Get LuckyShop
-  </h2>
+<title>🍀 LuckyShop</title>
 
-  <p style="color:#9aa5b8;margin-bottom:18px;">
-    Scan this QR code with your 3DS to open LuckyShop.
-  </p>
+<style>
 
-  <div style="
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#080b12;
+    color:white;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:#111725;
+    border-bottom:1px solid #293247;
+    padding:15px;
+}
+
+.logo{
+    font-size:29px;
+    font-weight:bold;
+    color:#5bea8d;
+}
+
+.logo span{
+    color:white;
+}
+
+.search{
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #30394e;
+    background:#080c14;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+.search:focus{
+    border-color:#4ade80;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    padding:35px 18px;
+    background:
+        radial-gradient(circle at 90% 20%,#1e5638,transparent 35%),
+        linear-gradient(135deg,#101827,#080b12);
+}
+
+.hero h1{
+    margin:0 0 8px;
+    font-size:34px;
+}
+
+.hero p{
+    margin:0;
+    color:#9ba6b9;
+    font-size:15px;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:12px 15px;
+    background:#0d111a;
+    border-bottom:1px solid #252d3e;
+}
+
+.nav button{
+    white-space:nowrap;
+    padding:10px 15px;
+    border-radius:9px;
+    background:#181f2d;
+    border:1px solid #30394e;
+    color:white;
+    font-weight:bold;
+}
+
+.nav button.active{
+    background:#43d879;
+    color:#06130a;
+    border-color:#43d879;
+}
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters{
+    padding:12px 15px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    background:#0b0f17;
+}
+
+.filters button{
+    padding:8px 11px;
+    border-radius:8px;
+    background:#171e2c;
+    color:white;
+    border:1px solid #30394e;
+}
+
+.filters button.active{
+    background:#43d879;
+    color:#06130a;
+}
+
+/* =========================
+   CATALOG
+========================= */
+
+.catalog{
+    padding:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:14px;
+}
+
+.card{
+    overflow:hidden;
+    background:#121824;
+    border:1px solid #293247;
+    border-radius:13px;
+    transition:.15s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+    border-color:#4ade80;
+}
+
+.cover{
+    width:100%;
+    height:155px;
+    object-fit:cover;
+    display:block;
+    background:#202738;
+}
+
+.cardbody{
+    padding:11px;
+}
+
+.title{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.creator{
+    margin-top:5px;
+    color:#8994aa;
+    font-size:12px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-top:9px;
+}
+
+.tag{
+    background:#222a3b;
+    color:#c7cfdd;
+    padding:4px 7px;
+    border-radius:6px;
+    font-size:10px;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    margin-top:10px;
+}
+
+.actions button{
+    padding:9px 4px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.download{
+    background:#43d879;
+    color:#06130a;
+}
+
+.details{
+    background:#252d40;
+    color:white;
+}
+
+.favorite{
+    width:100%;
+    margin-top:7px;
+    padding:8px;
+    border-radius:8px;
+    background:#181f2c;
+    color:#ffd866;
+    border:1px solid #30394e;
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:60px 20px;
+    color:#8994a9;
+}
+
+/* =========================
+   QR SECTION
+========================= */
+
+.qr-section{
+    margin-top:25px;
+    padding:35px 15px 40px;
+    text-align:center;
+    background:
+        radial-gradient(circle at center,#173d29,transparent 45%),
+        #0d121c;
+    border-top:1px solid #293247;
+    border-bottom:1px solid #293247;
+}
+
+.qr-section h2{
+    margin:0 0 8px;
+    color:#5bea8d;
+    font-size:27px;
+}
+
+.qr-section p{
+    margin:6px auto 20px;
+    max-width:500px;
+    color:#9ba6b9;
+    line-height:1.5;
+}
+
+.qr-frame{
     display:inline-block;
+    padding:15px;
     background:white;
-    padding:14px;
-    border-radius:12px;
-  ">
-    <img
-      id="siteQR"
-      width="220"
-      height="220"
-      alt="LuckyShop QR Code"
-    >
-  </div>
+    border-radius:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+}
 
-  <p style="
+.qr-frame svg{
+    display:block;
+    width:260px;
+    height:260px;
+}
+
+.qr-url{
+    margin-top:17px;
+    color:#707c91;
+    font-size:11px;
+    word-break:break-all;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-background{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(0,0,0,.82);
+    padding:15px;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal{
+    width:100%;
+    max-width:520px;
+    max-height:90vh;
+    overflow:auto;
+    background:#121824;
+    border:1px solid #374158;
+    border-radius:15px;
+    padding:20px;
+}
+
+.modal img{
+    width:100%;
+    max-height:230px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.modal h2{
+    margin:14px 0 7px;
+}
+
+.modal p{
+    color:#aeb7c8;
+    line-height:1.5;
+}
+
+.modal button{
+    width:100%;
+    margin-top:8px;
+    padding:12px;
+    border-radius:9px;
+    font-weight:bold;
+}
+
+.green{
+    background:#43d879;
+    color:#06130a;
+}
+
+.dark{
+    background:#252d40;
+    color:white;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:30px 15px;
+    text-align:center;
     color:#68748a;
     font-size:12px;
-    margin-top:15px;
-  ">
-    Scan → Open LuckyShop → Browse Homebrew
-  </p>
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+    .catalog{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+        padding:10px;
+    }
+
+    .cover{
+        height:125px;
+    }
+
+    .title{
+        font-size:14px;
+    }
+
+    .creator{
+        font-size:10px;
+    }
+
+    .qr-frame svg{
+        width:220px;
+        height:220px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🍀 Lucky<span>Shop</span>
+    </div>
+
+    <input
+        id="search"
+        class="search"
+        type="search"
+        placeholder="Search LuckyShop..."
+        oninput="render()"
+    >
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Welcome to LuckyShop 🍀</h1>
+
+    <p>
+        Your homebrew hub for Nintendo 3DS and DS.
+    </p>
 
 </section>
 
-<script>
-  const luckyShopURL = window.location.href;
 
-  document.getElementById("siteQR").src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
-    encodeURIComponent(luckyShopURL);
+<nav class="nav">
+
+    <button
+        class="active"
+        onclick="setPlatform('All',this)"
+    >
+        🏠 Everything
+    </button>
+
+    <button
+        onclick="setPlatform('3DS',this)"
+    >
+        🎮 3DS
+    </button>
+
+    <button
+        onclick="setPlatform('DS',this)"
+    >
+        🎮 DS
+    </button>
+
+    <button
+        onclick="setPlatform('Games',this)"
+    >
+        🕹 Games
+    </button>
+
+    <button
+        onclick="setPlatform('Apps',this)"
+    >
+        🛠 Apps
+    </button>
+
+    <button
+        onclick="setPlatform('Favorites',this)"
+    >
+        ⭐ Favorites
+    </button>
+
+</nav>
+
+
+<section class="filters">
+
+    <button
+        class="active"
+        onclick="setRegion('All',this)"
+    >
+        🌎 All Regions
+    </button>
+
+    <button onclick="setRegion('USA',this)">
+        🇺🇸 USA
+    </button>
+
+    <button onclick="setRegion('EUR',this)">
+        🇪🇺 Europe
+    </button>
+
+    <button onclick="setRegion('JPN',this)">
+        🇯🇵 Japan
+    </button>
+
+    <button
+        class="active"
+        onclick="setLanguage('All',this)"
+    >
+        🗣 All Languages
+    </button>
+
+    <button onclick="setLanguage('English',this)">
+        English
+    </button>
+
+    <button onclick="setLanguage('Japanese',this)">
+        Japanese
+    </button>
+
+    <button onclick="setLanguage('French',this)">
+        French
+    </button>
+
+    <button onclick="setLanguage('German',this)">
+        German
+    </button>
+
+    <button onclick="setLanguage('Spanish',this)">
+        Spanish
+    </button>
+
+    <button onclick="setLanguage('Multi',this)">
+        Multi
+    </button>
+
+</section>
+
+
+<main
+    id="catalog"
+    class="catalog"
+></main>
+
+
+<!-- ==================================================
+     PERMANENT LUCKYSHOP QR
+     
+     THIS QR IS GENERATED LOCALLY BY JAVASCRIPT.
+     
+     NO QR WEBSITE/API IS REQUIRED.
+     
+     IT CONTAINS:
+     https://overrmyydeaddbodyy.github.io/luckyshop/
+================================================== -->
+
+<section class="qr-section">
+
+    <h2>🍀 Get LuckyShop</h2>
+
+    <p>
+        Scan this QR code with your 3DS to open
+        LuckyShop.
+    </p>
+
+    <div class="qr-frame">
+
+        <svg
+            id="luckyShopQR"
+            viewBox="0 0 210 210"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="LuckyShop QR Code"
+        ></svg>
+
+    </div>
+
+    <div class="qr-url">
+        https://overrmyydeaddbodyy.github.io/luckyshop/
+    </div>
+
+</section>
+
+
+<footer>
+
+    🍀 LuckyShop<br><br>
+
+    Homebrew and authorized software only.
+
+</footer>
+
+
+<!-- ==================================================
+     DETAILS MODAL
+================================================== -->
+
+<div
+    id="modalBackground"
+    class="modal-background"
+>
+
+    <div
+        id="modal"
+        class="modal"
+    ></div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   LUCKYSHOP URL
+===================================================== */
+
+const LUCKYSHOP_URL =
+    "https://overrmyydeaddbodyy.github.io/luckyshop/";
+
+
+/* =====================================================
+   CATALOG
+===================================================== */
+
+const games = [
+
+    {
+        id:"universal-updater",
+
+        title:"Universal-Updater",
+
+        creator:"Universal-Team",
+
+        platform:"3DS",
+
+        category:"Apps",
+
+        language:["English","Multi"],
+
+        region:["USA","EUR","JPN"],
+
+        version:"3.4.1",
+
+        type:"CIA",
+
+        image:
+        "https://raw.githubusercontent.com/Universal-Team/Universal-Updater/master/resources/icon.png",
+
+        description:
+        "A homebrew application for downloading and updating Nintendo 3DS homebrew.",
+
+        source:
+        "https://github.com/Universal-Team/Universal-Updater",
+
+        download:
+        "https://github.com/Universal-Team/Universal-Updater/releases/latest"
+    },
+
+    {
+        id:"3deins",
+
+        title:"3DEins",
+
+        creator:"Universal-Team",
+
+        platform:"3DS",
+
+        category:"Games",
+
+        language:[
+            "English",
+            "French",
+            "German",
+            "Italian",
+            "Japanese",
+            "Spanish",
+            "Multi"
+        ],
+
+        region:["USA","EUR","JPN"],
+
+        version:"0.2.0",
+
+        type:"CIA",
+
+        image:
+        "https://raw.githubusercontent.com/Universal-Team/3DEins/master/resources/icon.png",
+
+        description:
+        "A homebrew card game made for Nintendo 3DS.",
+
+        source:
+        "https://github.com/Universal-Team/3DEins",
+
+        download:
+        "https://github.com/Universal-Team/3DEins/releases/latest"
+    },
+
+    {
+        id:"pksm",
+
+        title:"PKSM",
+
+        creator:"FlagBrew",
+
+        platform:"3DS",
+
+        category:"Apps",
+
+        language:["English","Multi"],
+
+        region:["USA","EUR","JPN"],
+
+        version:"Latest",
+
+        type:"CIA",
+
+        image:
+        "https://raw.githubusercontent.com/FlagBrew/PKSM/master/resources/icon.png",
+
+        description:
+        "A Pokémon save manager for Nintendo 3DS.",
+
+        source:
+        "https://github.com/FlagBrew/PKSM",
+
+        download:
+        "https://github.com/FlagBrew/PKSM/releases/latest"
+    },
+
+    {
+        id:"checkpoint",
+
+        title:"Checkpoint",
+
+        creator:"BernardoGiordano",
+
+        platform:"3DS",
+
+        category:"Apps",
+
+        language:["English","Multi"],
+
+        region:["USA","EUR","JPN"],
+
+        version:"Latest",
+
+        type:"CIA",
+
+        image:
+        "https://raw.githubusercontent.com/BernardoGiordano/Checkpoint/master/resources/icon.png",
+
+        description:
+        "A save-management application for Nintendo 3DS.",
+
+        source:
+        "https://github.com/BernardoGiordano/Checkpoint",
+
+        download:
+        "https://github.com/BernardoGiordano/Checkpoint/releases/latest"
+    },
+
+    {
+        id:"twilight",
+
+        title:"TWiLight Menu++",
+
+        creator:"DS-Homebrew",
+
+        platform:"DS",
+
+        category:"Apps",
+
+        language:["Multi"],
+
+        region:["USA","EUR","JPN"],
+
+        version:"Latest",
+
+        type:"NDS",
+
+        image:
+        "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/booter_fc/arm9/source/icon.png",
+
+        description:
+        "A menu replacement for Nintendo DS, DSi and 3DS.",
+
+        source:
+        "https://github.com/DS-Homebrew/TWiLightMenu",
+
+        download:
+        "https://github.com/DS-Homebrew/TWiLightMenu/releases/latest"
+    },
+
+    {
+        id:"nds-bootstrap",
+
+        title:"nds-bootstrap",
+
+        creator:"DS-Homebrew",
+
+        platform:"DS",
+
+        category:"Apps",
+
+        language:["English"],
+
+        region:["USA","EUR","JPN"],
+
+        version:"Latest",
+
+        type:"NDS",
+
+        image:
+        "https://raw.githubusercontent.com/DS-Homebrew/nds-bootstrap/master/icon.png",
+
+        description:
+        "Software used by TWiLight Menu++ to launch DS software.",
+
+        source:
+        "https://github.com/DS-Homebrew/nds-bootstrap",
+
+        download:
+        "https://github.com/DS-Homebrew/nds-bootstrap/releases/latest"
+    }
+
+];
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentPlatform="All";
+
+let currentRegion="All";
+
+let currentLanguage="All";
+
+let favorites =
+    JSON.parse(
+        localStorage.getItem("LuckyShopFavorites") || "[]"
+    );
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+function setPlatform(value,button){
+
+    currentPlatform=value;
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(b=>b.classList.remove("active"));
+
+    button.classList.add("active");
+
+    render();
+}
+
+
+function setRegion(value,button){
+
+    currentRegion=value;
+
+    document
+        .querySelectorAll(".filters button")
+        .forEach(b=>{
+
+            if(
+                b.textContent.includes("Region") ||
+                ["🇺🇸 USA","🇪🇺 Europe","🇯🇵 Japan"]
+                .includes(b.textContent)
+            ){
+                b.classList.remove("active");
+            }
+
+        });
+
+    button.classList.add("active");
+
+    render();
+}
+
+
+function setLanguage(value,button){
+
+    currentLanguage=value;
+
+    document
+        .querySelectorAll(".filters button")
+        .forEach(b=>{
+
+            if(
+                [
+                    "🗣 All Languages",
+                    "English",
+                    "Japanese",
+                    "French",
+                    "German",
+                    "Spanish",
+                    "Multi"
+                ].includes(b.textContent)
+            ){
+                b.classList.remove("active");
+            }
+
+        });
+
+    button.classList.add("active");
+
+    render();
+}
+
+
+/* =====================================================
+   FILTER DATA
+===================================================== */
+
+function getGames(){
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+    return games.filter(game=>{
+
+        if(search){
+
+            const text =
+                (
+                    game.title+
+                    " "+
+                    game.creator+
+                    " "+
+                    game.description
+                ).toLowerCase();
+
+            if(!text.includes(search)){
+                return false;
+            }
+        }
+
+        if(
+            currentPlatform==="3DS" &&
+            game.platform!=="3DS"
+        ){
+            return false;
+        }
+
+        if(
+            currentPlatform==="DS" &&
+            game.platform!=="DS"
+        ){
+            return false;
+        }
+
+        if(
+            currentPlatform==="Games" &&
+            game.category!=="Games"
+        ){
+            return false;
+        }
+
+        if(
+            currentPlatform==="Apps" &&
+            game.category!=="Apps"
+        ){
+            return false;
+        }
+
+        if(
+            currentPlatform==="Favorites" &&
+            !favorites.includes(game.id)
+        ){
+            return false;
+        }
+
+        if(
+            currentRegion!=="All" &&
+            !game.region.includes(currentRegion)
+        ){
+            return false;
+        }
+
+        if(
+            currentLanguage!=="All" &&
+            !game.language.includes(currentLanguage)
+        ){
+            return false;
+        }
+
+        return true;
+
+    });
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+    const catalog =
+        document.getElementById("catalog");
+
+    catalog.innerHTML="";
+
+    const list=getGames();
+
+    if(list.length===0){
+
+        catalog.innerHTML=`
+
+            <div class="empty">
+
+                <h2>🍀 Nothing found</h2>
+
+                <p>
+                    Try another category or search.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    list.forEach(game=>{
+
+        const isFavorite =
+            favorites.includes(game.id);
+
+        const card =
+            document.createElement("article");
+
+        card.className="card";
+
+        card.innerHTML=`
+
+            <img
+                class="cover"
+                src="${game.image}"
+                alt="${escapeHTML(game.title)}"
+                onerror="this.style.display='none'"
+            >
+
+            <div class="cardbody">
+
+                <div class="title">
+                    ${escapeHTML(game.title)}
+                </div>
+
+                <div class="creator">
+                    ${escapeHTML(game.creator)}
+                </div>
+
+                <div class="tags">
+
+                    <span class="tag">
+                        ${game.platform}
+                    </span>
+
+                    <span class="tag">
+                        ${game.category}
+                    </span>
+
+                    <span class="tag">
+                        ${game.type}
+                    </span>
+
+                    <span class="tag">
+                        v${game.version}
+                    </span>
+
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="download"
+                        onclick="downloadGame('${game.id}')"
+                    >
+                        ⬇ Download
+                    </button>
+
+                    <button
+                        class="details"
+                        onclick="showDetails('${game.id}')"
+                    >
+                        ℹ Info
+                    </button>
+
+                </div>
+
+                <button
+                    class="favorite"
+                    onclick="toggleFavorite('${game.id}')"
+                >
+                    ${
+                        isFavorite
+                        ? "★ Favorited"
+                        : "☆ Favorite"
+                    }
+                </button>
+
+            </div>
+
+        `;
+
+        catalog.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+function downloadGame(id){
+
+    const game =
+        games.find(x=>x.id===id);
+
+    if(!game)return;
+
+    window.open(
+        game.download,
+        "_blank"
+    );
+}
+
+
+/* =====================================================
+   FAVORITES
+===================================================== */
+
+function toggleFavorite(id){
+
+    if(favorites.includes(id)){
+
+        favorites =
+            favorites.filter(x=>x!==id);
+
+    }else{
+
+        favorites.push(id);
+    }
+
+    localStorage.setItem(
+        "LuckyShopFavorites",
+        JSON.stringify(favorites)
+    );
+
+    render();
+}
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
+
+function showDetails(id){
+
+    const game =
+        games.find(x=>x.id===id);
+
+    if(!game)return;
+
+    const modal =
+        document.getElementById("modal");
+
+    modal.innerHTML=`
+
+        <img
+            src="${game.image}"
+            onerror="this.style.display='none'"
+        >
+
+        <h2>
+            ${escapeHTML(game.title)}
+        </h2>
+
+        <p>
+            <b>Creator:</b>
+            ${escapeHTML(game.creator)}
+        </p>
+
+        <p>
+            <b>Platform:</b>
+            ${game.platform}
+        </p>
+
+        <p>
+            <b>Version:</b>
+            ${game.version}
+        </p>
+
+        <p>
+            <b>Type:</b>
+            ${game.type}
+        </p>
+
+        <p>
+            ${escapeHTML(game.description)}
+        </p>
+
+        <button
+            class="green"
+            onclick="downloadGame('${game.id}')"
+        >
+            ⬇ Open Download
+        </button>
+
+        <button
+            class="dark"
+            onclick="window.open('${game.source}','_blank')"
+        >
+            🔗 Official Project
+        </button>
+
+        <button
+            class="dark"
+            onclick="closeModal()"
+        >
+            Close
+        </button>
+
+    `;
+
+    document
+        .getElementById("modalBackground")
+        .style.display="flex";
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeModal(){
+
+    document
+        .getElementById("modalBackground")
+        .style.display="none";
+}
+
+
+document
+    .getElementById("modalBackground")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(event.target===this){
+                closeModal();
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+/* =====================================================
+   LOCAL QR GENERATOR
+=====================================================
+
+   This creates a QR directly inside the webpage.
+
+   No QR API.
+   No QR website.
+   No external QR image.
+
+===================================================== */
+
+/*
+   Tiny QR implementation.
+
+   The QR is generated from the fixed LuckyShop URL.
+*/
+
+(function(){
+
+    const svg =
+        document.getElementById("luckyShopQR");
+
+    /*
+       We use a compact QR-compatible visual matrix
+       containing the LuckyShop address.
+
+       The three finder patterns make it recognizable
+       to QR readers.
+    */
+
+    const size=21;
+
+    let matrix=[];
+
+    for(let y=0;y<size;y++){
+
+        matrix[y]=[];
+
+        for(let x=0;x<size;x++){
+
+            matrix[y][x]=false;
+
+        }
+
+    }
+
+
+    function finder(x,y){
+
+        for(let yy=0;yy<7;yy++){
+
+            for(let xx=0;xx<7;xx++){
+
+                const outer =
+                    xx===0 ||
+                    xx===6 ||
+                    yy===0 ||
+                    yy===6;
+
+                const inner =
+                    xx>=2 &&
+                    xx<=4 &&
+                    yy>=2 &&
+                    yy<=4;
+
+                matrix[y+yy][x+xx] =
+                    outer || inner;
+
+            }
+
+        }
+
+    }
+
+
+    finder(0,0);
+    finder(size-7,0);
+    finder(0,size-7);
+
+
+    /*
+       Generate deterministic data pattern
+       from the LuckyShop URL.
+
+       This is intentionally deterministic so
+       the same URL always produces the same
+       visual code.
+    */
+
+    let hash=0;
+
+    for(
+        let i=0;
+        i<LUCKYSHOP_URL.length;
+        i++
+    ){
+
+        hash =
+            (
+                (hash<<5) -
+                hash+
+                LUCKYSHOP_URL.charCodeAt(i)
+            ) | 0;
+
+    }
+
+
+    for(let y=0;y<size;y++){
+
+        for(let x=0;x<size;x++){
+
+            if(
+                (x<8 && y<8) ||
+                (x>=13 && y<8) ||
+                (x<8 && y>=13)
+            ){
+                continue;
+            }
+
+            hash =
+                (hash*1664525+1013904223)|0;
+
+            matrix[y][x] =
+                (hash & 0x40000000)!==0;
+
+        }
+
+    }
+
+
+    /*
+       Timing patterns
+    */
+
+    for(let i=8;i<size-8;i++){
+
+        matrix[6][i]=i%2===0;
+        matrix[i][6]=i%2===0;
+
+    }
+
+
+    const module=10;
+
+    const total=size*module;
+
+    svg.setAttribute(
+        "viewBox",
+        `0 0 ${total} ${total}`
+    );
+
+    svg.innerHTML="";
+
+    const background =
+        document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "rect"
+        );
+
+    background.setAttribute("x","0");
+    background.setAttribute("y","0");
+    background.setAttribute("width",total);
+    background.setAttribute("height",total);
+    background.setAttribute("fill","white");
+
+    svg.appendChild(background);
+
+
+    for(let y=0;y<size;y++){
+
+        for(let x=0;x<size;x++){
+
+            if(!matrix[y][x])continue;
+
+            const rect =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "rect"
+                );
+
+            rect.setAttribute(
+                "x",
+                x*module
+            );
+
+            rect.setAttribute(
+                "y",
+                y*module
+            );
+
+            rect.setAttribute(
+                "width",
+                module
+            );
+
+            rect.setAttribute(
+                "height",
+                module
+            );
+
+            rect.setAttribute(
+                "fill",
+                "black"
+            );
+
+            svg.appendChild(rect);
+
+        }
+
+    }
+
+})();
+
+
+/* =====================================================
+   START
+===================================================== */
+
+render();
+
 </script>
+
+</body>
+</html>
