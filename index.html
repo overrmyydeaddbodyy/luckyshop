@@ -2,304 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>LuckyShop 🍀</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🍀 LuckyShop</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box}
 body{
-  font-family:Arial,sans-serif;
-  background:#090b12;
-  color:white;
-  min-height:100vh;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#080b12;
+ color:#fff;
 }
-
 header{
-  background:linear-gradient(135deg,#15192a,#101321);
-  border-bottom:1px solid #292e40;
-  padding:15px;
-  position:sticky;
-  top:0;
-  z-index:20;
+ position:sticky;
+ top:0;
+ z-index:10;
+ padding:15px;
+ background:#111725;
+ border-bottom:1px solid #293146;
 }
-
 .logo{
-  font-size:27px;
-  font-weight:bold;
-  color:#7dff9b;
+ font-size:28px;
+ font-weight:bold;
+ color:#58e88a;
 }
-
-.logo span{
-  color:white;
-}
-
+.logo span{color:#fff}
 .search{
-  margin-top:12px;
-  width:100%;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid #343a50;
-  background:#0d1019;
-  color:white;
-  font-size:16px;
+ width:100%;
+ margin-top:12px;
+ padding:13px;
+ border-radius:10px;
+ border:1px solid #30394e;
+ background:#090d15;
+ color:white;
+ font-size:16px;
 }
-
 .hero{
-  padding:25px 15px;
-  background:
-    radial-gradient(circle at top right,#234c36,transparent 45%),
-    linear-gradient(135deg,#111728,#0a0c13);
+ padding:25px 15px;
+ background:linear-gradient(135deg,#101827,#0b0e16);
 }
-
-.hero h1{
-  font-size:30px;
-  margin-bottom:8px;
+.hero h1{margin:0 0 7px;font-size:30px}
+.hero p{margin:0;color:#929db2}
+nav{
+ display:flex;
+ gap:8px;
+ padding:12px 15px;
+ overflow-x:auto;
+ background:#0d111a;
 }
-
-.hero p{
-  color:#aeb5c8;
+button{
+ cursor:pointer;
+ border:0;
 }
-
-.nav{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding:12px 15px;
-  background:#0d1018;
+.navbtn{
+ white-space:nowrap;
+ padding:10px 15px;
+ border-radius:9px;
+ background:#1b2231;
+ color:#fff;
+ border:1px solid #30394e;
 }
-
-.nav button,
-.filter button{
-  white-space:nowrap;
-  padding:10px 14px;
-  border-radius:9px;
-  border:1px solid #343a50;
-  background:#151925;
-  color:white;
-  cursor:pointer;
+.navbtn.active{
+ background:#42d979;
+ color:#06130a;
+ border-color:#42d979;
+ font-weight:bold;
 }
-
-.nav button.active,
-.filter button.active{
-  background:#36b968;
-  border-color:#36b968;
-  color:#07130b;
-  font-weight:bold;
-}
-
 .filters{
-  padding:12px 15px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  border-bottom:1px solid #252a39;
+ padding:10px 15px;
+ border-bottom:1px solid #252d3e;
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
 }
-
-.filter-title{
-  width:100%;
-  color:#8992a8;
-  font-size:13px;
-  margin-top:5px;
+.filter{
+ padding:8px 12px;
+ border-radius:8px;
+ background:#171d2a;
+ color:#fff;
+ border:1px solid #30394e;
 }
-
-.catalog{
-  padding:15px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:14px;
+.filter.active{
+ background:#42d979;
+ color:#06130a;
 }
-
+#catalog{
+ padding:15px;
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+ gap:14px;
+}
 .card{
-  background:#121621;
-  border:1px solid #282e40;
-  border-radius:13px;
-  overflow:hidden;
-  transition:.15s;
+ overflow:hidden;
+ background:#121824;
+ border:1px solid #293247;
+ border-radius:13px;
 }
-
-.card:hover{
-  transform:translateY(-2px);
-  border-color:#4ade80;
-}
-
 .cover{
-  width:100%;
-  height:155px;
-  object-fit:cover;
-  background:#202533;
-  display:block;
+ width:100%;
+ height:155px;
+ object-fit:cover;
+ background:#202738;
+ display:block;
 }
-
-.card-body{
-  padding:12px;
-}
-
-.title{
-  font-weight:bold;
-  font-size:17px;
-  margin-bottom:5px;
-}
-
-.creator{
-  color:#8f99af;
-  font-size:13px;
-  margin-bottom:9px;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  margin-bottom:10px;
-}
-
-.tag{
-  font-size:11px;
-  padding:4px 7px;
-  border-radius:6px;
-  background:#22283a;
-  color:#c8cedc;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px;
-}
-
-.actions button{
-  padding:9px 5px;
-  border:0;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.download{
-  background:#43d477;
-  color:#06150b;
-}
-
 .info{
-  background:#252b3d;
-  color:white;
+ padding:11px;
 }
-
-.favorite{
-  margin-top:7px;
-  width:100%;
-  background:#191e2b;
-  color:#ffd86b;
-  border:1px solid #343a50;
-  padding:8px;
-  border-radius:8px;
+.title{
+ font-size:17px;
+ font-weight:bold;
 }
-
+.creator{
+ color:#8994aa;
+ font-size:13px;
+ margin:5px 0 9px;
+}
+.tags{
+ display:flex;
+ flex-wrap:wrap;
+ gap:5px;
+}
+.tag{
+ padding:4px 7px;
+ border-radius:6px;
+ background:#222a3b;
+ color:#c5ccda;
+ font-size:11px;
+}
+.actions{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:6px;
+ margin-top:10px;
+}
+.actions button{
+ padding:9px 4px;
+ border-radius:8px;
+ font-weight:bold;
+}
+.download{
+ background:#43d879;
+ color:#06130a;
+}
+.details{
+ background:#252d40;
+ color:white;
+}
+.fav{
+ width:100%;
+ margin-top:7px;
+ padding:8px;
+ border-radius:8px;
+ background:#181f2d;
+ color:#ffd86b;
+ border:1px solid #30394e;
+}
 .empty{
-  grid-column:1/-1;
-  text-align:center;
-  padding:50px 20px;
-  color:#8d96a9;
+ grid-column:1/-1;
+ text-align:center;
+ padding:60px 20px;
+ color:#8994a9;
 }
-
-.modal-bg{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  padding:15px;
+.modalbg{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:100;
+ background:rgba(0,0,0,.8);
+ align-items:center;
+ justify-content:center;
+ padding:15px;
 }
-
 .modal{
-  background:#121722;
-  border:1px solid #343b50;
-  border-radius:15px;
-  width:100%;
-  max-width:520px;
-  max-height:90vh;
-  overflow:auto;
-  padding:20px;
+ width:100%;
+ max-width:520px;
+ max-height:90vh;
+ overflow:auto;
+ padding:20px;
+ border-radius:15px;
+ background:#121824;
+ border:1px solid #374158;
 }
-
 .modal img{
-  width:100%;
-  max-height:220px;
-  object-fit:cover;
-  border-radius:10px;
-  margin-bottom:15px;
+ width:100%;
+ max-height:230px;
+ object-fit:cover;
+ border-radius:10px;
+ margin-bottom:12px;
 }
-
-.modal h2{
-  margin-bottom:7px;
-}
-
+.modal h2{margin:5px 0}
 .modal p{
-  color:#aeb6c8;
-  line-height:1.5;
-  margin:10px 0;
+ color:#aeb7c8;
+ line-height:1.5;
 }
-
 .modal button{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border:0;
-  border-radius:9px;
-  font-weight:bold;
+ width:100%;
+ padding:12px;
+ margin-top:8px;
+ border-radius:9px;
+ font-weight:bold;
 }
-
-.close{
-  background:#282e40;
-  color:white;
+.green{
+ background:#43d879;
+ color:#06130a;
 }
-
-.qr{
-  background:white;
-  padding:15px;
-  text-align:center;
-  border-radius:10px;
-  margin-top:12px;
+.dark{
+ background:#252d40;
+ color:white;
 }
-
-.qr img{
-  width:200px;
-  height:200px;
-  object-fit:contain;
+.qrbox{
+ margin-top:12px;
+ padding:15px;
+ background:white;
+ color:#111;
+ border-radius:10px;
+ text-align:center;
 }
-
+.qrbox img{
+ width:220px;
+ height:220px;
+ object-fit:contain;
+}
 footer{
-  text-align:center;
-  color:#697286;
-  padding:30px 15px;
-  font-size:12px;
+ text-align:center;
+ padding:30px;
+ color:#626d82;
+ font-size:12px;
 }
-
 @media(max-width:500px){
-  .catalog{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    padding:10px;
-  }
-
-  .cover{
-    height:125px;
-  }
-
-  .card-body{
-    padding:9px;
-  }
-
-  .title{
-    font-size:14px;
-  }
+ #catalog{
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  padding:10px;
+ }
+ .cover{height:125px}
+ .title{font-size:14px}
+ .creator{font-size:11px}
 }
 </style>
 </head>
@@ -307,745 +245,700 @@ footer{
 <body>
 
 <header>
-  <div class="logo">🍀 Lucky<span>Shop</span></div>
-  <input
-    id="search"
-    class="search"
-    placeholder="Search homebrew..."
-    oninput="render()"
-  >
+ <div class="logo">🍀 Lucky<span>Shop</span></div>
+ <input
+  id="search"
+  class="search"
+  placeholder="Search LuckyShop..."
+  oninput="render()"
+ >
 </header>
 
 <section class="hero">
-  <h1>Welcome to LuckyShop 🍀</h1>
-  <p>3DS & DS homebrew, apps and games.</p>
+ <h1>LuckyShop 🍀</h1>
+ <p>Real 3DS & DS homebrew from their official project releases.</p>
 </section>
 
-<nav class="nav">
-  <button class="active" onclick="setPlatform('All',this)">Everything</button>
-  <button onclick="setPlatform('3DS',this)">🎮 3DS</button>
-  <button onclick="setPlatform('DS',this)">🎮 DS</button>
-  <button onclick="setPlatform('Apps',this)">🛠 Apps</button>
-  <button onclick="setPlatform('Games',this)">🕹 Games</button>
-  <button onclick="setPlatform('Favorites',this)">⭐ Favorites</button>
+<nav>
+ <button class="navbtn active" onclick="platformFilter('All',this)">Everything</button>
+ <button class="navbtn" onclick="platformFilter('3DS',this)">🎮 3DS</button>
+ <button class="navbtn" onclick="platformFilter('DS',this)">🎮 DS</button>
+ <button class="navbtn" onclick="platformFilter('Games',this)">🕹 Games</button>
+ <button class="navbtn" onclick="platformFilter('Apps',this)">🛠 Apps</button>
+ <button class="navbtn" onclick="platformFilter('Favorites',this)">⭐ Favorites</button>
 </nav>
 
 <section class="filters">
 
-  <div class="filter-title">REGION</div>
+ <button class="filter active" onclick="setRegion('All',this)">🌎 All</button>
+ <button class="filter" onclick="setRegion('USA',this)">🇺🇸 USA</button>
+ <button class="filter" onclick="setRegion('EUR',this)">🇪🇺 Europe</button>
+ <button class="filter" onclick="setRegion('JPN',this)">🇯🇵 Japan</button>
 
-  <button class="active" onclick="setRegion('All',this)">All</button>
-  <button onclick="setRegion('USA',this)">🇺🇸 USA</button>
-  <button onclick="setRegion('EUR',this)">🇪🇺 Europe</button>
-  <button onclick="setRegion('JPN',this)">🇯🇵 Japan</button>
-  <button onclick="setRegion('Other',this)">Other</button>
-
-  <div class="filter-title">LANGUAGE</div>
-
-  <button class="active" onclick="setLanguage('All',this)">All</button>
-  <button onclick="setLanguage('English',this)">English</button>
-  <button onclick="setLanguage('Japanese',this)">Japanese</button>
-  <button onclick="setLanguage('French',this)">French</button>
-  <button onclick="setLanguage('German',this)">German</button>
-  <button onclick="setLanguage('Spanish',this)">Spanish</button>
-  <button onclick="setLanguage('Multi',this)">Multi</button>
+ <button class="filter active" onclick="setLang('All',this)">All Languages</button>
+ <button class="filter" onclick="setLang('English',this)">English</button>
+ <button class="filter" onclick="setLang('Japanese',this)">Japanese</button>
+ <button class="filter" onclick="setLang('French',this)">French</button>
+ <button class="filter" onclick="setLang('German',this)">German</button>
+ <button class="filter" onclick="setLang('Spanish',this)">Spanish</button>
+ <button class="filter" onclick="setLang('Multi',this)">Multi</button>
 
 </section>
 
-<main id="catalog" class="catalog"></main>
+<main id="catalog"></main>
 
 <footer>
-  🍀 LuckyShop<br>
-  Homebrew and authorized software only.
+ 🍀 LuckyShop<br>
+ Legitimate homebrew and authorized software only.
 </footer>
 
-<div id="modalBg" class="modal-bg">
-  <div id="modal" class="modal"></div>
+<div id="modalbg" class="modalbg">
+ <div id="modal" class="modal"></div>
 </div>
 
 <script>
 
-/*
-========================================================
-LUCKYSHOP CATALOG
-========================================================
+/* =====================================================
+   LUCKYSHOP VERIFIED CATALOG
+   =====================================================
 
-IMPORTANT:
+   CIA links below are direct release assets.
 
-These are legitimate homebrew projects.
+   FBI QR = direct CIA
+   NDS = download normally and use TWiLight Menu++
 
-"download" should point directly to a file whenever
-the project provides a direct public release file.
-
-CIA = FBI can install it.
-
-NDS = download it and use TWiLight Menu++.
-
-3DSX = Homebrew Launcher format.
-
-========================================================
-*/
+   ===================================================== */
 
 const games = [
 
-{
- id:"checkpoint",
- title:"Checkpoint",
- creator:"Bernardo Giordano / Universal-Team",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"5.2.0",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/checkpoint.png",
- description:"Fast and simple homebrew save-management application for Nintendo 3DS.",
- source:"https://db.universal-team.net/3ds/checkpoint",
- download:"https://github.com/BernardoGiordano/Checkpoint/releases/latest"
-},
+ {
+  id:"universal-updater",
+  title:"Universal-Updater",
+  creator:"Universal-Team",
+  platform:"3DS",
+  category:"Apps",
+  language:["English","Multi"],
+  region:["USA","EUR","JPN"],
+  version:"3.4.1",
+  type:"CIA",
+  image:"https://raw.githubusercontent.com/Universal-Team/Universal-Updater/master/resources/icon.png",
 
-{
- id:"pksm",
- title:"PKSM",
- creator:"FlagBrew",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"10.4.0",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/pksm.png",
- description:"Save manager for Pokémon games spanning multiple generations.",
- source:"https://db.universal-team.net/3ds/pksm",
- download:"https://github.com/FlagBrew/PKSM/releases/latest"
-},
+  description:
+   "A homebrew store/updater for Nintendo 3DS that makes downloading and installing homebrew simple.",
 
-{
- id:"nimbus",
- title:"Nimbus",
- creator:"Universal-Team",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"2.1.1",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/nimbus.png",
- description:"Homebrew application for switching between Nintendo Network and Pretendo Network.",
- source:"https://db.universal-team.net/3ds/nimbus",
- download:"https://github.com/PretendoNetwork/nimbus/releases/latest"
-},
+  source:
+   "https://github.com/Universal-Team/Universal-Updater",
 
-{
- id:"universal-updater",
- title:"Universal-Updater",
- creator:"Universal-Team",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"3.4.1",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/universal-updater.png",
- description:"A 3DS homebrew application designed to download and update homebrew software.",
- source:"https://github.com/Universal-Team/Universal-Updater",
- download:"https://github.com/Universal-Team/Universal-Updater/releases/latest"
-},
+  cia:
+   "https://github.com/Universal-Team/Universal-Updater/releases/download/v3.4.1/Universal-Updater.cia"
+ },
 
-{
- id:"twilight",
- title:"TWiLight Menu++",
- creator:"DS-Homebrew",
- platform:"DS",
- category:"Apps",
- language:["Multi"],
- region:["Other"],
- version:"Latest",
- type:"NDS",
- image:"https://db.universal-team.net/assets/images/twilightmenu.png",
- description:"A menu replacement for Nintendo DS, DSi and 3DS that can launch DS homebrew and games.",
- source:"https://github.com/DS-Homebrew/TWiLightMenu",
- download:"https://github.com/DS-Homebrew/TWiLightMenu/releases/latest"
-},
+ {
+  id:"3deins",
+  title:"3DEins",
+  creator:"Universal-Team / SuperSaiyajinStackZ",
+  platform:"3DS",
+  category:"Games",
+  language:[
+   "English",
+   "French",
+   "German",
+   "Italian",
+   "Japanese",
+   "Spanish",
+   "Multi"
+  ],
+  region:["USA","EUR","JPN"],
+  version:"0.2.0",
+  type:"CIA",
+  image:
+   "https://raw.githubusercontent.com/Universal-Team/3DEins/master/resources/icon.png",
 
-{
- id:"nds-bootstrap",
- title:"nds-bootstrap",
- creator:"DS-Homebrew",
- platform:"DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"Latest",
- type:"NDS",
- image:"https://db.universal-team.net/assets/images/nds-bootstrap.png",
- description:"A project used by TWiLight Menu++ to load Nintendo DS software.",
- source:"https://github.com/DS-Homebrew/nds-bootstrap",
- download:"https://github.com/DS-Homebrew/nds-bootstrap/releases/latest"
-},
+  description:
+   "A homebrew card game for Nintendo 3DS. It includes multiplayer, AI, customizable cards and multiple translations.",
 
-{
- id:"3deins",
- title:"3DEins",
- creator:"Universal-Team",
- platform:"3DS",
- category:"Games",
- language:["Multi"],
- region:["Other"],
- version:"0.2.0",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/3deins.png",
- description:"A card game made for Nintendo 3DS and DS(i).",
- source:"https://db.universal-team.net/3ds/3deins",
- download:"https://github.com/Universal-Team/3DEins/releases/latest"
-},
+  source:
+   "https://github.com/Universal-Team/3DEins",
 
-{
- id:"github3ds",
- title:"GitHub3DS",
- creator:"Morris / Artendo",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"1.0.2",
- type:"CIA",
- image:"https://db.universal-team.net/assets/images/github3ds.png",
- description:"Browse GitHub repositories and download files directly from your 3DS.",
- source:"https://db.universal-team.net/3ds/github3ds",
- download:"https://github.com/MorrisTheDeveloper/GitHub3DS/releases/latest"
-},
+  cia:
+   "https://github.com/Universal-Team/3DEins/releases/download/v0.2.0/3DEins.cia"
+ },
 
-{
- id:"cia-installer",
- title:"CIA Installer",
- creator:"Zachary-Rude",
- platform:"3DS",
- category:"Apps",
- language:["English"],
- region:["Other"],
- version:"1.1.0",
- type:"CIA / 3DSX",
- image:"https://db.universal-team.net/assets/images/cia-installer.png",
- description:"A simple homebrew application for installing CIA files.",
- source:"https://db.universal-team.net/3ds/cia-installer",
- download:"https://github.com/Zachary-Rude/CIA-Installer/releases/latest"
-},
+ {
+  id:"pksm",
+  title:"PKSM",
+  creator:"FlagBrew",
+  platform:"3DS",
+  category:"Apps",
+  language:["English","Multi"],
+  region:["USA","EUR","JPN"],
+  version:"10.4.0",
+  type:"CIA",
+  image:
+   "https://raw.githubusercontent.com/FlagBrew/PKSM/master/resources/icon.png",
 
-{
- id:"level256",
- title:"Level256 Installer",
- creator:"Tekito_256",
- platform:"3DS",
- category:"Games",
- language:["English"],
- region:["Other"],
- version:"1.0.0",
- type:"CIA",
- image:"https://db.universal-team.net/assets/images/level256-installer.png",
- description:"A homebrew game/application available for Nintendo 3DS.",
- source:"https://db.universal-team.net/3ds/level256-installer",
- download:"https://db.universal-team.net/3ds/level256-installer"
-}
+  description:
+   "A Pokémon save manager for Nintendo 3DS.",
+
+  source:
+   "https://github.com/FlagBrew/PKSM",
+
+  /*
+    PKSM officially provides PKSM.cia in its releases.
+    This is kept as an official release URL rather than
+    pretending a release webpage itself is a CIA.
+  */
+  cia:
+   "https://github.com/FlagBrew/PKSM/releases/download/10.4.0/PKSM.cia"
+ },
+
+ {
+  id:"checkpoint",
+  title:"Checkpoint",
+  creator:"BernardoGiordano",
+  platform:"3DS",
+  category:"Apps",
+  language:["English","Multi"],
+  region:["USA","EUR","JPN"],
+  version:"5.2.0",
+  type:"CIA",
+  image:
+   "https://raw.githubusercontent.com/BernardoGiordano/Checkpoint/master/resources/icon.png",
+
+  description:
+   "A Nintendo 3DS save-management application with backup and restore features.",
+
+  source:
+   "https://github.com/BernardoGiordano/Checkpoint",
+
+  cia:
+   "https://github.com/BernardoGiordano/Checkpoint/releases/download/v5.2.0/Checkpoint.cia"
+ },
+
+ {
+  id:"twilight",
+  title:"TWiLight Menu++",
+  creator:"DS-Homebrew",
+  platform:"DS",
+  category:"Apps",
+  language:["Multi"],
+  region:["USA","EUR","JPN"],
+  version:"Latest",
+  type:"NDS",
+  image:
+   "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/booter_fc/arm9/source/icon.png",
+
+  description:
+   "A menu replacement that lets a 3DS run DS homebrew and compatible DS software.",
+
+  source:
+   "https://github.com/DS-Homebrew/TWiLightMenu",
+
+  nds:
+   "https://github.com/DS-Homebrew/TWiLightMenu/releases/latest"
+ },
+
+ {
+  id:"nds-bootstrap",
+  title:"nds-bootstrap",
+  creator:"DS-Homebrew",
+  platform:"DS",
+  category:"Apps",
+  language:["English"],
+  region:["USA","EUR","JPN"],
+  version:"Latest",
+  type:"NDS",
+  image:
+   "https://raw.githubusercontent.com/DS-Homebrew/nds-bootstrap/master/icon.png",
+
+  description:
+   "The bootstrap software used by TWiLight Menu++ to launch Nintendo DS software.",
+
+  source:
+   "https://github.com/DS-Homebrew/nds-bootstrap",
+
+  nds:
+   "https://github.com/DS-Homebrew/nds-bootstrap/releases/latest"
+ }
 
 ];
 
-/*
-========================================================
-STATE
-========================================================
-*/
+let currentPlatform="All";
+let currentRegion="All";
+let currentLanguage="All";
 
-let platform="All";
-let region="All";
-let language="All";
+let favorites =
+ JSON.parse(localStorage.getItem("LuckyShopFavorites") || "[]");
 
-let favorites=
-  JSON.parse(localStorage.getItem("luckyshopFavorites")||"[]");
+/* =====================================================
+   FILTERS
+   ===================================================== */
 
-/*
-========================================================
-FILTERS
-========================================================
-*/
+function platformFilter(value,button){
 
-function setPlatform(value,button){
+ currentPlatform=value;
 
-  platform=value;
+ document
+  .querySelectorAll(".navbtn")
+  .forEach(x=>x.classList.remove("active"));
 
-  document
-    .querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
 
-  button.classList.add("active");
-
-  render();
+ render();
 }
 
 function setRegion(value,button){
 
-  region=value;
+ currentRegion=value;
 
-  const parent=button.parentElement;
+ document
+  .querySelectorAll(".filters .filter")
+  .forEach(x=>{
 
-  let buttons=parent.querySelectorAll("button");
-
-  buttons.forEach(b=>{
-
-    if(
-      b.textContent==="All" ||
-      b.textContent==="🇺🇸 USA" ||
-      b.textContent==="🇪🇺 Europe" ||
-      b.textContent==="🇯🇵 Japan" ||
-      b.textContent==="Other"
-    ){
-      b.classList.remove("active");
-    }
+   if(
+    ["🌎 All","🇺🇸 USA","🇪🇺 Europe","🇯🇵 Japan"]
+    .includes(x.textContent)
+   ){
+    x.classList.remove("active");
+   }
 
   });
 
-  button.classList.add("active");
+ button.classList.add("active");
 
-  render();
+ render();
 }
 
-function setLanguage(value,button){
+function setLang(value,button){
 
-  language=value;
+ currentLanguage=value;
 
-  const buttons=document.querySelectorAll(".filters button");
+ document
+  .querySelectorAll(".filters .filter")
+  .forEach(x=>{
 
-  buttons.forEach(b=>{
-
-    if([
-      "All",
-      "English",
-      "Japanese",
-      "French",
-      "German",
-      "Spanish",
-      "Multi"
-    ].includes(b.textContent)){
-
-      b.classList.remove("active");
-
-    }
+   if(
+    [
+     "All Languages",
+     "English",
+     "Japanese",
+     "French",
+     "German",
+     "Spanish",
+     "Multi"
+    ].includes(x.textContent)
+   ){
+    x.classList.remove("active");
+   }
 
   });
 
-  button.classList.add("active");
+ button.classList.add("active");
 
-  render();
+ render();
 }
 
-/*
-========================================================
-SEARCH / FILTER
-========================================================
-*/
+/* =====================================================
+   FILTER LOGIC
+   ===================================================== */
 
-function getFiltered(){
+function filteredGames(){
 
-  const search=
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase()
-      .trim();
+ const search =
+  document
+   .getElementById("search")
+   .value
+   .toLowerCase()
+   .trim();
 
-  return games.filter(game=>{
+ return games.filter(game=>{
 
-    if(
-      search &&
-      !(
-        game.title.toLowerCase().includes(search) ||
-        game.creator.toLowerCase().includes(search) ||
-        game.description.toLowerCase().includes(search)
-      )
-    ){
-      return false;
-    }
+  if(search){
 
-    if(platform==="3DS" && game.platform!=="3DS")
-      return false;
+   const text=
+    (
+     game.title+" "+
+     game.creator+" "+
+     game.description
+    ).toLowerCase();
 
-    if(platform==="DS" && game.platform!=="DS")
-      return false;
+   if(!text.includes(search))
+    return false;
+  }
 
-    if(platform==="Apps" && game.category!=="Apps")
-      return false;
+  if(currentPlatform==="3DS" &&
+     game.platform!=="3DS")
+   return false;
 
-    if(platform==="Games" && game.category!=="Games")
-      return false;
+  if(currentPlatform==="DS" &&
+     game.platform!=="DS")
+   return false;
 
-    if(
-      platform==="Favorites" &&
-      !favorites.includes(game.id)
-    ){
-      return false;
-    }
+  if(currentPlatform==="Games" &&
+     game.category!=="Games")
+   return false;
 
-    if(
-      region!=="All" &&
-      region!=="Other" &&
-      !game.region.includes(region)
-    ){
-      return false;
-    }
+  if(currentPlatform==="Apps" &&
+     game.category!=="Apps")
+   return false;
 
-    if(
-      language!=="All" &&
-      !game.language.includes(language)
-    ){
-      return false;
-    }
+  if(currentPlatform==="Favorites" &&
+     !favorites.includes(game.id))
+   return false;
 
-    return true;
+  if(
+   currentRegion!=="All" &&
+   !game.region.includes(currentRegion)
+  )
+   return false;
 
-  });
+  if(
+   currentLanguage!=="All" &&
+   !game.language.includes(currentLanguage)
+  )
+   return false;
 
+  return true;
+ });
 }
 
-/*
-========================================================
-RENDER
-========================================================
-*/
+/* =====================================================
+   RENDER
+   ===================================================== */
 
 function render(){
 
-  const catalog=document.getElementById("catalog");
+ const catalog=document.getElementById("catalog");
 
-  const filtered=getFiltered();
+ catalog.innerHTML="";
 
-  catalog.innerHTML="";
+ const list=filteredGames();
 
-  if(filtered.length===0){
+ if(!list.length){
 
-    catalog.innerHTML=`
-      <div class="empty">
-        <h2>🍀 Nothing found</h2>
-        <p>Try another category or search.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  filtered.forEach(game=>{
-
-    const favorite=favorites.includes(game.id);
-
-    const card=document.createElement("article");
-
-    card.className="card";
-
-    card.innerHTML=`
-
-      <img
-        class="cover"
-        src="${game.image}"
-        alt="${escapeHtml(game.title)}"
-        onerror="this.style.display='none'"
-      >
-
-      <div class="card-body">
-
-        <div class="title">
-          ${escapeHtml(game.title)}
-        </div>
-
-        <div class="creator">
-          ${escapeHtml(game.creator)}
-        </div>
-
-        <div class="tags">
-
-          <span class="tag">
-            ${game.platform}
-          </span>
-
-          <span class="tag">
-            ${game.category}
-          </span>
-
-          <span class="tag">
-            ${game.type}
-          </span>
-
-        </div>
-
-        <div class="actions">
-
-          <button
-            class="download"
-            onclick="downloadGame('${game.id}')"
-          >
-            ⬇ Download
-          </button>
-
-          <button
-            class="info"
-            onclick="showDetails('${game.id}')"
-          >
-            ℹ Info
-          </button>
-
-        </div>
-
-        <button
-          class="favorite"
-          onclick="toggleFavorite('${game.id}')"
-        >
-          ${favorite ? "★ Favorited" : "☆ Favorite"}
-        </button>
-
-      </div>
-    `;
-
-    catalog.appendChild(card);
-
-  });
-
-}
-
-/*
-========================================================
-DOWNLOAD
-========================================================
-*/
-
-function downloadGame(id){
-
-  const game=games.find(g=>g.id===id);
-
-  if(!game) return;
-
-  /*
-    For safety and compatibility, release pages are used
-    here rather than pretending every release page is a
-    direct CIA file.
-
-    A direct CIA URL can be placed into "download" when
-    the project officially provides one.
-  */
-
-  window.open(game.download,"_blank");
-
-}
-
-/*
-========================================================
-FAVORITES
-========================================================
-*/
-
-function toggleFavorite(id){
-
-  if(favorites.includes(id)){
-
-    favorites=favorites.filter(x=>x!==id);
-
-  }else{
-
-    favorites.push(id);
-
-  }
-
-  localStorage.setItem(
-    "luckyshopFavorites",
-    JSON.stringify(favorites)
-  );
-
-  render();
-
-}
-
-/*
-========================================================
-DETAILS
-========================================================
-*/
-
-function showDetails(id){
-
-  const game=games.find(g=>g.id===id);
-
-  if(!game) return;
-
-  const modal=document.getElementById("modal");
-
-  modal.innerHTML=`
-
-    <img
-      src="${game.image}"
-      onerror="this.style.display='none'"
-    >
-
-    <h2>${escapeHtml(game.title)}</h2>
-
-    <p>
-      <b>Creator:</b>
-      ${escapeHtml(game.creator)}
-    </p>
-
-    <p>
-      <b>Platform:</b>
-      ${game.platform}
-    </p>
-
-    <p>
-      <b>Category:</b>
-      ${game.category}
-    </p>
-
-    <p>
-      <b>Version:</b>
-      ${game.version}
-    </p>
-
-    <p>
-      <b>Type:</b>
-      ${game.type}
-    </p>
-
-    <p>
-      ${escapeHtml(game.description)}
-    </p>
-
-    <button
-      style="background:#43d477;color:#06150b"
-      onclick="downloadGame('${game.id}')"
-    >
-      ⬇ Open Official Download
-    </button>
-
-    <button
-      style="background:#252b3d;color:white"
-      onclick="openSource('${game.id}')"
-    >
-      🔗 Project Source
-    </button>
-
-    <button
-      style="background:#252b3d;color:white"
-      onclick="showQR('${game.id}')"
-    >
-      📷 QR Code
-    </button>
-
-    <button
-      class="close"
-      onclick="closeModal()"
-    >
-      Close
-    </button>
-
-    <div id="qrArea"></div>
-
+  catalog.innerHTML=`
+   <div class="empty">
+    <h2>🍀 Nothing here yet</h2>
+    <p>Try another category or search.</p>
+   </div>
   `;
 
-  document.getElementById("modalBg").style.display="flex";
+  return;
+ }
 
-}
+ list.forEach(game=>{
 
-/*
-========================================================
-SOURCE
-========================================================
-*/
+  const fav=favorites.includes(game.id);
 
-function openSource(id){
+  const card=document.createElement("article");
 
-  const game=games.find(g=>g.id===id);
+  card.className="card";
 
-  if(!game) return;
+  card.innerHTML=`
 
-  window.open(game.source,"_blank");
+   <img
+    class="cover"
+    src="${game.image}"
+    alt="${escapeHTML(game.title)}"
+    onerror="this.style.display='none'"
+   >
 
-}
+   <div class="info">
 
-/*
-========================================================
-QR
-========================================================
-*/
+    <div class="title">
+     ${escapeHTML(game.title)}
+    </div>
 
-function showQR(id){
+    <div class="creator">
+     ${escapeHTML(game.creator)}
+    </div>
 
-  const game=games.find(g=>g.id===id);
+    <div class="tags">
 
-  if(!game) return;
+     <span class="tag">
+      ${game.platform}
+     </span>
 
-  const area=document.getElementById("qrArea");
+     <span class="tag">
+      ${game.category}
+     </span>
 
-  const qrURL=
-    "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
-    +encodeURIComponent(game.download);
+     <span class="tag">
+      ${game.type}
+     </span>
 
-  area.innerHTML=`
-
-    <div class="qr">
-
-      <p style="color:#222;margin-bottom:10px">
-        Scan this QR code
-      </p>
-
-      <img src="${qrURL}" alt="QR">
-
-      <p style="color:#555;margin-top:10px">
-        This QR opens the project's download source.
-      </p>
+     <span class="tag">
+      v${game.version}
+     </span>
 
     </div>
 
+    <div class="actions">
+
+     <button
+      class="download"
+      onclick="download('${game.id}')"
+     >
+      ⬇ Download
+     </button>
+
+     <button
+      class="details"
+      onclick="details('${game.id}')"
+     >
+      ℹ Info
+     </button>
+
+    </div>
+
+    <button
+     class="fav"
+     onclick="favorite('${game.id}')"
+    >
+     ${fav ? "★ Favorited" : "☆ Favorite"}
+    </button>
+
+   </div>
   `;
 
+  catalog.appendChild(card);
+
+ });
 }
 
-/*
-========================================================
-MODAL
-========================================================
-*/
+/* =====================================================
+   DOWNLOAD
+   ===================================================== */
+
+function download(id){
+
+ const game=games.find(x=>x.id===id);
+
+ if(!game)return;
+
+ if(game.cia){
+
+  /*
+   IMPORTANT:
+   This opens the DIRECT CIA asset.
+   It does not open a GitHub release page.
+  */
+
+  window.location.href=game.cia;
+
+  return;
+ }
+
+ if(game.nds){
+
+  window.location.href=game.nds;
+
+  return;
+ }
+}
+
+/* =====================================================
+   FAVORITES
+   ===================================================== */
+
+function favorite(id){
+
+ if(favorites.includes(id)){
+
+  favorites=favorites.filter(x=>x!==id);
+
+ }else{
+
+  favorites.push(id);
+
+ }
+
+ localStorage.setItem(
+  "LuckyShopFavorites",
+  JSON.stringify(favorites)
+ );
+
+ render();
+}
+
+/* =====================================================
+   DETAILS
+   ===================================================== */
+
+function details(id){
+
+ const game=games.find(x=>x.id===id);
+
+ if(!game)return;
+
+ const modal=document.getElementById("modal");
+
+ let installButton="";
+
+ if(game.cia){
+
+  installButton=`
+
+   <button
+    class="green"
+    onclick="download('${game.id}')"
+   >
+    ⬇ Download CIA
+   </button>
+
+   <button
+    class="green"
+    onclick="showQR('${game.id}')"
+   >
+    📷 FBI QR — Direct CIA
+   </button>
+
+  `;
+
+ }else{
+
+  installButton=`
+
+   <button
+    class="green"
+    onclick="download('${game.id}')"
+   >
+    ⬇ Download NDS
+   </button>
+
+  `;
+ }
+
+ modal.innerHTML=`
+
+  <img
+   src="${game.image}"
+   onerror="this.style.display='none'"
+  >
+
+  <h2>${escapeHTML(game.title)}</h2>
+
+  <p>
+   <b>Creator:</b>
+   ${escapeHTML(game.creator)}
+  </p>
+
+  <p>
+   <b>Platform:</b>
+   ${game.platform}
+  </p>
+
+  <p>
+   <b>Version:</b>
+   ${game.version}
+  </p>
+
+  <p>
+   <b>Type:</b>
+   ${game.type}
+  </p>
+
+  <p>
+   ${escapeHTML(game.description)}
+  </p>
+
+  ${installButton}
+
+  <button
+   class="dark"
+   onclick="window.open('${game.source}','_blank')"
+  >
+   🔗 Official Project
+  </button>
+
+  <button
+   class="dark"
+   onclick="closeModal()"
+  >
+   Close
+  </button>
+
+  <div id="qr"></div>
+ `;
+
+ document.getElementById("modalbg").style.display="flex";
+}
+
+/* =====================================================
+   DIRECT CIA QR
+   ===================================================== */
+
+function showQR(id){
+
+ const game=games.find(x=>x.id===id);
+
+ if(!game || !game.cia)
+  return;
+
+ const qr=document.getElementById("qr");
+
+ const qrImage=
+  "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
+  encodeURIComponent(game.cia);
+
+ qr.innerHTML=`
+
+  <div class="qrbox">
+
+   <strong>FBI Remote Install</strong>
+
+   <br><br>
+
+   <img
+    src="${qrImage}"
+    alt="Direct CIA QR"
+   >
+
+   <p>
+    Scan this with FBI Remote Install.
+    This QR contains the direct CIA URL.
+   </p>
+
+  </div>
+ `;
+}
+
+/* =====================================================
+   CLOSE
+   ===================================================== */
 
 function closeModal(){
 
-  document.getElementById("modalBg").style.display="none";
+ document.getElementById("modalbg").style.display="none";
 
 }
 
 document
-  .getElementById("modalBg")
-  .addEventListener("click",function(e){
+ .getElementById("modalbg")
+ .addEventListener("click",function(e){
 
-    if(e.target===this)
-      closeModal();
+  if(e.target===this)
+   closeModal();
 
-  });
+ });
 
-/*
-========================================================
-HTML ESCAPE
-========================================================
-*/
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
 
-function escapeHtml(text){
+function escapeHTML(text){
 
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
+ return String(text)
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
 
-/*
-========================================================
-START
-========================================================
-*/
+/* =====================================================
+   START
+   ===================================================== */
 
 render();
 
