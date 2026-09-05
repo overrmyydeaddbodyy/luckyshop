@@ -1,203 +1,138 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>LuckyShop 🍀</title><style>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0,user-scalable=no">
+
+<title>🍀 LuckyShop 3.0</title>
+
+<style>
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-html, body {
     margin: 0;
     padding: 0;
-    min-height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    color: #17351f;
+    font-family: Arial, Helvetica, sans-serif;
     background:
-        linear-gradient(
-            135deg,
-            #ff595e 0%,
-            #ff924c 20%,
-            #ffca3a 38%,
-            #8ac926 55%,
-            #1982c4 73%,
-            #6a4c93 100%
-        );
-    background-attachment: fixed;
+        linear-gradient(135deg,
+        #e8fff0,
+        #d9f7ff,
+        #f5e5ff,
+        #fff0d9);
+    color: #222;
+    min-height: 100vh;
 }
 
-.topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.96);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-    padding: 8px 12px;
-}
-
-.topbar-inner {
-    max-width: 1100px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-small {
-    font-size: 27px;
-}
-
-.brand-small {
-    font-weight: 900;
-    font-size: 21px;
-    color: #279b4d;
-}
-
-.version {
-    margin-left: auto;
-    font-size: 12px;
-    color: #777;
-}
-
-.hero {
-    text-align: center;
+header {
+    background: linear-gradient(90deg,
+        #16a34a,
+        #22c55e,
+        #14b8a6,
+        #3b82f6);
     color: white;
-    padding: 35px 15px 30px;
-    text-shadow: 0 3px 7px rgba(0,0,0,0.35);
-}
-
-.clover {
-    font-size: 70px;
-    line-height: 1;
-}
-
-.bags {
-    font-size: 35px;
-    margin-top: 7px;
-    letter-spacing: 5px;
+    padding: 20px 12px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,.2);
 }
 
 .logo {
-    font-size: 48px;
-    font-weight: 1000;
-    margin-top: 5px;
+    font-size: 38px;
+    font-weight: bold;
 }
 
 .subtitle {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 7px;
+    margin-top: 5px;
+    font-size: 14px;
+    opacity: .95;
 }
 
 .container {
-    width: 94%;
     max-width: 1100px;
     margin: auto;
-}
-
-.notice {
-    background: rgba(255,255,255,0.95);
-    border-radius: 20px;
-    padding: 17px;
-    margin-bottom: 18px;
-    box-shadow: 0 7px 20px rgba(0,0,0,0.2);
-}
-
-.notice-title {
-    font-weight: 900;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.notice p {
-    margin: 4px 0;
-    font-size: 14px;
-}
-
-.controls {
-    background: rgba(255,255,255,0.95);
-    padding: 14px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 7px 20px rgba(0,0,0,0.2);
-}
-
-.search-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    padding: 15px;
 }
 
 .search {
-    flex: 1;
-    min-width: 200px;
+    width: 100%;
     padding: 14px;
+    border-radius: 12px;
     border: 2px solid #ddd;
-    border-radius: 14px;
     font-size: 16px;
-    outline: none;
+    margin-bottom: 12px;
 }
 
-.search:focus {
-    border-color: #39a957;
-}
-
-.category-select {
-    padding: 14px;
-    border: 2px solid #ddd;
-    border-radius: 14px;
-    background: white;
-    font-size: 15px;
-}
-
-.categories {
-    display: flex;
+.controls {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(150px,1fr));
     gap: 8px;
-    overflow-x: auto;
-    padding-top: 12px;
-    padding-bottom: 2px;
+    margin-bottom: 15px;
 }
 
-.category-button {
-    flex: 0 0 auto;
-    border: none;
-    border-radius: 50px;
-    padding: 9px 15px;
-    background: #e8f7eb;
-    color: #238743;
-    font-weight: 800;
+select,
+button {
+    padding: 12px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.category-button.active {
-    background: #2fab52;
-    color: white;
+select {
+    background: white;
+    border: 2px solid #ddd;
 }
 
-.section-title {
+button {
+    background: #16a34a;
     color: white;
-    font-size: 25px;
-    font-weight: 900;
-    margin: 15px 0;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.35);
+    font-weight: bold;
 }
 
-.grid {
+button:hover {
+    opacity: .9;
+}
+
+button.secondary {
+    background: #64748b;
+}
+
+button.blue {
+    background: #2563eb;
+}
+
+button.gold {
+    background: #eab308;
+    color: #111;
+}
+
+.stats {
+    background: rgba(255,255,255,.8);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.shop {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 17px;
-    padding-bottom: 30px;
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+    gap: 15px;
 }
 
 .card {
-    background: rgba(255,255,255,0.97);
-    border-radius: 20px;
-    padding: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: transform 0.15s;
+    background: white;
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+    position: relative;
+    transition: transform .15s;
 }
 
 .card:hover {
@@ -206,1021 +141,68 @@ body {
 
 .cover {
     width: 100%;
-    aspect-ratio: 1 / 0.88;
-    border-radius: 15px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #dfffe7, #ffffff);
+    height: 150px;
+    border-radius: 12px;
+    background: linear-gradient(135deg,
+        #bbf7d0,
+        #bfdbfe);
     display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.placeholder-cover {
-    font-size: 62px;
-}
-
-.card-category {
-    display: inline-block;
-    margin-top: 11px;
-    padding: 4px 9px;
-    border-radius: 30px;
-    background: #35ad56;
-    color: white;
-    font-size: 11px;
-    font-weight: 900;
-}
-
-.card h3 {
-    margin: 7px 0 4px;
-    font-size: 19px;
-}
-
-.card-description {
-    color: #666;
-    font-size: 13px;
-    min-height: 38px;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 7px;
-    margin-top: 10px;
+    font-size: 50px;
+    margin-bottom: 12px;
 }
 
-.size {
-    color: #777;
-    font-size: 12px;
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.description {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.tag {
+    background: #eef2ff;
+    color: #3730a3;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.new {
+    background: #dc2626;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.updated {
+    background: #2563eb;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
 }
 
 .card-buttons {
-    display: flex;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
 }
 
-.get-button,
-.info-button,
-.favorite-button {
-    border: none;
-    border-radius: 12px;
-    padding: 9px 11px;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.get-button {
-    background: #31aa52;
-    color: white;
-}
-
-.get-button:hover {
-    background: #238b40;
-}
-
-.info-button {
-    background: #e8f7eb;
-    color: #238743;
-}
-
-.favorite-button {
-    background: #fff3c4;
-    color: #9a7600;
-}
-
-.favorite-button.active {
-    background: #ffd84d;
-}
-
-.empty {
-    background: rgba(255,255,255,0.95);
-    padding: 30px;
-    text-align: center;
-    border-radius: 20px;
-    margin-bottom: 30px;
-}
-
-.empty-icon {
-    font-size: 50px;
-}
-
-footer {
-    color: white;
-    text-align: center;
-    padding: 30px 15px 45px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.4);
-}
-
-.footer-logo {
-    font-size: 35px;
-    font-weight: 900;
-}
-
-/* MODAL */
-
-.modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    z-index: 500;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-box {
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: white;
-    border-radius: 22px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-}
-
-.modal-cover {
-    width: 100%;
-    max-height: 260px;
-    object-fit: cover;
-    border-radius: 16px;
-}
-
-.modal h2 {
-    margin-bottom: 5px;
-}
-
-.modal-category {
-    color: #2fab52;
-    font-weight: 900;
-}
-
-.modal-description {
-    color: #555;
-    line-height: 1.5;
-}
-
-.modal-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.modal-buttons button {
-    flex: 1;
-    min-width: 130px;
-    padding: 13px;
-    border: none;
-    border-radius: 13px;
-    font-weight: 900;
-    cursor: pointer;
-}
-
-.download-modal {
-    background: #31aa52;
-    color: white;
-}
-
-.qr-modal {
-    background: #e8f7eb;
-    color: #238743;
-}
-
-.close-modal {
-    background: #eee;
-    color: #333;
-}
-
-#qrContainer {
-    text-align: center;
-    margin-top: 18px;
-    display: none;
-}
-
-#qrContainer canvas,
-#qrContainer img {
-    margin: auto;
-}
-
-.qr-text {
-    font-size: 12px;
-    color: #777;
-    margin-top: 8px;
-    word-break: break-all;
-}
-
-@media (max-width: 600px) {
-
-    .logo {
-        font-size: 38px;
-    }
-
-    .clover {
-        font-size: 58px;
-    }
-
-    .bags {
-        font-size: 29px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 10px;
-    }
-
-    .card {
-        padding: 9px;
-        border-radius: 15px;
-    }
-
-    .card h3 {
-        font-size: 16px;
-    }
-
-    .card-description {
-        font-size: 12px;
-    }
-
-    .get-button,
-    .info-button,
-    .favorite-button {
-        padding: 8px;
-        font-size: 11px;
-    }
-}
-</style></head><body><div class="topbar">
-    <div class="topbar-inner">
-        <div class="logo-small">🍀</div>
-        <div class="brand-small">LuckyShop</div>
-        <div class="version">v2.0</div>
-    </div>
-</div><header class="hero"><div class="clover">🍀</div>
-
-<div class="bags">
-    🛍️ 🛍️ 🛍️
-</div>
-
-<div class="logo">
-    LuckyShop
-</div>
-
-<div class="subtitle">
-    Your lucky little homebrew shop!
-</div>
-
-</header><main class="container"><div class="notice"><div class="notice-title">
-    🍀 Welcome to LuckyShop!
-</div>
-
-<p>
-    Browse homebrew, freeware, public-domain software,
-    and other content authorized for redistribution.
-</p>
-
-<p>
-    Search, filter, favorite items, view details,
-    and use QR codes for authorized links.
-</p>
-
-</div><div class="controls"><div class="search-row">
-
-    <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="🔎 Search LuckyShop..."
-    >
-
-    <select
-        id="categorySelect"
-        class="category-select">
-    </select>
-
-</div>
-
-<div id="categories" class="categories"></div>
-
-</div><div class="section-title">
-    🍀 LuckyShop Catalog
-</div><div id="grid" class="grid"></div><div id="empty" class="empty" style="display:none;"><div class="empty-icon">
-    😔
-</div>
-
-<h2>
-    Nothing found!
-</h2>
-
-<p>
-    Try another search or category.
-</p>
-
-</div></main><footer><div class="footer-logo">
-    🍀 LuckyShop 🛍️
-</div>
-
-<p>
-    Rainbow Edition
-</p>
-
-<p>
-    Homebrew • Freeware • Public Domain
-</p>
-
-</footer><!-- DETAILS MODAL --><div id="modal" class="modal"><div class="modal-box">
-
-    <div id="modalContent"></div>
-
-    <div class="modal-buttons">
-
-        <button
-            class="download-modal"
-            id="modalDownload">
-            ⬇️ Open Link
-        </button>
-
-        <button
-            class="qr-modal"
-            id="modalQR">
-            📱 Show QR
-        </button>
-
-        <button
-            class="close-modal"
-            onclick="closeModal()">
-            ✖ Close
-        </button>
-
-    </div>
-
-    <div id="qrContainer">
-
-        <div id="qrcode"></div>
-
-        <div class="qr-text" id="qrText"></div>
-
-    </div>
-
-</div>
-
-</div><!-- QR CODE LIBRARY --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script>
-
-/* ========================================================
-   LUCKYSHOP CATALOG
-   ========================================================
-
-   Add your own authorized entries here.
-
-   cover:
-   Put an image URL here, or leave blank.
-
-   download:
-   Put the authorized download/source URL here.
-
-   ======================================================== */
-
-const catalog = [
-
-    {
-        id: "twilight-menu",
-        title: "TWiLight Menu++",
-        category: "Homebrew",
-        icon: "🌙",
-        description:
-            "A homebrew menu for launching Nintendo DS software.",
-        size: "Homebrew",
-        cover: "",
-        download:
-            "https://github.com/DS-Homebrew/TWiLightMenu"
-    },
-
-    {
-        id: "nds-bootstrap",
-        title: "nds-bootstrap",
-        category: "Tools",
-        icon: "⚙️",
-        description:
-            "Open-source software used by TWiLight Menu++.",
-        size: "Homebrew",
-        cover: "",
-        download:
-            "https://github.com/DS-Homebrew/nds-bootstrap"
-    },
-
-    {
-        id: "universal-updater",
-        title: "Universal-Updater",
-        category: "3DS Tools",
-        icon: "⬇️",
-        description:
-            "A homebrew updater for Nintendo 3DS software.",
-        size: "Homebrew",
-        cover: "",
-        download:
-            "https://github.com/Universal-Team/Universal-Updater"
-    },
-
-    {
-        id: "lucky-demo",
-        title: "Lucky Homebrew Demo",
-        category: "Demos",
-        icon: "🍀",
-        description:
-            "Example LuckyShop entry. Replace this with your own authorized content.",
-        size: "Demo",
-        cover: "",
-        download: "#"
-    }
-
-];
-
-
-/* ========================================================
-   STATE
-   ======================================================== */
-
-let selectedCategory = "All";
-let currentItem = null;
-
-let favorites =
-    JSON.parse(
-        localStorage.getItem("luckyshop-favorites") || "[]"
-    );
-
-
-/* ========================================================
-   SEARCH
-   ======================================================== */
-
-document
-    .getElementById("search")
-    .addEventListener("input", renderShop);
-
-
-/* ========================================================
-   CATEGORY SELECT
-   ======================================================== */
-
-document
-    .getElementById("categorySelect")
-    .addEventListener("change", function() {
-
-        selectCategory(this.value);
-
-    });
-
-
-/* ========================================================
-   BUILD CATEGORIES
-   ======================================================== */
-
-function buildCategories() {
-
-    const categories =
-        [...new Set(
-            catalog.map(item => item.category)
-        )].sort();
-
-    const select =
-        document.getElementById("categorySelect");
-
-    const buttons =
-        document.getElementById("categories");
-
-    select.innerHTML = "";
-
-    const allOption =
-        document.createElement("option");
-
-    allOption.value = "All";
-    allOption.textContent = "🍀 All Categories";
-
-    select.appendChild(allOption);
-
-    categories.forEach(category => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = category;
-        option.textContent = "🍀 " + category;
-
-        select.appendChild(option);
-
-    });
-
-
-    buttons.innerHTML = "";
-
-    createCategoryButton("All", buttons);
-
-    categories.forEach(category => {
-
-        createCategoryButton(category, buttons);
-
-    });
-
-}
-
-
-function createCategoryButton(category, container) {
-
-    const button =
-        document.createElement("button");
-
-    button.className =
-        "category-button";
-
-    if (category === "All") {
-
-        button.classList.add("active");
-
-    }
-
-    button.textContent =
-        category === "All"
-        ? "🍀 All"
-        : "🍀 " + category;
-
-    button.onclick =
-        () => selectCategory(category);
-
-    container.appendChild(button);
-
-}
-
-
-/* ========================================================
-   SELECT CATEGORY
-   ======================================================== */
-
-function selectCategory(category) {
-
-    selectedCategory = category;
-
-    document.getElementById(
-        "categorySelect"
-    ).value = category;
-
-    document.querySelectorAll(
-        ".category-button"
-    ).forEach(button => {
-
-        button.classList.remove("active");
-
-        const text =
-            button.textContent
-            .replace("🍀 ", "");
-
-        if (text === category) {
-
-            button.classList.add("active");
-
-        }
-
-    });
-
-    renderShop();
-
-}
-
-
-/* ========================================================
-   RENDER SHOP
-   ======================================================== */
-
-function renderShop() {
-
-    const grid =
-        document.getElementById("grid");
-
-    const empty =
-        document.getElementById("empty");
-
-    const query =
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    const results =
-        catalog.filter(item => {
-
-            const searchable =
-                (
-                    item.title +
-                    " " +
-                    item.description +
-                    " " +
-                    item.category
-                ).toLowerCase();
-
-            const matchesSearch =
-                searchable.includes(query);
-
-            const matchesCategory =
-                selectedCategory === "All"
-                ||
-                item.category === selectedCategory;
-
-            return (
-                matchesSearch &&
-                matchesCategory
-            );
-
-        });
-
-
-    grid.innerHTML = "";
-
-
-    if (results.length === 0) {
-
-        empty.style.display = "block";
-
-        return;
-
-    }
-
-
-    empty.style.display = "none";
-
-
-    results.forEach(item => {
-
-        const card =
-            document.createElement("article");
-
-        card.className = "card";
-
-
-        let coverHTML;
-
-        if (item.cover) {
-
-            coverHTML =
-                `<img
-                    src="${escapeHTML(item.cover)}"
-                    alt="${escapeHTML(item.title)} cover"
-                    loading="lazy"
-                >`;
-
-        } else {
-
-            coverHTML =
-                `<div class="placeholder-cover">
-                    ${item.icon}
-                </div>`;
-
-        }
-
-
-        const isFavorite =
-            favorites.includes(item.id);
-
-
-        card.innerHTML = `
-
-            <div class="cover">
-                ${coverHTML}
-            </div>
-
-            <span class="card-category">
-                ${escapeHTML(item.category)}
-            </span>
-
-            <h3>
-                ${escapeHTML(item.title)}
-            </h3>
-
-            <div class="card-description">
-                ${escapeHTML(item.description)}
-            </div>
-
-            <div class="card-footer">
-
-                <span class="size">
-                    ${escapeHTML(item.size)}
-                </span>
-
-                <div class="card-buttons">
-
-                    <button
-                        class="favorite-button ${isFavorite ? "active" : ""}"
-                        onclick="toggleFavorite('${item.id}')">
-                        ${isFavorite ? "⭐" : "☆"}
-                    </button>
-
-                    <button
-                        class="info-button"
-                        onclick="showDetails('${item.id}')">
-                        ℹ️
-                    </button>
-
-                    <button
-                        class="get-button"
-                        onclick="openItem('${item.id}')">
-                        🛍️
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-
-
-        grid.appendChild(card);
-
-    });
-
-}
-
-
-/* ========================================================
-   OPEN ITEM
-   ======================================================== */
-
-function openItem(id) {
-
-    const item =
-        catalog.find(entry => entry.id === id);
-
-    if (!item) return;
-
-    if (!item.download || item.download === "#") {
-
-        alert(
-            "🍀 This is a sample entry. Add an authorized URL first."
-        );
-
-        return;
-
-    }
-
-    window.open(
-        item.download,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
-}
-
-
-/* ========================================================
-   FAVORITES
-   ======================================================== */
-
-function toggleFavorite(id) {
-
-    if (favorites.includes(id)) {
-
-        favorites =
-            favorites.filter(
-                favorite => favorite !== id
-            );
-
-    } else {
-
-        favorites.push(id);
-
-    }
-
-
-    localStorage.setItem(
-        "luckyshop-favorites",
-        JSON.stringify(favorites)
-    );
-
-    renderShop();
-
-}
-
-
-/* ========================================================
-   DETAILS
-   ======================================================== */
-
-function showDetails(id) {
-
-    const item =
-        catalog.find(entry => entry.id === id);
-
-    if (!item) return;
-
-    currentItem = item;
-
-
-    let coverHTML;
-
-    if (item.cover) {
-
-        coverHTML =
-            `<img
-                class="modal-cover"
-                src="${escapeHTML(item.cover)}"
-                alt="${escapeHTML(item.title)} cover"
-            >`;
-
-    } else {
-
-        coverHTML =
-            `<div
-                class="placeholder-cover"
-                style="height:220px;">
-                ${item.icon}
-            </div>`;
-
-    }
-
-
-    document.getElementById(
-        "modalContent"
-    ).innerHTML = `
-
-        ${coverHTML}
-
-        <div class="modal-category">
-            ${escapeHTML(item.category)}
-        </div>
-
-        <h2>
-            ${escapeHTML(item.title)}
-        </h2>
-
-        <p class="modal-description">
-            ${escapeHTML(item.description)}
-        </p>
-
-        <p>
-            <strong>Type:</strong>
-            ${escapeHTML(item.size)}
-        </p>
-
-    `;
-
-
-    document.getElementById(
-        "modal"
-    ).classList.add("show");
-
-
-    document.getElementById(
-        "qrContainer"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "qrcode"
-    ).innerHTML = "";
-
-}
-
-
-/* ========================================================
-   MODAL DOWNLOAD
-   ======================================================== */
-
-document.getElementById(
-    "modalDownload"
-).onclick = function() {
-
-    if (!currentItem) return;
-
-    openItem(currentItem.id);
-
-};
-
-
-/* ========================================================
-   QR CODE
-   ======================================================== */
-
-document.getElementById(
-    "modalQR"
-).onclick = function() {
-
-    if (!currentItem) return;
-
-    if (
-        !currentItem.download ||
-        currentItem.download === "#"
-    ) {
-
-        alert(
-            "🍀 This item does not have a valid URL yet."
-        );
-
-        return;
-
-    }
-
-
-    const container =
-        document.getElementById("qrcode");
-
-    container.innerHTML = "";
-
-
-    if (typeof QRCode === "undefined") {
-
-        alert(
-            "QR code library could not load. Check your internet connection."
-        );
-
-        return;
-
-    }
-
-
-    new QRCode(
-        container,
-        {
-            text: currentItem.download,
-            width: 190,
-            height: 190
-        }
-    );
-
-
-    document.getElementById(
-        "qrText"
-    ).textContent =
-        currentItem.download;
-
-
-    document.getElementById(
-        "qrContainer"
-    ).style.display = "block";
-
-};
-
-
-/* ========================================================
-   CLOSE MODAL
-   ======================================================== */
-
-function closeModal() {
-
-    document.getElementById(
-        "modal"
-    ).classList.remove("show");
-
-    currentItem = null;
-
-}
-
-
-document.getElementById(
-    "modal"
-).addEventListener(
-    "click",
-    function(event) {
-
-        if (event.target === this) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* ========================================================
-   ESCAPING
-   ======================================================== */
-
-function escapeHTML(text) {
-
-    return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* ========================================================
-   START
-   ======================================================== */
-
-buildCategories();
-
-renderShop();
-
-</script></body>
-</html>
+.card-buttons button {
