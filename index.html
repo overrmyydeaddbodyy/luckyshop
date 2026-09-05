@@ -2,41 +2,72 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0,user-scalable=no">
 
-<title>🍀 LuckyShop 3.0</title>
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0">
+
+<title>LuckyShop</title>
 
 <style>
+
+/* =========================
+   BASIC
+========================= */
+
 * {
     box-sizing: border-box;
+}
+
+html,
+body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+
     background:
-        linear-gradient(135deg,
-        #e8fff0,
-        #d9f7ff,
-        #f5e5ff,
-        #fff0d9);
+        linear-gradient(
+            135deg,
+            #ff9a9e,
+            #fad0c4,
+            #fbc2eb,
+            #a6c1ee,
+            #84fab0
+        );
+
+    background-attachment: fixed;
+
     color: #222;
-    min-height: 100vh;
 }
 
-header {
-    background: linear-gradient(90deg,
-        #16a34a,
-        #22c55e,
-        #14b8a6,
-        #3b82f6);
-    color: white;
-    padding: 20px 12px;
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
     text-align: center;
-    box-shadow: 0 3px 12px rgba(0,0,0,.2);
+
+    padding: 25px 15px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #16a34a,
+            #22c55e,
+            #06b6d4,
+            #3b82f6
+        );
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.25);
 }
 
 .logo {
@@ -44,165 +75,2106 @@ header {
     font-weight: bold;
 }
 
-.subtitle {
-    margin-top: 5px;
+.tagline {
+    margin-top: 7px;
     font-size: 14px;
-    opacity: .95;
 }
 
+
+/* =========================
+   MAIN
+========================= */
+
 .container {
+    width: 95%;
     max-width: 1100px;
-    margin: auto;
-    padding: 15px;
+
+    margin: 20px auto;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    background: white;
+
+    padding: 12px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.15);
+
+    margin-bottom: 15px;
 }
 
 .search {
     width: 100%;
+
     padding: 14px;
-    border-radius: 12px;
+
     border: 2px solid #ddd;
+
+    border-radius: 10px;
+
     font-size: 16px;
-    margin-bottom: 12px;
+
+    outline: none;
 }
 
-.controls {
+.search:focus {
+    border-color: #22c55e;
+}
+
+
+/* =========================
+   FILTERS
+========================= */
+
+.filters {
     display: grid;
+
     grid-template-columns:
-        repeat(auto-fit,minmax(150px,1fr));
+        repeat(auto-fit, minmax(150px, 1fr));
+
     gap: 8px;
+
     margin-bottom: 15px;
 }
 
-select,
-button {
+.filter {
+    width: 100%;
+
     padding: 12px;
+
     border-radius: 10px;
-    border: 0;
+
+    border: 2px solid #ddd;
+
+    background: white;
+
     font-size: 14px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(120px, 1fr));
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+button {
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
     cursor: pointer;
 }
 
-select {
-    background: white;
-    border: 2px solid #ddd;
-}
-
-button {
+.green {
     background: #16a34a;
     color: white;
-    font-weight: bold;
 }
 
-button:hover {
-    opacity: .9;
-}
-
-button.secondary {
-    background: #64748b;
-}
-
-button.blue {
+.blue {
     background: #2563eb;
+    color: white;
 }
 
-button.gold {
-    background: #eab308;
+.yellow {
+    background: #facc15;
     color: #111;
 }
 
+.gray {
+    background: #64748b;
+    color: white;
+}
+
+.red {
+    background: #dc2626;
+    color: white;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
 .stats {
-    background: rgba(255,255,255,.8);
-    padding: 12px;
+    background: rgba(255,255,255,.9);
+
+    padding: 14px;
+
     border-radius: 12px;
-    margin-bottom: 15px;
+
     text-align: center;
+
+    margin-bottom: 15px;
+
     font-weight: bold;
 }
+
+
+/* =========================
+   SHOP
+========================= */
 
 .shop {
     display: grid;
+
     grid-template-columns:
-        repeat(auto-fit,minmax(250px,1fr));
+        repeat(auto-fit, minmax(250px, 1fr));
+
     gap: 15px;
 }
 
+
+/* =========================
+   CARD
+========================= */
+
 .card {
-    background: white;
-    border-radius: 16px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.12);
     position: relative;
-    transition: transform .15s;
+
+    background: white;
+
+    border-radius: 17px;
+
+    padding: 15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.18);
 }
 
-.card:hover {
-    transform: translateY(-3px);
-}
-
-.cover {
+.card-cover {
     width: 100%;
+
     height: 150px;
+
     border-radius: 12px;
-    background: linear-gradient(135deg,
-        #bbf7d0,
-        #bfdbfe);
+
     display: flex;
-    justify-content: center;
+
     align-items: center;
-    font-size: 50px;
+
+    justify-content: center;
+
+    font-size: 55px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d9f99d,
+            #bfdbfe,
+            #fbcfe8
+        );
+
     margin-bottom: 12px;
 }
 
-.card h2 {
-    font-size: 20px;
-    margin-bottom: 6px;
+.card-title {
+    font-size: 21px;
+
+    margin-bottom: 8px;
 }
 
-.description {
+.card-description {
     color: #555;
+
     font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 10px;
+
+    line-height: 1.45;
+
+    margin-bottom: 12px;
 }
+
+
+/* =========================
+   TAGS
+========================= */
 
 .tags {
     display: flex;
+
     flex-wrap: wrap;
+
     gap: 5px;
-    margin-bottom: 10px;
+
+    margin-bottom: 12px;
 }
 
 .tag {
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
     background: #eef2ff;
+
     color: #3730a3;
-    padding: 5px 8px;
-    border-radius: 20px;
+
     font-size: 11px;
+
     font-weight: bold;
 }
 
-.new {
+.new-tag {
     background: #dc2626;
+
     color: white;
+
     padding: 5px 8px;
+
     border-radius: 20px;
+
     font-size: 11px;
+
     font-weight: bold;
 }
 
-.updated {
+.updated-tag {
     background: #2563eb;
+
     color: white;
+
     padding: 5px 8px;
+
     border-radius: 20px;
+
     font-size: 11px;
+
     font-weight: bold;
 }
+
+
+/* =========================
+   CARD BUTTONS
+========================= */
 
 .card-buttons {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 7px;
 }
 
-.card-buttons button {
+
+/* =========================
+   FAVORITE
+========================= */
+
+.favorite {
+    position: absolute;
+
+    top: 10px;
+
+    right: 10px;
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 2px solid #ddd;
+
+    font-size: 21px;
+
+    z-index: 2;
+}
+
+.favorite.active {
+    color: red;
+
+    border-color: red;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    background: white;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    grid-column: 1 / -1;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    z-index: 9999;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow-y: auto;
+
+    background: rgba(0,0,0,.7);
+
+    padding: 15px;
+}
+
+.modal-box {
+    background: white;
+
+    max-width: 500px;
+
+    margin: 30px auto;
+
+    padding: 20px;
+
+    border-radius: 18px;
+}
+
+.close-button {
+    float: right;
+
+    width: 40px;
+
+    height: 40px;
+
+    padding: 0;
+
+    background: #dc2626;
+
+    color: white;
+}
+
+.modal-title {
+    font-size: 24px;
+
+    margin-bottom: 12px;
+}
+
+.info {
+    padding: 9px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.warning {
+    background: #fff7ed;
+
+    border: 2px solid #fb923c;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+.qr-container {
+    text-align: center;
+
+    margin: 20px 0;
+}
+
+#qrcode {
+    display: inline-block;
+
+    padding: 10px;
+
+    background: white;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+
+    padding: 30px 15px;
+
+    color: #333;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   PHONE / 3DS
+========================= */
+
+@media(max-width:600px) {
+
+    .logo {
+        font-size: 30px;
+    }
+
+    .filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .shop {
+        grid-template-columns: 1fr;
+    }
+
+    .card-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<div class="header">
+
+    <div class="logo">
+        🍀 LuckyShop
+    </div>
+
+    <div class="tagline">
+        Your 3DS & Homebrew Library
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<div class="container">
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            id="search"
+            class="search"
+            type="search"
+            placeholder="🔎 Search LuckyShop..."
+        >
+
+    </div>
+
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+
+        <select id="platform" class="filter">
+
+            <option value="all">
+                🎮 All Platforms
+            </option>
+
+            <option value="3DS">
+                Nintendo 3DS
+            </option>
+
+            <option value="DS">
+                Nintendo DS
+            </option>
+
+            <option value="Homebrew">
+                Homebrew
+            </option>
+
+        </select>
+
+
+
+        <select id="region" class="filter">
+
+            <option value="all">
+                🌎 All Regions
+            </option>
+
+            <option value="USA">
+                🇺🇸 USA
+            </option>
+
+            <option value="EUR">
+                🇪🇺 Europe
+            </option>
+
+            <option value="JPN">
+                🇯🇵 Japan
+            </option>
+
+            <option value="AUS">
+                🇦🇺 Australia
+            </option>
+
+            <option value="KOR">
+                🇰🇷 Korea
+            </option>
+
+            <option value="CHN">
+                🇨🇳 China
+            </option>
+
+            <option value="OTHER">
+                🌎 Other
+            </option>
+
+        </select>
+
+
+
+        <select id="language" class="filter">
+
+            <option value="all">
+                🗣️ All Languages
+            </option>
+
+            <option value="English">
+                English
+            </option>
+
+            <option value="Japanese">
+                Japanese
+            </option>
+
+            <option value="French">
+                French
+            </option>
+
+            <option value="German">
+                German
+            </option>
+
+            <option value="Spanish">
+                Spanish
+            </option>
+
+            <option value="Italian">
+                Italian
+            </option>
+
+            <option value="Korean">
+                Korean
+            </option>
+
+            <option value="Chinese">
+                Chinese
+            </option>
+
+            <option value="Multi">
+                🌐 Multi-language
+            </option>
+
+        </select>
+
+
+
+        <select id="fileType" class="filter">
+
+            <option value="all">
+                📦 All File Types
+            </option>
+
+            <option value="CIA">
+                CIA
+            </option>
+
+            <option value="NDS">
+                NDS
+            </option>
+
+            <option value="3DS">
+                3DS
+            </option>
+
+            <option value="ZIP">
+                ZIP
+            </option>
+
+            <option value="OTHER">
+                Other
+            </option>
+
+        </select>
+
+
+
+        <select id="sort" class="filter">
+
+            <option value="name">
+                🔤 A-Z
+            </option>
+
+            <option value="newest">
+                🆕 Newest
+            </option>
+
+            <option value="oldest">
+                Oldest
+            </option>
+
+        </select>
+
+
+    </div>
+
+
+
+    <!-- BUTTONS -->
+
+    <div class="button-row">
+
+        <button
+            class="green"
+            onclick="showAll()">
+
+            🏪 All
+
+        </button>
+
+
+        <button
+            class="yellow"
+            onclick="showFavorites()">
+
+            ⭐ Favorites
+
+        </button>
+
+
+        <button
+            class="gray"
+            onclick="resetFilters()">
+
+            🔄 Reset
+
+        </button>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <div
+        id="stats"
+        class="stats">
+
+        🍀 Loading LuckyShop...
+
+    </div>
+
+
+
+    <!-- SHOP -->
+
+    <div
+        id="shop"
+        class="shop">
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================
+     MODAL
+===================================== -->
+
+<div
+    id="modal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-button"
+            onclick="closeModal()">
+
+            ✕
+
+        </button>
+
+
+        <div id="modalContent">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+/*
+====================================================
+LUCKYSHOP CATALOG
+====================================================
+
+This is where your listings go.
+
+The website is already built to support:
+
+• Region
+• Language
+• Platform
+• File type
+• Version
+• File size
+• Favorites
+• Direct downloads
+• FBI QR codes
+• Official source pages
+
+Only put download links here for files
+you are authorized to distribute.
+
+====================================================
+*/
+
+
+const catalog = [
+
+    {
+        id: "twilight-menu",
+
+        name: "TWiLight Menu++",
+
+        platform: "DS",
+
+        region: "OTHER",
+
+        languages: [
+            "Multi"
+        ],
+
+        fileType: "OTHER",
+
+        version: "Latest",
+
+        size: "Varies",
+
+        icon: "🎮",
+
+        status: "updated",
+
+        description:
+            "A homebrew menu for Nintendo DS games and homebrew.",
+
+        sourceUrl:
+            "https://github.com/DS-Homebrew/TWiLightMenu",
+
+        downloadUrl:
+            ""
+    },
+
+
+    {
+        id: "universal-updater",
+
+        name: "Universal-Updater",
+
+        platform: "3DS",
+
+        region: "OTHER",
+
+        languages: [
+            "Multi"
+        ],
+
+        fileType: "CIA",
+
+        version: "Latest",
+
+        size: "Varies",
+
+        icon: "⬇️",
+
+        status: "updated",
+
+        description:
+            "A homebrew application for downloading and updating 3DS homebrew.",
+
+        sourceUrl:
+            "https://github.com/Universal-Team/Universal-Updater",
+
+        downloadUrl:
+            ""
+    },
+
+
+    {
+        id: "nds-bootstrap",
+
+        name: "nds-bootstrap",
+
+        platform: "DS",
+
+        region: "OTHER",
+
+        languages: [
+            "Multi"
+        ],
+
+        fileType: "OTHER",
+
+        version: "Latest",
+
+        size: "Varies",
+
+        icon: "🧩",
+
+        status: "updated",
+
+        description:
+            "A component used by Nintendo DS homebrew software.",
+
+        sourceUrl:
+            "https://github.com/DS-Homebrew/nds-bootstrap",
+
+        downloadUrl:
+            ""
+    }
+
+];
+
+
+/*
+====================================================
+FAVORITES
+====================================================
+*/
+
+let favorites = [];
+
+try {
+
+    favorites =
+        JSON.parse(
+            localStorage.getItem(
+                "luckyshopFavorites"
+            )
+        ) || [];
+
+} catch(error) {
+
+    favorites = [];
+
+}
+
+
+let favoritesOnly = false;
+
+
+/*
+====================================================
+ELEMENTS
+====================================================
+*/
+
+const shop =
+    document.getElementById("shop");
+
+const stats =
+    document.getElementById("stats");
+
+const search =
+    document.getElementById("search");
+
+const platform =
+    document.getElementById("platform");
+
+const region =
+    document.getElementById("region");
+
+const language =
+    document.getElementById("language");
+
+const fileType =
+    document.getElementById("fileType");
+
+const sort =
+    document.getElementById("sort");
+
+
+/*
+====================================================
+SAVE FAVORITES
+====================================================
+*/
+
+function saveFavorites() {
+
+    try {
+
+        localStorage.setItem(
+            "luckyshopFavorites",
+            JSON.stringify(favorites)
+        );
+
+    } catch(error) {
+
+        console.log(
+            "Favorites could not be saved."
+        );
+
+    }
+
+}
+
+
+/*
+====================================================
+TOGGLE FAVORITE
+====================================================
+*/
+
+function toggleFavorite(id) {
+
+    if (
+        favorites.includes(id)
+    ) {
+
+        favorites =
+            favorites.filter(
+                item => item !== id
+            );
+
+    } else {
+
+        favorites.push(id);
+
+    }
+
+    saveFavorites();
+
+    renderShop();
+
+}
+
+
+/*
+====================================================
+FILTER
+====================================================
+*/
+
+function getItems() {
+
+    let items = [...catalog];
+
+
+    const query =
+        search.value
+            .toLowerCase()
+            .trim();
+
+
+    /*
+    SEARCH
+    */
+
+    if(query) {
+
+        items =
+            items.filter(item => {
+
+                return (
+
+                    item.name
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    item.description
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    item.platform
+                        .toLowerCase()
+                        .includes(query)
+
+                    ||
+
+                    item.region
+                        .toLowerCase()
+                        .includes(query)
+
+                );
+
+            });
+
+    }
+
+
+    /*
+    PLATFORM
+    */
+
+    if(
+        platform.value !== "all"
+    ) {
+
+        items =
+            items.filter(
+                item =>
+                item.platform === platform.value
+            );
+
+    }
+
+
+    /*
+    REGION
+    */
+
+    if(
+        region.value !== "all"
+    ) {
+
+        items =
+            items.filter(
+                item =>
+                item.region === region.value
+            );
+
+    }
+
+
+    /*
+    LANGUAGE
+    */
+
+    if(
+        language.value !== "all"
+    ) {
+
+        items =
+            items.filter(item =>
+
+                item.languages.includes(
+                    language.value
+                )
+
+                ||
+
+                item.languages.includes(
+                    "Multi"
+                )
+
+            );
+
+    }
+
+
+    /*
+    FILE TYPE
+    */
+
+    if(
+        fileType.value !== "all"
+    ) {
+
+        items =
+            items.filter(
+                item =>
+                item.fileType === fileType.value
+            );
+
+    }
+
+
+    /*
+    FAVORITES
+    */
+
+    if(favoritesOnly) {
+
+        items =
+            items.filter(
+                item =>
+                favorites.includes(item.id)
+            );
+
+    }
+
+
+    /*
+    SORT
+    */
+
+    if(
+        sort.value === "name"
+    ) {
+
+        items.sort(
+            (a,b) =>
+            a.name.localeCompare(b.name)
+        );
+
+    }
+
+
+    if(
+        sort.value === "newest"
+    ) {
+
+        items.sort(
+            (a,b) =>
+            statusValue(b.status) -
+            statusValue(a.status)
+        );
+
+    }
+
+
+    if(
+        sort.value === "oldest"
+    ) {
+
+        items.sort(
+            (a,b) =>
+            statusValue(a.status) -
+            statusValue(b.status)
+        );
+
+    }
+
+
+    return items;
+
+}
+
+
+/*
+====================================================
+STATUS VALUE
+====================================================
+*/
+
+function statusValue(status) {
+
+    if(
+        status === "new"
+    ) return 3;
+
+    if(
+        status === "updated"
+    ) return 2;
+
+    return 1;
+
+}
+
+
+/*
+====================================================
+RENDER SHOP
+====================================================
+*/
+
+function renderShop() {
+
+    const items =
+        getItems();
+
+
+    stats.innerHTML =
+        "🍀 " +
+        items.length +
+        " item(s) shown • " +
+        catalog.length +
+        " total • ⭐ " +
+        favorites.length +
+        " favorite(s)";
+
+
+    if(
+        items.length === 0
+    ) {
+
+        shop.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    😕 Nothing Found
+                </h2>
+
+                <p>
+                    Try changing your filters
+                    or search.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    shop.innerHTML =
+        items
+            .map(
+                item =>
+                createCard(item)
+            )
+            .join("");
+
+}
+
+
+/*
+====================================================
+CREATE CARD
+====================================================
+*/
+
+function createCard(item) {
+
+    const isFavorite =
+        favorites.includes(item.id);
+
+
+    let status = "";
+
+
+    if(
+        item.status === "new"
+    ) {
+
+        status =
+            `<span class="new-tag">
+                NEW
+            </span>`;
+
+    }
+
+
+    if(
+        item.status === "updated"
+    ) {
+
+        status =
+            `<span class="updated-tag">
+                UPDATED
+            </span>`;
+
+    }
+
+
+    return `
+
+        <div class="card">
+
+
+            <button
+                class="favorite
+                ${isFavorite ? "active" : ""}"
+                onclick="
+                    toggleFavorite(
+                        '${escapeHTML(item.id)}'
+                    )
+                ">
+
+                ${isFavorite ? "❤️" : "♡"}
+
+            </button>
+
+
+            <div class="card-cover">
+
+                ${item.icon}
+
+            </div>
+
+
+            <div class="card-title">
+
+                ${escapeHTML(item.name)}
+
+            </div>
+
+
+            <div class="tags">
+
+                <span class="tag">
+                    ${escapeHTML(item.platform)}
+                </span>
+
+                <span class="tag">
+                    ${escapeHTML(item.region)}
+                </span>
+
+                <span class="tag">
+                    ${escapeHTML(item.fileType)}
+                </span>
+
+                ${status}
+
+            </div>
+
+
+            <div class="card-description">
+
+                ${escapeHTML(item.description)}
+
+            </div>
+
+
+            <div class="card-buttons">
+
+
+                <button
+                    class="green"
+                    onclick="
+                        showDetails(
+                            '${escapeHTML(item.id)}'
+                        )
+                    ">
+
+                    ℹ️ Details
+
+                </button>
+
+
+                <button
+                    class="blue"
+                    onclick="
+                        openSource(
+                            '${escapeHTML(item.id)}'
+                        )
+                    ">
+
+                    🔗 Source
+
+                </button>
+
+
+                ${
+                    item.downloadUrl
+                    ?
+                    `
+
+                    <button
+                        class="green"
+                        onclick="
+                            downloadItem(
+                                '${escapeHTML(item.id)}'
+                            )
+                        ">
+
+                        ⬇️ Download
+
+                    </button>
+
+
+                    <button
+                        class="yellow"
+                        onclick="
+                            openQR(
+                                '${escapeHTML(item.id)}'
+                            )
+                        ">
+
+                        📱 FBI QR
+
+                    </button>
+
+                    `
+                    :
+                    `
+
+                    <button
+                        class="gray"
+                        onclick="
+                            showDetails(
+                                '${escapeHTML(item.id)}'
+                            )
+                        ">
+
+                        📦 No File
+
+                    </button>
+
+                    `
+                }
+
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/*
+====================================================
+DETAILS
+====================================================
+*/
+
+function showDetails(id) {
+
+    const item =
+        catalog.find(
+            x => x.id === id
+        );
+
+
+    if(!item) return;
+
+
+    const languages =
+        item.languages.join(", ");
+
+
+    const hasFile =
+        item.downloadUrl &&
+        item.downloadUrl.trim() !== "";
+
+
+    document.getElementById(
+        "modalContent"
+    ).innerHTML = `
+
+        <div class="modal-title">
+
+            ${item.icon}
+            ${escapeHTML(item.name)}
+
+        </div>
+
+
+        <p>
+
+            ${escapeHTML(item.description)}
+
+        </p>
+
+
+        <div class="info">
+
+            <b>Platform:</b>
+            ${escapeHTML(item.platform)}
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Region:</b>
+            ${escapeHTML(item.region)}
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Language:</b>
+            ${escapeHTML(languages)}
+
+        </div>
+
+
+        <div class="info">
+
+            <b>File Type:</b>
+            ${escapeHTML(item.fileType)}
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Version:</b>
+            ${escapeHTML(item.version)}
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Size:</b>
+            ${escapeHTML(item.size)}
+
+        </div>
+
+
+        <br>
+
+
+        <button
+            class="blue"
+            onclick="
+                openSource(
+                    '${escapeHTML(item.id)}'
+                )
+            ">
+
+            🔗 Official Source
+
+        </button>
+
+
+        ${
+            hasFile
+            ?
+
+            `
+
+            <button
+                class="green"
+                onclick="
+                    downloadItem(
+                        '${escapeHTML(item.id)}'
+                    )
+                ">
+
+                ⬇️ Download
+
+            </button>
+
+
+            <button
+                class="yellow"
+                onclick="
+                    openQR(
+                        '${escapeHTML(item.id)}'
+                    )
+                ">
+
+                📱 FBI QR
+
+            </button>
+
+            `
+
+            :
+
+            `
+
+            <div class="warning">
+
+                ⚠️ No direct file has been
+                added to this listing yet.
+
+                <br><br>
+
+                The FBI QR feature requires
+                a direct URL to an authorized
+                installable file.
+
+            </div>
+
+            `
+        }
+
+    `;
+
+
+    document.getElementById(
+        "modal"
+    ).style.display = "block";
+
+}
+
+
+/*
+====================================================
+SOURCE
+====================================================
+*/
+
+function openSource(id) {
+
+    const item =
+        catalog.find(
+            x => x.id === id
+        );
+
+
+    if(
+        !item ||
+        !item.sourceUrl
+    ) return;
+
+
+    window.open(
+        item.sourceUrl,
+        "_blank"
+    );
+
+}
+
+
+/*
+====================================================
+DOWNLOAD
+====================================================
+*/
+
+function downloadItem(id) {
+
+    const item =
+        catalog.find(
+            x => x.id === id
+        );
+
+
+    if(
+        !item ||
+        !item.downloadUrl
+    ) {
+
+        alert(
+            "There is no download file for this item yet."
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+        item.downloadUrl,
+        "_blank"
+    );
+
+}
+
+
+/*
+====================================================
+QR
+====================================================
+*/
+
+function openQR(id) {
+
+    const item =
+        catalog.find(
+            x => x.id === id
+        );
+
+
+    if(
+        !item ||
+        !item.downloadUrl
+    ) {
+
+        alert(
+            "This item does not have a direct file URL yet."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "modalContent"
+    ).innerHTML = `
+
+        <div class="modal-title">
+
+            📱 FBI QR
+
+        </div>
+
+
+        <p>
+
+            ${escapeHTML(item.name)}
+
+        </p>
+
+
+        <div class="qr-container">
+
+            <div id="qrcode"></div>
+
+        </div>
+
+
+        <div class="warning">
+
+            The QR contains the direct
+            download URL.
+
+            <br><br>
+
+            It will only work correctly
+            when the URL points directly
+            to an authorized installable
+            file.
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "modal"
+    ).style.display = "block";
+
+
+    /*
+    LOAD QR LIBRARY
+    */
+
+    loadQRCode(function() {
+
+        const qr =
+            document.getElementById(
+                "qrcode"
+            );
+
+
+        qr.innerHTML = "";
+
+
+        new QRCode(
+            qr,
+            {
+                text: item.downloadUrl,
+
+                width: 220,
+
+                height: 220
+            }
+        );
+
+    });
+
+}
+
+
+/*
+====================================================
+LOAD QR CODE LIBRARY
+====================================================
+*/
+
+function loadQRCode(callback) {
+
+    if(
+        typeof QRCode !== "undefined"
+    ) {
+
+        callback();
+
+        return;
+
+    }
+
+
+    const script =
+        document.createElement(
+            "script"
+        );
+
+
+    script.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+
+
+    script.onload =
+        callback;
+
+
+    script.onerror =
+        function() {
+
+            document.getElementById(
+                "qrcode"
+            ).innerHTML = `
+
+                <p>
+
+                    ❌ QR library could not load.
+
+                </p>
+
+                <p>
+
+                    You can still use the
+                    Download button.
+
+                </p>
+
+            `;
+
+        };
+
+
+    document.head.appendChild(
+        script
+    );
+
+}
+
+
+/*
+====================================================
+CLOSE MODAL
+====================================================
+*/
+
+function closeModal() {
+
+    document.getElementById(
+        "modal"
+    ).style.display = "none";
+
+}
+
+
+window.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "modal"
+            );
+
+
+        if(
+            event.target === modal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/*
+====================================================
+SHOW ALL
+====================================================
+*/
+
+function showAll() {
+
+    favoritesOnly = false;
+
+    renderShop();
+
+}
+
+
+/*
+====================================================
+FAVORITES
+====================================================
+*/
+
+function showFavorites() {
+
+    favoritesOnly = true;
+
+    renderShop();
+
+}
+
+
+/*
+====================================================
+RESET
+====================================================
+*/
+
+function resetFilters() {
+
+    search.value = "";
+
+    platform.value = "all";
+
+    region.value = "all";
+
+    language.value = "all";
+
+    fileType.value = "all";
+
+    sort.value = "name";
+
+    favoritesOnly = false;
+
+    renderShop();
+
+}
+
+
+/*
+====================================================
+FILTER EVENTS
+====================================================
+*/
+
+search.addEventListener(
+    "input",
+    renderShop
+);
+
+platform.addEventListener(
+    "change",
+    renderShop
+);
+
+region.addEventListener(
+    "change",
+    renderShop
+);
+
+language.addEventListener(
+    "change",
+    renderShop
+);
+
+fileType.addEventListener(
+    "change",
+    renderShop
+);
+
+sort.addEventListener(
+    "change",
+    renderShop
+);
+
+
+/*
+====================================================
+ESCAPE HTML
+====================================================
+*/
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*
+====================================================
+START LUCKYSHOP
+====================================================
+*/
+
+renderShop();
+
+</script>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<div class="footer">
+
+    🍀 LuckyShop 3.0
+
+    <br><br>
+
+    Homebrew • Freeware • Public Domain • Authorized Files
+
+</div>
+
+
+</body>
+</html>
