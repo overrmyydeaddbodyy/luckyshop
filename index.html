@@ -1,2698 +1,4912 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
-
-  <title>Lucky Store</title>
-
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --blue: #1d5cff;
-      --blue2: #00aaff;
-      --dark: #050914;
-      --dark2: #091326;
-      --panel: rgba(9, 19, 38, 0.82);
-      --white: #f4f8ff;
-      --muted: #8fa1c0;
-      --line: rgba(255,255,255,.1);
-      --danger: #ff4264;
-      --green: #52e3a5;
-      --shadow: 0 25px 80px rgba(0,0,0,.45);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      background: var(--dark);
-      color: var(--white);
-      font-family: Inter, sans-serif;
-      overflow-x: hidden;
-    }
-
-    body {
-      min-height: 100vh;
-      position: relative;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* =========================================
-       BACKGROUND
-    ========================================= */
-
-    .background {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(circle at 15% 15%, rgba(0,130,255,.18), transparent 30%),
-        radial-gradient(circle at 90% 80%, rgba(0,75,255,.13), transparent 30%),
-        linear-gradient(135deg, #030712, #081429 55%, #02050c);
-    }
-
-    .grid {
-      position: absolute;
-      inset: -20%;
-      opacity: .12;
-      background-image:
-        linear-gradient(rgba(80,150,255,.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(80,150,255,.25) 1px, transparent 1px);
-      background-size: 50px 50px;
-      transform: rotate(-7deg);
-      animation: gridMove 25s linear infinite;
-    }
-
-    @keyframes gridMove {
-      from { transform: translate3d(0,0,0) rotate(-7deg); }
-      to { transform: translate3d(50px,30px,0) rotate(-7deg); }
-    }
-
-    /* Floating Persona-inspired shards */
-    .shards {
-      position: absolute;
-      inset: 0;
-    }
-
-    .shard {
-      position: absolute;
-      width: 35px;
-      height: 35px;
-      border: 1px solid rgba(90,180,255,.3);
-      background: rgba(20,100,255,.05);
-      transform: rotate(45deg);
-      animation: floatShard linear infinite;
-      filter: drop-shadow(0 0 14px rgba(0,140,255,.2));
-    }
-
-    .shard:nth-child(1) {
-      left: 8%;
-      top: 22%;
-      animation-duration: 12s;
-      width: 22px;
-      height: 22px;
-    }
-
-    .shard:nth-child(2) {
-      left: 76%;
-      top: 16%;
-      animation-duration: 17s;
-      width: 40px;
-      height: 40px;
-    }
-
-    .shard:nth-child(3) {
-      left: 52%;
-      top: 76%;
-      animation-duration: 15s;
-      width: 18px;
-      height: 18px;
-    }
-
-    .shard:nth-child(4) {
-      left: 88%;
-      top: 65%;
-      animation-duration: 20s;
-      width: 28px;
-      height: 28px;
-    }
-
-    .shard:nth-child(5) {
-      left: 30%;
-      top: 8%;
-      animation-duration: 18s;
-      width: 15px;
-      height: 15px;
-    }
-
-    .shard:nth-child(6) {
-      left: 18%;
-      top: 78%;
-      animation-duration: 14s;
-      width: 45px;
-      height: 45px;
-    }
-
-    @keyframes floatShard {
-      0% {
-        transform: translate3d(0, 0, 0) rotate(45deg);
-        opacity: .1;
-      }
-      25% {
-        opacity: .55;
-      }
-      50% {
-        transform: translate3d(40px, -60px, 0) rotate(135deg);
-        opacity: .2;
-      }
-      75% {
-        opacity: .5;
-      }
-      100% {
-        transform: translate3d(-30px, -120px, 0) rotate(225deg);
-        opacity: 0;
-      }
-    }
-
-    .circle-orbit {
-      position: absolute;
-      width: 480px;
-      height: 480px;
-      border: 1px solid rgba(0,145,255,.08);
-      border-radius: 50%;
-      right: -160px;
-      top: -120px;
-      animation: orbit 25s linear infinite;
-    }
-
-    .circle-orbit::before,
-    .circle-orbit::after {
-      content: "";
-      position: absolute;
-      inset: 35px;
-      border: 1px solid rgba(0,145,255,.07);
-      border-radius: 50%;
-    }
-
-    .circle-orbit::after {
-      inset: 110px;
-    }
-
-    @keyframes orbit {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* =========================================
-       APP
-    ========================================= */
-
-    .app {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-    }
-
-    /* =========================================
-       HEADER
-    ========================================= */
-
-    header {
-      height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(2,7,17,.72);
-      backdrop-filter: blur(20px);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .clover {
-      width: 43px;
-      height: 43px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #1c68ff, #00b8ff);
-      font-size: 23px;
-      box-shadow: 0 0 35px rgba(0,135,255,.35);
-      transform: rotate(-4deg);
-    }
-
-    .brand-name {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 900;
-      font-size: 28px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-    }
-
-    .brand-name span {
-      color: #35b9ff;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header-btn {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: white;
-      padding: 11px 15px;
-      border-radius: 9px;
-      font-weight: 800;
-      transition: .2s;
-    }
-
-    .header-btn:hover {
-      background: rgba(255,255,255,.1);
-      transform: translateY(-2px);
-    }
-
-    .account-button {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: none;
-    }
-
-    /* =========================================
-       MAIN
-    ========================================= */
-
-    main {
-      width: min(1200px, calc(100% - 30px));
-      margin: auto;
-      padding: 70px 0 100px;
-    }
-
-    .hero {
-      min-height: 490px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-    }
-
-    .eyebrow {
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      color: #55bfff;
-      text-transform: uppercase;
-      margin-bottom: 13px;
-      animation: heroIn .7s ease both;
-    }
-
-    .hero-title {
-      font-family: "Barlow Condensed", sans-serif;
-      text-transform: uppercase;
-      font-weight: 900;
-      font-size: clamp(70px, 13vw, 160px);
-      line-height: .76;
-      letter-spacing: -4px;
-      max-width: 850px;
-      animation: heroIn .8s .08s ease both;
-      text-shadow: 0 0 50px rgba(30,110,255,.12);
-    }
-
-    .hero-title span {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.8);
-      text-shadow: none;
-    }
-
-    .hero-description {
-      max-width: 550px;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-top: 30px;
-      animation: heroIn .8s .15s ease both;
-    }
-
-    @keyframes heroIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) skewY(2deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) skewY(0);
-      }
-    }
-
-    /* =========================================
-       SEARCH
-    ========================================= */
-
-    .search-wrap {
-      margin-top: 38px;
-      width: min(850px, 100%);
-      position: relative;
-      z-index: 5;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 7px;
-      background: rgba(8,17,35,.9);
-      border: 1px solid rgba(65,145,255,.35);
-      box-shadow:
-        0 0 0 1px rgba(0,130,255,.04),
-        0 20px 70px rgba(0,0,0,.35);
-      clip-path: polygon(
-        0 0,
-        calc(100% - 18px) 0,
-        100% 18px,
-        100% 100%,
-        18px 100%,
-        0 calc(100% - 18px)
-      );
-    }
-
-    .search-icon {
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      color: #57bfff;
-      font-size: 22px;
-    }
-
-    .search-input {
-      flex: 1;
-      min-width: 0;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: white;
-      font-size: 17px;
-    }
-
-    .search-input::placeholder {
-      color: #657898;
-    }
-
-    .search-button {
-      border: none;
-      background: linear-gradient(135deg, #1760ff, #008fd9);
-      color: white;
-      padding: 14px 22px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      clip-path: polygon(
-        8px 0,
-        100% 0,
-        100% calc(100% - 8px),
-        calc(100% - 8px) 100%,
-        0 100%,
-        0 8px
-      );
-      transition: .2s;
-    }
-
-    .search-button:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 10px 30px rgba(0,120,255,.3);
-    }
-
-    .search-status {
-      color: #7085a7;
-      font-size: 12px;
-      margin-top: 12px;
-      min-height: 18px;
-    }
-
-    /* =========================================
-       RESULTS
-    ========================================= */
-
-    #resultsSection {
-      display: none;
-      margin-top: 50px;
-      animation: resultsIn .5s ease both;
-    }
-
-    #resultsSection.visible {
-      display: block;
-    }
-
-    @keyframes resultsIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .results-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .results-heading h2 {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 45px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .results-heading small {
-      color: #7184a3;
-    }
-
-    .result-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .result {
-      position: relative;
-      overflow: hidden;
-      padding: 22px;
-      background: rgba(8,17,35,.78);
-      border: 1px solid rgba(255,255,255,.08);
-      transition: .25s;
-    }
-
-    .result::before {
-      content: "";
-      position: absolute;
-      width: 3px;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      background: #168aff;
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: .25s;
-    }
-
-    .result:hover {
-      transform: translateX(7px);
-      background: rgba(12,28,54,.9);
-      border-color: rgba(40,145,255,.35);
-    }
-
-    .result:hover::before {
-      transform: scaleY(1);
-    }
-
-    .result-url {
-      color: #54baff;
-      font-size: 12px;
-      margin-bottom: 6px;
-      word-break: break-all;
-    }
-
-    .result-title {
-      color: white;
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 27px;
-      font-weight: 700;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 7px;
-    }
-
-    .result-title:hover {
-      color: #62c5ff;
-    }
-
-    .result-description {
-      color: #93a4bf;
-      line-height: 1.55;
-      font-size: 14px;
-    }
-
-    .no-results {
-      padding: 50px;
-      text-align: center;
-      color: #778ba9;
-      border: 1px dashed rgba(255,255,255,.12);
-    }
-
-    /* =========================================
-       QUICK LINKS
-    ========================================= */
-
-    .quick-section {
-      margin-top: 70px;
-    }
-
-    .section-title {
-      font-family: "Barlow Condensed", sans-serif;
-      text-transform: uppercase;
-      font-size: 35px;
-      margin-bottom: 18px;
-    }
-
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .quick-card {
-      padding: 23px;
-      min-height: 135px;
-      background: rgba(8,17,35,.72);
-      border: 1px solid var(--line);
-      text-decoration: none;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      transition: .25s;
-    }
-
-    .quick-card::after {
-      content: "";
-      position: absolute;
-      width: 120%;
-      height: 2px;
-      left: -10%;
-      bottom: 0;
-      background: #1e8fff;
-      transform: translateX(-100%);
-      transition: .3s;
-    }
-
-    .quick-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(40,150,255,.35);
-    }
-
-    .quick-card:hover::after {
-      transform: translateX(0);
-    }
-
-    .quick-icon {
-      font-size: 25px;
-      margin-bottom: 14px;
-    }
-
-    .quick-name {
-      font-weight: 800;
-    }
-
-    .quick-url {
-      color: #7184a2;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-
-    /* =========================================
-       ACCOUNT MODAL
-    ========================================= */
-
-    .modal-layer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,3,10,.75);
-      backdrop-filter: blur(14px);
-      z-index: 100;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-layer.open {
-      display: flex;
-      animation: fadeIn .2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .account-modal {
-      width: min(460px, 100%);
-      background: linear-gradient(145deg, #09172f, #040a16);
-      border: 1px solid rgba(60,150,255,.35);
-      box-shadow: var(--shadow);
-      padding: 32px;
-      position: relative;
-      animation: modalIn .4s cubic-bezier(.16,1,.3,1);
-      clip-path: polygon(
-        0 0,
-        calc(100% - 25px) 0,
-        100% 25px,
-        100% 100%,
-        25px 100%,
-        0 calc(100% - 25px)
-      );
-    }
-
-    @keyframes modalIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(.95) rotateX(5deg);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotateX(0);
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      border: none;
-      background: transparent;
-      color: #8294b0;
-      font-size: 22px;
-    }
-
-    .modal-title {
-      font-family: "Barlow Condensed", sans-serif;
-      text-transform: uppercase;
-      font-size: 48px;
-      line-height: .9;
-      margin-bottom: 10px;
-    }
-
-    .modal-subtitle {
-      color: #778baa;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    .google-button {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: white;
-      color: #111;
-      border-radius: 7px;
-      font-weight: 800;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      transition: .2s;
-    }
-
-    .google-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-    }
-
-    .google-logo {
-      font-weight: 900;
-      font-size: 18px;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0;
-      color: #647793;
-      font-size: 11px;
-      text-transform: uppercase;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      background: var(--line);
-      flex: 1;
-    }
-
-    .auth-form {
-      display: grid;
-      gap: 10px;
-    }
-
-    .auth-input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.04);
-      color: white;
-      outline: none;
-      border-radius: 6px;
-    }
-
-    .auth-input:focus {
-      border-color: #218dff;
-    }
-
-    .auth-submit {
-      padding: 13px;
-      border: none;
-      border-radius: 6px;
-      background: #1267ff;
-      color: white;
-      font-weight: 800;
-    }
-
-    .auth-secondary {
-      display: flex;
-      gap: 8px;
-      margin-top: 9px;
-    }
-
-    .auth-secondary button {
-      flex: 1;
-      padding: 9px;
-      background: transparent;
-      border: 1px solid var(--line);
-      color: #9db0cd;
-      border-radius: 6px;
-      font-size: 12px;
-    }
-
-    .auth-message {
-      min-height: 20px;
-      margin-top: 12px;
-      font-size: 12px;
-      color: #79caff;
-    }
-
-    /* =========================================
-       ACCOUNT PANEL
-    ========================================= */
-
-    .account-panel {
-      width: min(400px, 100%);
-      background: #071328;
-      border: 1px solid rgba(60,150,255,.3);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      animation: modalIn .3s ease;
-    }
-
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 25px;
-    }
-
-    .profile-img {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #218dff;
-    }
-
-    .profile-name {
-      font-weight: 800;
-      font-size: 17px;
-    }
-
-    .profile-email {
-      color: #7186a6;
-      font-size: 12px;
-      margin-top: 4px;
-      word-break: break-all;
-    }
-
-    .signout-button {
-      width: 100%;
-      border: 1px solid rgba(255,70,100,.3);
-      background: rgba(255,40,80,.07);
-      color: #ff7790;
-      padding: 12px;
-      font-weight: 800;
-    }
-
-    /* =========================================
-       MENU
-    ========================================= */
-
-    .menu-layer {
-      position: fixed;
-      inset: 0;
-      z-index: 80;
-      background: rgba(1,5,13,.9);
-      backdrop-filter: blur(20px);
-      display: none;
-      overflow: hidden;
-    }
-
-    .menu-layer.open {
-      display: block;
-      animation: menuIn .4s ease;
-    }
-
-    @keyframes menuIn {
-      from {
-        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-      }
-      to {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      }
-    }
-
-    .menu-content {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 50px;
-    }
-
-    .menu-list {
-      list-style: none;
-    }
-
-    .menu-item {
-      font-family: "Barlow Condensed", sans-serif;
-      text-transform: uppercase;
-      font-size: clamp(50px, 9vw, 100px);
-      font-weight: 900;
-      line-height: .82;
-      color: white;
-      cursor: pointer;
-      opacity: 0;
-      transform: translateX(-50px);
-      animation: menuItem .5s forwards;
-    }
-
-    .menu-item:nth-child(1) { animation-delay: .1s; }
-    .menu-item:nth-child(2) { animation-delay: .16s; }
-    .menu-item:nth-child(3) { animation-delay: .22s; }
-    .menu-item:nth-child(4) { animation-delay: .28s; }
-
-    @keyframes menuItem {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .menu-item:hover {
-      color: #49baff;
-      transform: skewX(-7deg) translateX(15px);
-    }
-
-    .menu-close {
-      position: absolute;
-      top: 25px;
-      right: 30px;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: white;
-      padding: 12px 17px;
-      font-weight: 800;
-    }
-
-    /* =========================================
-       TOAST
-    ========================================= */
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 25px;
-      transform: translate(-50%, 100px);
-      background: #0a1830;
-      border: 1px solid rgba(50,150,255,.35);
-      padding: 13px 18px;
-      z-index: 300;
-      box-shadow: 0 20px 50px rgba(0,0,0,.35);
-      transition: .35s;
-      opacity: 0;
-      color: #b9c9e0;
-      font-size: 13px;
-    }
-
-    .toast.show {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
-
-    /* =========================================
-       RESPONSIVE
-    ========================================= */
-
-    @media (max-width: 800px) {
-      header {
-        padding: 0 15px;
-      }
-
-      .brand-name {
-        font-size: 23px;
-      }
-
-      .header-btn {
-        padding: 10px;
-      }
-
-      .header-btn.options-text {
-        display: none;
-      }
-
-      main {
-        width: min(100% - 22px, 1200px);
-        padding-top: 45px;
-      }
-
-      .hero {
-        min-height: 420px;
-      }
-
-      .hero-title {
-        font-size: 80px;
-        letter-spacing: -2px;
-      }
-
-      .search-box {
-        padding: 5px;
-      }
-
-      .search-icon {
-        width: 38px;
-      }
-
-      .search-button {
-        padding: 12px;
-      }
-
-      .quick-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .menu-content {
-        padding: 25px;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .quick-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-title {
-        font-size: 68px;
-      }
-
-      .search-button {
-        font-size: 11px;
-        padding: 12px 10px;
-      }
-
-      .results-heading {
-        display: block;
-      }
-
-      .results-heading small {
-        display: block;
-        margin-top: 5px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<title>Lucky Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   LUCKY STORE
+   MAIN VARIABLES
+========================================================= */
+
+:root {
+
+  --blue:#1767ff;
+  --cyan:#28c7ff;
+  --deep:#030914;
+  --deep2:#071426;
+
+  --panel:rgba(8,20,40,.78);
+  --panel-solid:#08152a;
+
+  --text:#f4f8ff;
+  --muted:#8ea2c1;
+
+  --line:rgba(255,255,255,.10);
+
+  --danger:#ff4f70;
+  --success:#55e6ad;
+
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+
+  --menu-width:min(420px,90vw);
+
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light {
+
+  --deep:#edf5ff;
+  --deep2:#dbeaff;
+
+  --panel:rgba(255,255,255,.75);
+  --panel-solid:#ffffff;
+
+  --text:#071426;
+  --muted:#52657f;
+
+  --line:rgba(5,30,70,.12);
+
+  --shadow:0 25px 70px rgba(20,70,130,.18);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(20,120,255,.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(0,180,255,.12),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      var(--deep),
+      var(--deep2)
+    );
+
+  color:var(--text);
+
+  font-family:Inter,sans-serif;
+
+  overflow-x:hidden;
+
+  transition:
+    background .5s ease,
+    color .3s ease;
+
+}
+
+button,
+input,
+textarea {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+a {
+  color:inherit;
+}
+
+
+/* =========================================================
+   WATER BACKGROUND
+========================================================= */
+
+.water-background {
+
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  z-index:-10;
+
+  pointer-events:none;
+
+}
+
+
+/* giant flowing blobs */
+
+.water-blob {
+
+  position:absolute;
+
+  border-radius:
+    45% 55% 65% 35% /
+    55% 45% 55% 45%;
+
+  filter:blur(2px);
+
+  opacity:.28;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(80,220,255,.9),
+      rgba(0,90,255,.25) 45%,
+      transparent 70%
+    );
+
+  animation:
+    waterFlow 18s ease-in-out infinite alternate;
+
+}
+
+.blob1 {
+
+  width:700px;
+  height:500px;
+
+  left:-250px;
+  top:5%;
+
+}
+
+.blob2 {
+
+  width:600px;
+  height:650px;
+
+  right:-250px;
+  bottom:-200px;
+
+  animation-delay:-6s;
+
+}
+
+.blob3 {
+
+  width:450px;
+  height:450px;
+
+  left:35%;
+  top:35%;
+
+  opacity:.13;
+
+  animation-delay:-11s;
+
+}
+
+
+@keyframes waterFlow {
+
+  0% {
+
+    transform:
+      translate3d(-30px,20px,0)
+      rotate(-8deg)
+      scale(1);
+
+  }
+
+  50% {
+
+    transform:
+      translate3d(70px,-50px,0)
+      rotate(15deg)
+      scale(1.12);
+
+  }
+
+  100% {
+
+    transform:
+      translate3d(-40px,70px,0)
+      rotate(-5deg)
+      scale(.95);
+
+  }
+
+}
+
+
+/* =========================================================
+   WAVES
+========================================================= */
+
+.wave {
+
+  position:absolute;
+
+  left:-10%;
+
+  width:120%;
+
+  height:240px;
+
+  border-radius:50%;
+
+  border-top:2px solid rgba(50,190,255,.13);
+
+  border-bottom:1px solid rgba(30,130,255,.08);
+
+  animation:
+    waveMove 13s ease-in-out infinite alternate;
+
+}
+
+.wave1 {
+  bottom:10%;
+}
+
+.wave2 {
+
+  bottom:2%;
+
+  animation-duration:17s;
+
+  animation-delay:-4s;
+
+}
+
+.wave3 {
+
+  bottom:-8%;
+
+  animation-duration:21s;
+
+  animation-delay:-8s;
+
+}
+
+
+@keyframes waveMove {
+
+  from {
+
+    transform:
+      translateX(-40px)
+      rotate(-2deg)
+      scaleX(1);
+
+  }
+
+  to {
+
+    transform:
+      translateX(50px)
+      rotate(3deg)
+      scaleX(1.08);
+
+  }
+
+}
+
+
+/* =========================================================
+   BUBBLES
+========================================================= */
+
+.bubbles {
+
+  position:absolute;
+
+  inset:0;
+
+}
+
+.bubble {
+
+  position:absolute;
+
+  bottom:-100px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(130,225,255,.35);
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255,255,255,.5),
+      rgba(50,170,255,.06) 35%,
+      rgba(0,120,255,.02) 70%
+    );
+
+  box-shadow:
+    inset 0 0 15px rgba(120,220,255,.12),
+    0 0 20px rgba(0,150,255,.08);
+
+  animation:
+    bubbleRise linear infinite;
+
+}
+
+.bubble:nth-child(1) {
+  left:7%;
+  width:25px;
+  height:25px;
+  animation-duration:13s;
+}
+
+.bubble:nth-child(2) {
+  left:18%;
+  width:12px;
+  height:12px;
+  animation-duration:9s;
+  animation-delay:-2s;
+}
+
+.bubble:nth-child(3) {
+  left:31%;
+  width:38px;
+  height:38px;
+  animation-duration:17s;
+  animation-delay:-6s;
+}
+
+.bubble:nth-child(4) {
+  left:48%;
+  width:18px;
+  height:18px;
+  animation-duration:11s;
+  animation-delay:-3s;
+}
+
+.bubble:nth-child(5) {
+  left:63%;
+  width:30px;
+  height:30px;
+  animation-duration:15s;
+  animation-delay:-7s;
+}
+
+.bubble:nth-child(6) {
+  left:75%;
+  width:15px;
+  height:15px;
+  animation-duration:10s;
+  animation-delay:-1s;
+}
+
+.bubble:nth-child(7) {
+  left:88%;
+  width:44px;
+  height:44px;
+  animation-duration:19s;
+  animation-delay:-9s;
+}
+
+.bubble:nth-child(8) {
+  left:56%;
+  width:9px;
+  height:9px;
+  animation-duration:8s;
+  animation-delay:-5s;
+}
+
+
+@keyframes bubbleRise {
+
+  0% {
+
+    transform:
+      translate3d(0,0,0)
+      scale(.7);
+
+    opacity:0;
+
+  }
+
+  10% {
+    opacity:.6;
+  }
+
+  50% {
+
+    transform:
+      translate3d(50px,-50vh,0)
+      scale(1);
+
+  }
+
+  100% {
+
+    transform:
+      translate3d(-60px,-115vh,0)
+      scale(1.3);
+
+    opacity:0;
+
+  }
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+
+  position:absolute;
+
+  inset:-30%;
+
+  background-image:
+    linear-gradient(
+      rgba(50,160,255,.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(50,160,255,.12) 1px,
+      transparent 1px
+    );
+
+  background-size:60px 60px;
+
+  transform:
+    rotate(-7deg);
+
+  opacity:.22;
+
+  animation:
+    gridMove 30s linear infinite;
+
+}
+
+@keyframes gridMove {
+
+  to {
+
+    transform:
+      translate3d(60px,40px,0)
+      rotate(-7deg);
+
+  }
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+
+  min-height:100vh;
+
+  position:relative;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+  height:78px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:
+    0
+    max(18px,4vw);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--panel-solid) 76%,
+      transparent
+    );
+
+  backdrop-filter:blur(22px);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+
+.brand {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.clover {
+
+  width:43px;
+  height:43px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #175dff,
+      #00c7ff
+    );
+
+  box-shadow:
+    0 0 35px rgba(0,140,255,.32);
+
+  font-size:23px;
+
+}
+
+.brand-name {
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  font-size:29px;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+}
+
+.brand-name span {
+  color:#36baff;
+}
+
+
+.header-right {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+
+/* account button */
+
+.account-button {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.04);
+
+  color:var(--text);
+
+  padding:9px 13px;
+
+  border-radius:8px;
+
+  font-weight:800;
+
+}
+
+
+.avatar-small {
+
+  width:28px;
+  height:28px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+}
+
+
+/* hamburger */
+
+.menu-button {
+
+  width:47px;
+  height:43px;
+
+  border:1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.04);
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:5px;
+
+  border-radius:8px;
+
+}
+
+.menu-button span {
+
+  width:21px;
+
+  height:2px;
+
+  background:var(--text);
+
+  transition:.25s;
+
+}
+
+.menu-button:hover span:nth-child(1) {
+  transform:translateX(4px);
+}
+
+.menu-button:hover span:nth-child(3) {
+  transform:translateX(-4px);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+
+  width:
+    min(
+      1100px,
+      calc(100% - 30px)
+    );
+
+  margin:auto;
+
+  padding:
+    55px
+    0
+    100px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+  min-height:480px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+}
+
+.eyebrow {
+
+  color:#42bfff;
+
+  letter-spacing:4px;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  margin-bottom:15px;
+
+}
+
+.hero-title {
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  font-size:
+    clamp(
+      75px,
+      14vw,
+      155px
+    );
+
+  font-weight:900;
+
+  line-height:.72;
+
+  text-transform:uppercase;
+
+  letter-spacing:-4px;
+
+}
+
+.hero-title span {
+
+  color:transparent;
+
+  -webkit-text-stroke:
+    1px var(--text);
+
+}
+
+.hero-subtitle {
+
+  color:var(--muted);
+
+  max-width:570px;
+
+  line-height:1.7;
+
+  margin-top:32px;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-container {
+
+  width:min(850px,100%);
+
+  margin-top:35px;
+
+}
+
+.search-box {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:6px;
+
+  background:
+    var(--panel);
+
+  backdrop-filter:blur(20px);
+
+  border:
+    1px solid
+    rgba(50,160,255,.3);
+
+  clip-path:
+    polygon(
+      0 0,
+      calc(100% - 18px) 0,
+      100% 18px,
+      100% 100%,
+      18px 100%,
+      0 calc(100% - 18px)
+    );
+
+}
+
+.search-icon {
+
+  width:45px;
+
+  text-align:center;
+
+  font-size:23px;
+
+  color:#54c6ff;
+
+}
+
+.search-input {
+
+  flex:1;
+
+  min-width:0;
+
+  background:transparent;
+
+  border:0;
+
+  outline:0;
+
+  color:var(--text);
+
+  font-size:16px;
+
+}
+
+.search-input::placeholder {
+  color:#7186a5;
+}
+
+.search-button {
+
+  border:0;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1761ff,
+      #009dd9
+    );
+
+  padding:
+    14px
+    22px;
+
+  font-weight:900;
+
+}
+
+.search-status {
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin-top:10px;
+
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+
+  margin-top:65px;
+
+}
+
+.section-heading {
+
+  display:flex;
+
+  align-items:end;
+
+  justify-content:space-between;
+
+  margin-bottom:20px;
+
+}
+
+.section-title {
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  text-transform:uppercase;
+
+  font-size:42px;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================================
+   COMMUNITY
+========================================================= */
+
+.community {
+
+  display:none;
+
+}
+
+.community.active {
+  display:block;
+}
+
+
+/* create post */
+
+.create-post {
+
+  background:var(--panel);
+
+  border:
+    1px solid var(--line);
+
+  padding:20px;
+
+  backdrop-filter:blur(20px);
+
+  margin-bottom:25px;
+
+}
+
+.create-post-header {
+
+  display:flex;
+
+  gap:12px;
+
+  align-items:center;
+
+  margin-bottom:15px;
+
+}
+
+.create-avatar {
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+}
+
+.post-textarea {
+
+  width:100%;
+
+  min-height:105px;
+
+  resize:vertical;
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:var(--text);
+
+  border:
+    1px solid var(--line);
+
+  outline:0;
+
+  padding:15px;
+
+  border-radius:8px;
+
+}
+
+.post-textarea:focus {
+
+  border-color:
+    rgba(30,150,255,.5);
+
+}
+
+.post-actions {
+
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-top:10px;
+
+}
+
+.post-button {
+
+  border:0;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1460ff,
+      #00a7dc
+    );
+
+  padding:11px 20px;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================================
+   POSTS
+========================================================= */
+
+.post-list {
+
+  display:grid;
+
+  gap:14px;
+
+}
+
+.post {
+
+  background:var(--panel);
+
+  border:
+    1px solid var(--line);
+
+  backdrop-filter:blur(20px);
+
+  padding:20px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  animation:
+    postIn .45s ease both;
+
+}
+
+.post::before {
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+
+  top:0;
+
+  bottom:0;
+
+  width:3px;
+
+  background:
+    linear-gradient(
+      #19a5ff,
+      #1760ff
+    );
+
+}
+
+@keyframes postIn {
+
+  from {
+
+    opacity:0;
+
+    transform:
+      translateY(20px)
+      skewY(1deg);
+
+  }
+
+  to {
+
+    opacity:1;
+
+    transform:
+      translateY(0)
+      skewY(0);
+
+  }
+
+}
+
+
+.post-header {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+}
+
+.post-avatar {
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  cursor:pointer;
+
+}
+
+.post-author {
+
+  font-weight:800;
+
+  cursor:pointer;
+
+}
+
+.post-author:hover {
+  color:#35baff;
+}
+
+.post-time {
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  margin-top:3px;
+
+}
+
+.post-content {
+
+  margin-top:17px;
+
+  line-height:1.7;
+
+  color:var(--text);
+
+  white-space:pre-wrap;
+
+  word-break:break-word;
+
+}
+
+.post-footer {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-top:18px;
+
+}
+
+.like-button {
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.03);
+
+  color:var(--muted);
+
+  padding:8px 13px;
+
+  border-radius:6px;
+
+}
+
+.like-button.liked {
+
+  color:#ff6685;
+
+  border-color:
+    rgba(255,70,110,.35);
+
+  background:
+    rgba(255,50,100,.08);
+
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-page {
+
+  display:none;
+
+}
+
+.profile-page.active {
+  display:block;
+}
+
+.profile-card {
+
+  background:var(--panel);
+
+  border:1px solid var(--line);
+
+  backdrop-filter:blur(25px);
+
+  overflow:hidden;
+
+}
+
+.profile-banner {
+
+  height:170px;
+
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(0,200,255,.5),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #08235d,
+      #00192d
+    );
+
+  position:relative;
+
+}
+
+.profile-info {
+
+  padding:
+    0
+    25px
+    25px;
+
+  position:relative;
+
+}
+
+.profile-big-avatar {
+
+  width:105px;
+  height:105px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  border:
+    4px solid var(--panel-solid);
+
+  margin-top:-52px;
+
+  position:relative;
+
+}
+
+.profile-name {
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  font-size:40px;
+
+  font-weight:900;
+
+  margin-top:10px;
+
+}
+
+.profile-email {
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  margin-top:3px;
+
+}
+
+.profile-bio {
+
+  margin-top:15px;
+
+  color:var(--muted);
+
+  line-height:1.6;
+
+}
+
+
+/* =========================================================
+   MENU OVERLAY
+========================================================= */
+
+.menu-overlay {
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:none;
+
+  background:
+    rgba(0,4,12,.78);
+
+  backdrop-filter:blur(18px);
+
+}
+
+.menu-overlay.open {
+  display:block;
+}
+
+
+.menu-panel {
+
+  position:absolute;
+
+  top:0;
+
+  right:0;
+
+  height:100%;
+
+  width:var(--menu-width);
+
+  padding:95px 35px 35px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,28,57,.98),
+      rgba(2,9,20,.98)
+    );
+
+  border-left:
+    1px solid
+    rgba(50,170,255,.3);
+
+  box-shadow:
+    -30px 0 100px rgba(0,0,0,.45);
+
+  animation:
+    menuSlide .45s
+    cubic-bezier(.16,1,.3,1);
+
+}
+
+@keyframes menuSlide {
+
+  from {
+
+    transform:
+      translateX(100%);
+
+  }
+
+  to {
+
+    transform:
+      translateX(0);
+
+  }
+
+}
+
+
+.menu-close {
+
+  position:absolute;
+
+  top:22px;
+
+  right:25px;
+
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.04);
+
+  color:white;
+
+  padding:10px 14px;
+
+}
+
+.menu-label {
+
+  color:#38baff;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  letter-spacing:3px;
+
+  margin-bottom:25px;
+
+}
+
+.menu-item {
+
+  width:100%;
+
+  border:0;
+
+  background:transparent;
+
+  color:white;
+
+  text-align:left;
+
+  padding:14px 0;
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  font-size:43px;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+  transition:.2s;
+
+}
+
+.menu-item:hover {
+
+  color:#35baff;
+
+  transform:
+    translateX(12px)
+    skewX(-5deg);
+
+}
+
+.menu-item.active {
+  color:#35baff;
+}
+
+
+/* settings */
+
+.settings {
+
+  margin-top:30px;
+
+  padding-top:20px;
+
+  border-top:1px solid var(--line);
+
+}
+
+.setting-row {
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:13px 0;
+
+}
+
+.setting-name {
+
+  font-weight:700;
+
+}
+
+.setting-description {
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  margin-top:3px;
+
+}
+
+
+/* toggle */
+
+.toggle {
+
+  width:48px;
+  height:26px;
+
+  border-radius:30px;
+
+  border:0;
+
+  background:#283852;
+
+  position:relative;
+
+  transition:.25s;
+
+}
+
+.toggle::after {
+
+  content:"";
+
+  width:20px;
+  height:20px;
+
+  position:absolute;
+
+  top:3px;
+  left:4px;
+
+  border-radius:50%;
+
+  background:white;
+
+  transition:.25s;
+
+}
+
+.toggle.on {
+
+  background:#1767ff;
+
+}
+
+.toggle.on::after {
+
+  transform:
+    translateX(20px);
+
+}
+
+
+/* =========================================================
+   AUTH MODAL
+========================================================= */
+
+.modal {
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:200;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    rgba(0,3,10,.8);
+
+  backdrop-filter:blur(18px);
+
+}
+
+.modal.open {
+  display:flex;
+}
+
+.modal-card {
+
+  width:min(460px,100%);
+
+  background:
+    linear-gradient(
+      145deg,
+      #091a35,
+      #030914
+    );
+
+  border:
+    1px solid
+    rgba(50,160,255,.35);
+
+  padding:30px;
+
+  box-shadow:var(--shadow);
+
+  animation:
+    modalIn .35s
+    cubic-bezier(.16,1,.3,1);
+
+}
+
+@keyframes modalIn {
+
+  from {
+
+    opacity:0;
+
+    transform:
+      scale(.94)
+      translateY(25px);
+
+  }
+
+  to {
+
+    opacity:1;
+
+    transform:
+      scale(1)
+      translateY(0);
+
+  }
+
+}
+
+.modal-close {
+
+  float:right;
+
+  border:0;
+
+  background:transparent;
+
+  color:#8195b2;
+
+  font-size:24px;
+
+}
+
+.modal-title {
+
+  font-family:
+    "Barlow Condensed",
+    sans-serif;
+
+  font-size:50px;
+
+  line-height:.85;
+
+  text-transform:uppercase;
+
+  margin-bottom:10px;
+
+}
+
+.modal-subtitle {
+
+  color:#7d91af;
+
+  font-size:13px;
+
+  line-height:1.6;
+
+  margin-bottom:22px;
+
+}
+
+.google-button {
+
+  width:100%;
+
+  border:0;
+
+  background:white;
+
+  color:#111;
+
+  padding:14px;
+
+  border-radius:6px;
+
+  font-weight:800;
+
+}
+
+.divider {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:20px 0;
+
+  color:#61748f;
+
+  font-size:10px;
+
+}
+
+.divider::before,
+.divider::after {
+
+  content:"";
+
+  height:1px;
+
+  background:var(--line);
+
+  flex:1;
+
+}
+
+.auth-form {
+
+  display:grid;
+
+  gap:10px;
+
+}
+
+.auth-input {
+
+  width:100%;
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:white;
+
+  padding:13px;
+
+  outline:0;
+
+  border-radius:6px;
+
+}
+
+.auth-submit {
+
+  border:0;
+
+  padding:13px;
+
+  background:#1767ff;
+
+  color:white;
+
+  font-weight:900;
+
+}
+
+.auth-buttons {
+
+  display:flex;
+
+  gap:8px;
+
+  margin-top:9px;
+
+}
+
+.auth-buttons button {
+
+  flex:1;
+
+  border:1px solid var(--line);
+
+  background:transparent;
+
+  color:#9db0ca;
+
+  padding:9px;
+
+  font-size:11px;
+
+}
+
+.auth-message {
+
+  color:#58bfff;
+
+  font-size:12px;
+
+  margin-top:12px;
+
+  min-height:18px;
+
+}
+
+
+/* =========================================================
+   PROFILE EDIT
+========================================================= */
+
+.edit-profile {
+
+  display:none;
+
+}
+
+.edit-profile.active {
+  display:block;
+}
+
+.edit-input,
+.edit-textarea {
+
+  width:100%;
+
+  margin-bottom:10px;
+
+  padding:12px;
+
+  border:
+    1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.04);
+
+  color:var(--text);
+
+  outline:0;
+
+}
+
+.edit-textarea {
+  min-height:90px;
+  resize:vertical;
+}
+
+.save-profile {
+
+  border:0;
+
+  padding:12px 18px;
+
+  background:#1767ff;
+
+  color:white;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty {
+
+  padding:50px 20px;
+
+  text-align:center;
+
+  border:
+    1px dashed var(--line);
+
+  color:var(--muted);
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+  position:fixed;
+
+  bottom:25px;
+
+  left:50%;
+
+  z-index:500;
+
+  transform:
+    translate(-50%,100px);
+
+  opacity:0;
+
+  transition:.35s;
+
+  background:#07172f;
+
+  color:white;
+
+  border:
+    1px solid
+    rgba(40,160,255,.4);
+
+  padding:12px 18px;
+
+  font-size:13px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.toast.show {
+
+  transform:
+    translate(-50%,0);
+
+  opacity:1;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:700px) {
+
+  .brand-name {
+    font-size:23px;
+  }
+
+  .account-button span {
+    display:none;
+  }
+
+  main {
+
+    width:
+      calc(100% - 22px);
+
+    padding-top:35px;
+
+  }
+
+  .hero {
+    min-height:430px;
+  }
+
+  .hero-title {
+
+    font-size:76px;
+
+    letter-spacing:-2px;
+
+  }
+
+  .search-button {
+
+    padding:
+      12px
+      13px;
+
+    font-size:11px;
+
+  }
+
+  .menu-item {
+    font-size:38px;
+  }
+
+  .profile-banner {
+    height:130px;
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- ================================
-       ANIMATED BACKGROUND
-  ================================= -->
+<!-- =========================================================
+     WATER BACKGROUND
+========================================================= -->
 
-  <div class="background">
-    <div class="grid"></div>
+<div class="water-background">
 
-    <div class="shards">
-      <div class="shard"></div>
-      <div class="shard"></div>
-      <div class="shard"></div>
-      <div class="shard"></div>
-      <div class="shard"></div>
-      <div class="shard"></div>
-    </div>
+  <div class="grid"></div>
 
-    <div class="circle-orbit"></div>
+  <div class="water-blob blob1"></div>
+  <div class="water-blob blob2"></div>
+  <div class="water-blob blob3"></div>
+
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+
+  <div class="bubbles">
+
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
   </div>
 
-  <div class="app">
+</div>
 
-    <!-- ================================
-         HEADER
-    ================================= -->
 
-    <header>
-      <div class="brand">
-        <div class="clover">🍀</div>
-        <div class="brand-name">
-          Lucky <span>Store</span>
-        </div>
-      </div>
+<!-- =========================================================
+     APP
+========================================================= -->
 
-      <div class="header-actions">
+<div class="app">
 
-        <button
-          class="header-btn account-button"
-          id="accountButton"
-          type="button"
-        >
-          <img
-            id="headerAvatar"
-            class="avatar"
-            alt="Profile"
-          />
-          <span id="accountButtonText">ACCOUNT</span>
-        </button>
 
-        <button
-          class="header-btn options-text"
-          id="optionsButton"
-          type="button"
-        >
-          OPTIONS
-        </button>
-
-      </div>
-    </header>
-
-    <!-- ================================
-         MAIN
-    ================================= -->
-
-    <main>
-
-      <section class="hero">
-
-        <div class="eyebrow">
-          LUCKY STORE // ONLINE SEARCH
-        </div>
-
-        <h1 class="hero-title">
-          FIND<br>
-          <span>ANYTHING.</span>
-        </h1>
-
-        <p class="hero-description">
-          Search the web through Lucky Store. Fast, clean, animated,
-          and designed around the Lucky Store experience.
-        </p>
-
-        <!-- SEARCH -->
-
-        <div class="search-wrap">
-
-          <form id="searchForm" class="search-box">
-
-            <div class="search-icon">
-              ⌕
-            </div>
-
-            <input
-              id="searchInput"
-              class="search-input"
-              type="search"
-              autocomplete="off"
-              placeholder="Search the web..."
-              aria-label="Search the web"
-            />
-
-            <button
-              class="search-button"
-              type="submit"
-            >
-              SEARCH
-            </button>
-
-          </form>
-
-          <div
-            id="searchStatus"
-            class="search-status"
-          >
-            Ready.
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================================
-           SEARCH RESULTS
-      ================================= -->
-
-      <section id="resultsSection">
-
-        <div class="results-heading">
-          <div>
-            <h2 id="resultsTitle">RESULTS</h2>
-            <small id="resultsMeta"></small>
-          </div>
-        </div>
-
-        <div
-          id="resultList"
-          class="result-list"
-        ></div>
-
-      </section>
-
-      <!-- ================================
-           QUICK LINKS
-      ================================= -->
-
-      <section class="quick-section">
-
-        <h2 class="section-title">
-          Quick Access
-        </h2>
-
-        <div class="quick-grid">
-
-          <a
-            class="quick-card"
-            href="https://www.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="quick-icon">🔎</div>
-            <div class="quick-name">Google</div>
-            <div class="quick-url">google.com</div>
-          </a>
-
-          <a
-            class="quick-card"
-            href="https://www.youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="quick-icon">▶</div>
-            <div class="quick-name">YouTube</div>
-            <div class="quick-url">youtube.com</div>
-          </a>
-
-          <a
-            class="quick-card"
-            href="https://www.wikipedia.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="quick-icon">W</div>
-            <div class="quick-name">Wikipedia</div>
-            <div class="quick-url">wikipedia.org</div>
-          </a>
-
-          <a
-            class="quick-card"
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div class="quick-icon">◈</div>
-            <div class="quick-name">GitHub</div>
-            <div class="quick-url">github.com</div>
-          </a>
-
-        </div>
-
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ================================
-       PERSONA-STYLE OPTIONS MENU
-  ================================= -->
+<header>
 
   <div
-    id="menuLayer"
-    class="menu-layer"
+    class="brand"
+    onclick="showPage('home')"
+    style="cursor:pointer"
   >
+
+    <div class="clover">
+      🍀
+    </div>
+
+    <div class="brand-name">
+      Lucky <span>Store</span>
+    </div>
+
+  </div>
+
+
+  <div class="header-right">
 
     <button
-      id="menuClose"
-      class="menu-close"
-      type="button"
+      id="accountButton"
+      class="account-button"
     >
-      CLOSE ×
+
+      <img
+        id="headerAvatar"
+        class="avatar-small"
+        style="display:none"
+      >
+
+      <span id="accountButtonText">
+        ACCOUNT
+      </span>
+
     </button>
 
-    <div class="menu-content">
 
-      <ul class="menu-list">
+    <button
+      id="menuButton"
+      class="menu-button"
+      aria-label="Open menu"
+    >
 
-        <li
-          class="menu-item"
-          data-action="home"
-        >
-          HOME
-        </li>
+      <span></span>
+      <span></span>
+      <span></span>
 
-        <li
-          class="menu-item"
-          data-action="account"
-        >
-          ACCOUNT
-        </li>
-
-        <li
-          class="menu-item"
-          data-action="search"
-        >
-          SEARCH
-        </li>
-
-        <li
-          class="menu-item"
-          data-action="close"
-        >
-          EXIT
-        </li>
-
-      </ul>
-
-    </div>
+    </button>
 
   </div>
 
-  <!-- ================================
-       AUTH MODAL
-  ================================= -->
+</header>
 
-  <div
-    id="authLayer"
-    class="modal-layer"
-  >
 
-    <div class="account-modal">
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
-      <button
-        class="modal-close"
-        id="authClose"
-        type="button"
-      >
-        ×
-      </button>
+<main>
 
-      <h2 class="modal-title">
-        LUCKY<br>
-        ACCOUNT
-      </h2>
 
-      <p class="modal-subtitle">
-        Sign into Lucky Store using Google or create an
-        account using email and password.
-      </p>
+<!-- HOME -->
 
-      <button
-        id="googleLogin"
-        class="google-button"
-        type="button"
-      >
-        <span class="google-logo">G</span>
-        Continue with Google
-      </button>
+<section
+  id="homePage"
+  class="page"
+>
 
-      <div class="divider">
-        OR
-      </div>
+  <div class="hero">
 
-      <form
-        id="emailAuthForm"
-        class="auth-form"
-      >
+    <div class="eyebrow">
+      LUCKY STORE // SOCIAL WEB
+    </div>
 
-        <input
-          id="emailInput"
-          class="auth-input"
-          type="email"
-          placeholder="Email address"
-          autocomplete="email"
-          required
-        />
+    <h1 class="hero-title">
+
+      FIND<br>
+
+      <span>YOUR WORLD.</span>
+
+    </h1>
+
+    <p class="hero-subtitle">
+
+      Search, discover, post, meet people and build
+      your own Lucky Store profile.
+
+    </p>
+
+
+    <div class="search-container">
+
+      <form id="searchForm" class="search-box">
+
+        <div class="search-icon">
+          ⌕
+        </div>
 
         <input
-          id="passwordInput"
-          class="auth-input"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-          required
-        />
+          id="searchInput"
+          class="search-input"
+          placeholder="Search the web..."
+          autocomplete="off"
+        >
 
         <button
-          id="emailLogin"
-          class="auth-submit"
-          type="submit"
+          class="search-button"
         >
-          SIGN IN
+          SEARCH
         </button>
 
       </form>
 
-      <div class="auth-secondary">
+      <div
+        id="searchStatus"
+        class="search-status"
+      >
+        Ready.
+      </div>
 
-        <button
-          id="createAccount"
-          type="button"
-        >
-          CREATE ACCOUNT
-        </button>
+    </div>
 
-        <button
-          id="resetPassword"
-          type="button"
-        >
-          RESET PASSWORD
-        </button>
+  </div>
 
+
+  <!-- QUICK COMMUNITY -->
+
+  <section class="section">
+
+    <div class="section-heading">
+
+      <h2 class="section-title">
+        Community
+      </h2>
+
+      <button
+        class="post-button"
+        onclick="showPage('community')"
+      >
+        OPEN COMMUNITY
+      </button>
+
+    </div>
+
+    <div id="homePosts" class="post-list"></div>
+
+  </section>
+
+</section>
+
+
+<!-- =========================================================
+     COMMUNITY PAGE
+========================================================= -->
+
+<section
+  id="communityPage"
+  class="community page"
+>
+
+  <div class="section-heading">
+
+    <h2 class="section-title">
+      Community
+    </h2>
+
+  </div>
+
+
+  <div class="create-post">
+
+    <div class="create-post-header">
+
+      <img
+        id="createAvatar"
+        class="create-avatar"
+        src="https://ui-avatars.com/api/?name=Lucky"
+      >
+
+      <strong id="createPostName">
+        Sign in to post
+      </strong>
+
+    </div>
+
+
+    <textarea
+      id="postText"
+      class="post-textarea"
+      maxlength="500"
+      placeholder="What's happening?"
+      disabled
+    ></textarea>
+
+
+    <div class="post-actions">
+
+      <button
+        id="createPostButton"
+        class="post-button"
+        disabled
+      >
+        POST
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="postList" class="post-list">
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROFILE PAGE
+========================================================= -->
+
+<section
+  id="profilePage"
+  class="profile-page page"
+>
+
+  <div class="profile-card">
+
+    <div class="profile-banner"></div>
+
+    <div class="profile-info">
+
+      <img
+        id="profileAvatar"
+        class="profile-big-avatar"
+      >
+
+      <div
+        id="profileName"
+        class="profile-name"
+      >
+        Lucky User
       </div>
 
       <div
-        id="authMessage"
-        class="auth-message"
-      ></div>
+        id="profileEmail"
+        class="profile-email"
+      >
+      </div>
+
+      <div
+        id="profileBio"
+        class="profile-bio"
+      >
+        Welcome to Lucky Store.
+      </div>
+
+
+      <br>
+
+      <button
+        id="editProfileButton"
+        class="post-button"
+      >
+        EDIT PROFILE
+      </button>
 
     </div>
 
   </div>
 
-  <!-- ================================
-       SIGNED-IN ACCOUNT PANEL
-  ================================= -->
 
   <div
-    id="profileLayer"
-    class="modal-layer"
+    id="editProfileBox"
+    class="edit-profile"
+    style="margin-top:20px"
   >
 
-    <div class="account-panel">
+    <div class="create-post">
+
+      <h2 class="section-title">
+        Edit Profile
+      </h2>
+
+      <input
+        id="editDisplayName"
+        class="edit-input"
+        placeholder="Display name"
+        maxlength="40"
+      >
+
+      <textarea
+        id="editBio"
+        class="edit-textarea"
+        placeholder="Bio"
+        maxlength="160"
+      ></textarea>
+
+      <input
+        id="editPhotoURL"
+        class="edit-input"
+        placeholder="Profile picture URL"
+      >
 
       <button
-        class="modal-close"
-        id="profileClose"
-        type="button"
+        id="saveProfileButton"
+        class="save-profile"
       >
-        ×
+        SAVE PROFILE
       </button>
 
-      <div class="profile">
+    </div>
 
-        <img
-          id="profileImage"
-          class="profile-img"
-          alt="Profile"
-        />
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-heading">
+
+      <h2 class="section-title">
+        Posts
+      </h2>
+
+    </div>
+
+    <div
+      id="profilePosts"
+      class="post-list"
+    ></div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =========================================================
+     MENU
+========================================================= -->
+
+<div
+  id="menuOverlay"
+  class="menu-overlay"
+>
+
+  <div class="menu-panel">
+
+    <button
+      id="menuClose"
+      class="menu-close"
+    >
+      CLOSE ×
+    </button>
+
+
+    <div class="menu-label">
+      LUCKY STORE
+    </div>
+
+
+    <button
+      class="menu-item"
+      onclick="showPage('home'); closeMenu()"
+    >
+      HOME
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="showPage('community'); closeMenu()"
+    >
+      COMMUNITY
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="openProfile(); closeMenu()"
+    >
+      PROFILE
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="focusSearch(); closeMenu()"
+    >
+      SEARCH
+    </button>
+
+
+    <!-- SETTINGS -->
+
+    <div class="settings">
+
+      <div class="setting-row">
 
         <div>
-          <div
-            id="profileName"
-            class="profile-name"
-          >
-            Lucky User
+
+          <div class="setting-name">
+            Dark Mode
           </div>
 
-          <div
-            id="profileEmail"
-            class="profile-email"
-          >
+          <div class="setting-description">
+            Change Lucky Store appearance
           </div>
+
         </div>
+
+        <button
+          id="themeToggle"
+          class="toggle on"
+          aria-label="Toggle dark mode"
+        ></button>
 
       </div>
 
-      <button
-        id="signOut"
-        class="signout-button"
-        type="button"
-      >
-        SIGN OUT
-      </button>
+
+      <div class="setting-row">
+
+        <div>
+
+          <div class="setting-name">
+            Bubbles
+          </div>
+
+          <div class="setting-description">
+            Floating water particles
+          </div>
+
+        </div>
+
+        <button
+          id="bubbleToggle"
+          class="toggle on"
+        ></button>
+
+      </div>
 
     </div>
 
   </div>
 
-  <!-- ================================
-       TOAST
-  ================================= -->
-
-  <div
-    id="toast"
-    class="toast"
-  ></div>
+</div>
 
 
-  <!-- ============================================================
-       FIREBASE + LUCKY STORE JAVASCRIPT
-  ============================================================ -->
+<!-- =========================================================
+     AUTH MODAL
+========================================================= -->
 
-  <script type="module">
+<div
+  id="authModal"
+  class="modal"
+>
 
-    /*
-    ================================================================
-    FIREBASE CONFIGURATION
-    ================================================================
+  <div class="modal-card">
 
-    1. Create a Firebase project.
-    2. Add a Web App.
-    3. Copy its Firebase configuration.
-    4. Replace the values below.
-
-    Example:
-
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "your-project.firebaseapp.com",
-      projectId: "your-project",
-      storageBucket: "your-project.firebasestorage.app",
-      messagingSenderId: "123456789",
-      appId: "1:123456789:web:abcdef"
-    };
-
-    Do NOT put a private service-account key here.
-
-    Firebase web configuration values are designed to be used
-    client-side. Security comes from Firebase Authentication,
-    authorized domains, and your Firebase security rules.
-    ================================================================
-    */
-
-    const firebaseConfig = {
-
-      apiKey: "YOUR_FIREBASE_API_KEY",
-
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-      projectId: "YOUR_PROJECT_ID",
-
-      storageBucket: "YOUR_PROJECT.firebasestorage.app",
-
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-
-      appId: "YOUR_FIREBASE_APP_ID"
-
-    };
+    <button
+      class="modal-close"
+      onclick="closeAuth()"
+    >
+      ×
+    </button>
 
 
-    /*
-    ================================================================
-    SEARCH CONFIGURATION
-    ================================================================
+    <h2 class="modal-title">
 
-    IMPORTANT:
+      LUCKY<br>
+      ACCOUNT
 
-    A normal browser cannot safely scrape Google search result HTML.
+    </h2>
 
-    Instead, Lucky Store expects a JSON search endpoint.
 
-    Your endpoint should accept:
+    <p class="modal-subtitle">
 
-        ?q=YOUR_SEARCH
+      Create your Lucky Store identity.
+      Sign in with Google or use an email and password.
 
-    and return:
+    </p>
 
-    {
-      "results": [
-        {
-          "title": "Example",
-          "url": "https://example.com",
-          "description": "Example description"
-        }
-      ]
+
+    <button
+      id="googleButton"
+      class="google-button"
+    >
+      Continue with Google
+    </button>
+
+
+    <div class="divider">
+      OR
+    </div>
+
+
+    <form id="authForm" class="auth-form">
+
+      <input
+        id="emailInput"
+        class="auth-input"
+        type="email"
+        placeholder="Email"
+        required
+      >
+
+      <input
+        id="passwordInput"
+        class="auth-input"
+        type="password"
+        placeholder="Password"
+        minlength="6"
+        required
+      >
+
+      <button
+        id="loginButton"
+        class="auth-submit"
+      >
+        SIGN IN
+      </button>
+
+    </form>
+
+
+    <div class="auth-buttons">
+
+      <button id="createAccountButton">
+        CREATE ACCOUNT
+      </button>
+
+      <button id="resetPasswordButton">
+        RESET PASSWORD
+      </button>
+
+    </div>
+
+
+    <div
+      id="authMessage"
+      class="auth-message"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<!-- =========================================================
+     FIREBASE
+========================================================= -->
+
+<script type="module">
+
+/*
+===============================================================
+FIREBASE CONFIG
+===============================================================
+
+REPLACE THESE VALUES WITH YOUR FIREBASE WEB APP CONFIG.
+
+Firebase Console:
+
+Project settings
+→ Your apps
+→ Web app
+→ Firebase SDK setup
+===============================================================
+*/
+
+const firebaseConfig = {
+
+  apiKey:
+    "YOUR_FIREBASE_API_KEY",
+
+  authDomain:
+    "YOUR_PROJECT.firebaseapp.com",
+
+  projectId:
+    "YOUR_PROJECT_ID",
+
+  storageBucket:
+    "YOUR_PROJECT.firebasestorage.app",
+
+  messagingSenderId:
+    "YOUR_MESSAGING_SENDER_ID",
+
+  appId:
+    "YOUR_FIREBASE_APP_ID"
+
+};
+
+
+/*
+===============================================================
+FIREBASE IMPORTS
+===============================================================
+*/
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+import {
+
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  addDoc,
+  updateDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  serverTimestamp,
+  arrayUnion,
+  arrayRemove,
+  increment
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+/*
+===============================================================
+INITIALIZE
+===============================================================
+*/
+
+let app = null;
+let auth = null;
+let db = null;
+
+let googleProvider = null;
+
+let currentUser = null;
+
+let unsubscribePosts = null;
+let unsubscribeProfilePosts = null;
+
+let viewingProfileUID = null;
+
+
+try {
+
+  app =
+    initializeApp(firebaseConfig);
+
+  auth =
+    getAuth(app);
+
+  db =
+    getFirestore(app);
+
+  googleProvider =
+    new GoogleAuthProvider();
+
+} catch(error) {
+
+  console.error(
+    "Firebase initialization failed:",
+    error
+  );
+
+}
+
+
+/*
+===============================================================
+ELEMENTS
+===============================================================
+*/
+
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
+
+const menuOverlay =
+  document.getElementById(
+    "menuOverlay"
+  );
+
+const menuClose =
+  document.getElementById(
+    "menuClose"
+  );
+
+const authModal =
+  document.getElementById(
+    "authModal"
+  );
+
+const accountButton =
+  document.getElementById(
+    "accountButton"
+  );
+
+const accountButtonText =
+  document.getElementById(
+    "accountButtonText"
+  );
+
+const headerAvatar =
+  document.getElementById(
+    "headerAvatar"
+  );
+
+const googleButton =
+  document.getElementById(
+    "googleButton"
+  );
+
+const authForm =
+  document.getElementById(
+    "authForm"
+  );
+
+const emailInput =
+  document.getElementById(
+    "emailInput"
+  );
+
+const passwordInput =
+  document.getElementById(
+    "passwordInput"
+  );
+
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
+
+const createAccountButton =
+  document.getElementById(
+    "createAccountButton"
+  );
+
+const resetPasswordButton =
+  document.getElementById(
+    "resetPasswordButton"
+  );
+
+const authMessage =
+  document.getElementById(
+    "authMessage"
+  );
+
+const toast =
+  document.getElementById(
+    "toast"
+  );
+
+const themeToggle =
+  document.getElementById(
+    "themeToggle"
+  );
+
+const bubbleToggle =
+  document.getElementById(
+    "bubbleToggle"
+  );
+
+
+/*
+===============================================================
+MENU
+===============================================================
+*/
+
+menuButton.onclick =
+  () => {
+
+    menuOverlay.classList.add(
+      "open"
+    );
+
+  };
+
+
+menuClose.onclick =
+  closeMenu;
+
+
+menuOverlay.addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target ===
+      menuOverlay
+    ) {
+
+      closeMenu();
+
     }
 
-    Example endpoint:
-
-        https://your-server.com/api/search?q=
-
-    Then set:
-
-        SEARCH_API_ENDPOINT =
-          "https://your-server.com/api/search?q=";
-
-    If you don't configure this yet, Lucky Store will still work,
-    but it will show a setup message instead of fake results.
-    ================================================================
-    */
-
-    const SEARCH_API_ENDPOINT =
-      "YOUR_SEARCH_API_ENDPOINT?q=";
+  }
+);
 
 
-    /* ==============================================================
-       IMPORT FIREBASE
-    ============================================================== */
+function closeMenu() {
 
-    import {
-      initializeApp
-    } from
-      "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  menuOverlay.classList.remove(
+    "open"
+  );
 
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithPopup,
-      signInWithRedirect,
-      getRedirectResult,
-      onAuthStateChanged,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      sendPasswordResetEmail,
-      signOut
-    } from
-      "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+}
 
 
-    /* ==============================================================
-       FIREBASE INITIALIZATION
-    ============================================================== */
+/*
+===============================================================
+TOAST
+===============================================================
+*/
 
-    let firebaseReady = false;
-    let auth = null;
-    let googleProvider = null;
+let toastTimeout;
+
+function showToast(message) {
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    toastTimeout
+  );
+
+  toastTimeout =
+    setTimeout(
+      () => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      2800
+    );
+
+}
+
+
+/*
+===============================================================
+THEME
+===============================================================
+*/
+
+const savedTheme =
+  localStorage.getItem(
+    "lucky_theme"
+  );
+
+
+if (
+  savedTheme ===
+  "light"
+) {
+
+  document.body.classList.add(
+    "light"
+  );
+
+  themeToggle.classList.remove(
+    "on"
+  );
+
+}
+
+
+themeToggle.onclick =
+  () => {
+
+    const isLight =
+      document.body.classList.toggle(
+        "light"
+      );
+
+    localStorage.setItem(
+      "lucky_theme",
+      isLight
+        ? "light"
+        : "dark"
+    );
+
+    themeToggle.classList.toggle(
+      "on",
+      !isLight
+    );
+
+  };
+
+
+/*
+===============================================================
+BUBBLE SWITCH
+===============================================================
+*/
+
+bubbleToggle.onclick =
+  () => {
+
+    const bubbles =
+      document.querySelector(
+        ".bubbles"
+      );
+
+    const enabled =
+      bubbles.style.display !==
+      "none";
+
+    bubbles.style.display =
+      enabled
+        ? "none"
+        : "block";
+
+    bubbleToggle.classList.toggle(
+      "on",
+      !enabled
+    );
+
+    localStorage.setItem(
+      "lucky_bubbles",
+      !enabled
+    );
+
+  };
+
+
+const savedBubbles =
+  localStorage.getItem(
+    "lucky_bubbles"
+  );
+
+
+if (
+  savedBubbles ===
+  "false"
+) {
+
+  document.querySelector(
+    ".bubbles"
+  ).style.display =
+    "none";
+
+  bubbleToggle.classList.remove(
+    "on"
+  );
+
+}
+
+
+/*
+===============================================================
+PAGE SYSTEM
+===============================================================
+*/
+
+window.showPage =
+  function(page) {
+
+    document
+      .querySelectorAll(
+        ".page"
+      )
+      .forEach(
+        element => {
+
+          element.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+
+    if (
+      page ===
+      "home"
+    ) {
+
+      document
+        .getElementById(
+          "homePage"
+        )
+        .classList.add(
+          "active"
+        );
+
+    }
+
+
+    if (
+      page ===
+      "community"
+    ) {
+
+      document
+        .getElementById(
+          "communityPage"
+        )
+        .classList.add(
+          "active"
+        );
+
+    }
+
+
+    if (
+      page ===
+      "profile"
+    ) {
+
+      document
+        .getElementById(
+          "profilePage"
+        )
+        .classList.add(
+          "active"
+        );
+
+    }
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  };
+
+
+/*
+===============================================================
+SEARCH
+===============================================================
+*/
+
+window.focusSearch =
+  function() {
+
+    showPage(
+      "home"
+    );
+
+    setTimeout(
+      () => {
+
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .focus();
+
+      },
+      300
+    );
+
+  };
+
+
+document
+  .getElementById(
+    "searchForm"
+  )
+  .addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+      const value =
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .value
+          .trim();
+
+      if (!value) return;
+
+      /*
+      Replace this with your search API later.
+      */
+
+      document
+        .getElementById(
+          "searchStatus"
+        )
+        .textContent =
+          `Search requested: "${value}"`;
+
+      showToast(
+        "Search system ready."
+      );
+
+    }
+  );
+
+
+/*
+===============================================================
+AUTH MODAL
+===============================================================
+*/
+
+accountButton.onclick =
+  () => {
+
+    if (
+      currentUser
+    ) {
+
+      openProfile();
+
+    } else {
+
+      authModal.classList.add(
+        "open"
+      );
+
+    }
+
+  };
+
+
+window.closeAuth =
+  function() {
+
+    authModal.classList.remove(
+      "open"
+    );
+
+  };
+
+
+authModal.addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target ===
+      authModal
+    ) {
+
+      closeAuth();
+
+    }
+
+  }
+);
+
+
+/*
+===============================================================
+AUTH ERROR
+===============================================================
+*/
+
+function authError(error) {
+
+  const code =
+    error?.code || "";
+
+  const messages = {
+
+    "auth/popup-closed-by-user":
+      "Google sign-in was cancelled.",
+
+    "auth/popup-blocked":
+      "The Google popup was blocked.",
+
+    "auth/email-already-in-use":
+      "An account already exists with that email.",
+
+    "auth/invalid-email":
+      "That email address is invalid.",
+
+    "auth/weak-password":
+      "Password must be at least 6 characters.",
+
+    "auth/user-not-found":
+      "No account exists with that email.",
+
+    "auth/wrong-password":
+      "Incorrect password.",
+
+    "auth/invalid-credential":
+      "The login information is invalid.",
+
+    "auth/too-many-requests":
+      "Too many attempts. Try again later."
+
+  };
+
+  return (
+    messages[code] ||
+    error?.message ||
+    "Authentication failed."
+  );
+
+}
+
+
+/*
+===============================================================
+GOOGLE LOGIN
+===============================================================
+*/
+
+googleButton.onclick =
+  async () => {
 
     try {
 
+      authMessage.textContent =
+        "Opening Google...";
+
+      await signInWithPopup(
+        auth,
+        googleProvider
+      );
+
+    } catch(error) {
+
+      console.error(error);
+
       if (
-        firebaseConfig.apiKey !== "YOUR_FIREBASE_API_KEY" &&
-        firebaseConfig.projectId !== "YOUR_PROJECT_ID"
+        error.code ===
+        "auth/popup-blocked"
       ) {
 
-        const app = initializeApp(firebaseConfig);
-
-        auth = getAuth(app);
-
-        googleProvider = new GoogleAuthProvider();
-
-        firebaseReady = true;
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Firebase initialization error:",
-        error
-      );
-
-    }
-
-
-    /* ==============================================================
-       ELEMENTS
-    ============================================================== */
-
-    const searchForm =
-      document.getElementById("searchForm");
-
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const searchStatus =
-      document.getElementById("searchStatus");
-
-    const resultsSection =
-      document.getElementById("resultsSection");
-
-    const resultList =
-      document.getElementById("resultList");
-
-    const resultsTitle =
-      document.getElementById("resultsTitle");
-
-    const resultsMeta =
-      document.getElementById("resultsMeta");
-
-    const menuLayer =
-      document.getElementById("menuLayer");
-
-    const optionsButton =
-      document.getElementById("optionsButton");
-
-    const menuClose =
-      document.getElementById("menuClose");
-
-    const accountButton =
-      document.getElementById("accountButton");
-
-    const accountButtonText =
-      document.getElementById("accountButtonText");
-
-    const authLayer =
-      document.getElementById("authLayer");
-
-    const authClose =
-      document.getElementById("authClose");
-
-    const googleLogin =
-      document.getElementById("googleLogin");
-
-    const emailAuthForm =
-      document.getElementById("emailAuthForm");
-
-    const emailInput =
-      document.getElementById("emailInput");
-
-    const passwordInput =
-      document.getElementById("passwordInput");
-
-    const createAccount =
-      document.getElementById("createAccount");
-
-    const resetPassword =
-      document.getElementById("resetPassword");
-
-    const authMessage =
-      document.getElementById("authMessage");
-
-    const profileLayer =
-      document.getElementById("profileLayer");
-
-    const profileClose =
-      document.getElementById("profileClose");
-
-    const profileImage =
-      document.getElementById("profileImage");
-
-    const profileName =
-      document.getElementById("profileName");
-
-    const profileEmail =
-      document.getElementById("profileEmail");
-
-    const signOutButton =
-      document.getElementById("signOut");
-
-    const headerAvatar =
-      document.getElementById("headerAvatar");
-
-    const toast =
-      document.getElementById("toast");
-
-
-    /* ==============================================================
-       TOAST
-    ============================================================== */
-
-    let toastTimer;
-
-    function showToast(message) {
-
-      toast.textContent = message;
-
-      toast.classList.add("show");
-
-      clearTimeout(toastTimer);
-
-      toastTimer = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-      }, 2800);
-    }
-
-
-    /* ==============================================================
-       MENU
-    ============================================================== */
-
-    function openMenu() {
-
-      menuLayer.classList.add("open");
-
-    }
-
-    function closeMenu() {
-
-      menuLayer.classList.remove("open");
-
-    }
-
-    optionsButton.addEventListener(
-      "click",
-      openMenu
-    );
-
-    menuClose.addEventListener(
-      "click",
-      closeMenu
-    );
-
-
-    document
-      .querySelectorAll(".menu-item")
-      .forEach(item => {
-
-        item.addEventListener(
-          "click",
-          () => {
-
-            const action =
-              item.dataset.action;
-
-            if (action === "home") {
-
-              closeMenu();
-
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-              });
-
-            }
-
-            if (action === "account") {
-
-              closeMenu();
-
-              openAccount();
-
-            }
-
-            if (action === "search") {
-
-              closeMenu();
-
-              searchInput.focus();
-
-            }
-
-            if (action === "close") {
-
-              closeMenu();
-
-            }
-
-          }
+        await signInWithRedirect(
+          auth,
+          googleProvider
         );
-
-      });
-
-
-    /* ==============================================================
-       ACCOUNT UI
-    ============================================================== */
-
-    function openAccount() {
-
-      if (!firebaseReady) {
-
-        authLayer.classList.add("open");
-
-        authMessage.textContent =
-          "Firebase isn't configured yet. Add your Firebase config first.";
-
-        return;
-
-      }
-
-      if (auth.currentUser) {
-
-        profileLayer.classList.add("open");
-
-      } else {
-
-        authLayer.classList.add("open");
-
-      }
-
-    }
-
-
-    function closeAccountModals() {
-
-      authLayer.classList.remove("open");
-
-      profileLayer.classList.remove("open");
-
-    }
-
-
-    accountButton.addEventListener(
-      "click",
-      openAccount
-    );
-
-    authClose.addEventListener(
-      "click",
-      closeAccountModals
-    );
-
-    profileClose.addEventListener(
-      "click",
-      closeAccountModals
-    );
-
-
-    /* Close when clicking outside modal */
-
-    authLayer.addEventListener(
-      "click",
-      event => {
-
-        if (event.target === authLayer) {
-
-          closeAccountModals();
-
-        }
-
-      }
-    );
-
-
-    profileLayer.addEventListener(
-      "click",
-      event => {
-
-        if (event.target === profileLayer) {
-
-          closeAccountModals();
-
-        }
-
-      }
-    );
-
-
-    /* ==============================================================
-       FIREBASE AUTH
-    ============================================================== */
-
-    function friendlyAuthError(error) {
-
-      const code = error?.code || "";
-
-      const messages = {
-
-        "auth/popup-closed-by-user":
-          "Google sign-in was cancelled.",
-
-        "auth/popup-blocked":
-          "Your browser blocked the Google sign-in popup.",
-
-        "auth/invalid-credential":
-          "The login information is invalid.",
-
-        "auth/invalid-email":
-          "That email address isn't valid.",
-
-        "auth/email-already-in-use":
-          "An account already exists with that email.",
-
-        "auth/weak-password":
-          "Your password is too weak.",
-
-        "auth/user-not-found":
-          "No Lucky Store account was found for that email.",
-
-        "auth/wrong-password":
-          "The password is incorrect.",
-
-        "auth/too-many-requests":
-          "Too many attempts. Try again later.",
-
-        "auth/network-request-failed":
-          "Network error. Check your connection."
-
-      };
-
-      return (
-        messages[code] ||
-        error?.message ||
-        "Authentication failed."
-      );
-
-    }
-
-
-    async function loginWithGoogle() {
-
-      if (!firebaseReady) {
-
-        authMessage.textContent =
-          "Firebase configuration is missing.";
 
         return;
 
       }
 
       authMessage.textContent =
-        "Opening Google sign-in...";
-
-      try {
-
-        /*
-        Popup works nicely on desktop.
-
-        For mobile, redirect authentication can be more
-        reliable depending on the browser.
-        */
-
-        await signInWithPopup(
-          auth,
-          googleProvider
-        );
-
-        authMessage.textContent =
-          "Signed in successfully.";
-
-        closeAccountModals();
-
-        showToast(
-          "Welcome to Lucky Store."
-        );
-
-      } catch (error) {
-
-        console.error(error);
-
-        /*
-        If the popup is blocked, try redirect.
-        */
-
-        if (
-          error.code ===
-          "auth/popup-blocked"
-        ) {
-
-          await signInWithRedirect(
-            auth,
-            googleProvider
-          );
-
-          return;
-
-        }
-
-        authMessage.textContent =
-          friendlyAuthError(error);
-
-      }
+        authError(error);
 
     }
 
+  };
 
-    googleLogin.addEventListener(
-      "click",
-      loginWithGoogle
-    );
 
+/*
+===============================================================
+EMAIL LOGIN
+===============================================================
+*/
 
-    /* ==============================================================
-       EMAIL LOGIN
-    ============================================================== */
+authForm.addEventListener(
+  "submit",
+  async event => {
 
-    emailAuthForm.addEventListener(
-      "submit",
-      async event => {
+    event.preventDefault();
 
-        event.preventDefault();
+    try {
 
-        if (!firebaseReady) {
+      loginButton.textContent =
+        "SIGNING IN...";
 
-          authMessage.textContent =
-            "Firebase configuration is missing.";
-
-          return;
-
-        }
-
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-        authMessage.textContent =
-          "Signing in...";
-
-        try {
-
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-          closeAccountModals();
-
-          showToast(
-            "Welcome back."
-          );
-
-        } catch (error) {
-
-          console.error(error);
-
-          authMessage.textContent =
-            friendlyAuthError(error);
-
-        }
-
-      }
-    );
-
-
-    /* ==============================================================
-       CREATE ACCOUNT
-    ============================================================== */
-
-    createAccount.addEventListener(
-      "click",
-      async () => {
-
-        if (!firebaseReady) {
-
-          authMessage.textContent =
-            "Firebase configuration is missing.";
-
-          return;
-
-        }
-
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-        if (!email || !password) {
-
-          authMessage.textContent =
-            "Enter an email and password first.";
-
-          return;
-
-        }
-
-        authMessage.textContent =
-          "Creating your Lucky Store account...";
-
-        try {
-
-          await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-          closeAccountModals();
-
-          showToast(
-            "Lucky Store account created."
-          );
-
-        } catch (error) {
-
-          console.error(error);
-
-          authMessage.textContent =
-            friendlyAuthError(error);
-
-        }
-
-      }
-    );
-
-
-    /* ==============================================================
-       PASSWORD RESET
-    ============================================================== */
-
-    resetPassword.addEventListener(
-      "click",
-      async () => {
-
-        if (!firebaseReady) {
-
-          authMessage.textContent =
-            "Firebase configuration is missing.";
-
-          return;
-
-        }
-
-        const email =
-          emailInput.value.trim();
-
-        if (!email) {
-
-          authMessage.textContent =
-            "Enter your email first.";
-
-          return;
-
-        }
-
-        try {
-
-          await sendPasswordResetEmail(
-            auth,
-            email
-          );
-
-          authMessage.textContent =
-            "Password reset email sent.";
-
-        } catch (error) {
-
-          console.error(error);
-
-          authMessage.textContent =
-            friendlyAuthError(error);
-
-        }
-
-      }
-    );
-
-
-    /* ==============================================================
-       SIGN OUT
-    ============================================================== */
-
-    signOutButton.addEventListener(
-      "click",
-      async () => {
-
-        if (!auth) return;
-
-        try {
-
-          await signOut(auth);
-
-          closeAccountModals();
-
-          showToast(
-            "Signed out."
-          );
-
-        } catch (error) {
-
-          console.error(error);
-
-        }
-
-      }
-    );
-
-
-    /* ==============================================================
-       AUTH STATE
-    ============================================================== */
-
-    if (firebaseReady) {
-
-      onAuthStateChanged(
+      await signInWithEmailAndPassword(
         auth,
-        user => {
-
-          if (user) {
-
-            const name =
-              user.displayName ||
-              "Lucky User";
-
-            const email =
-              user.email ||
-              "";
-
-            const photo =
-              user.photoURL;
-
-            accountButtonText.textContent =
-              name.split(" ")[0].toUpperCase();
-
-            if (photo) {
-
-              headerAvatar.src = photo;
-
-              headerAvatar.style.display =
-                "block";
-
-              profileImage.src = photo;
-
-            } else {
-
-              headerAvatar.style.display =
-                "none";
-
-              profileImage.src =
-                "https://ui-avatars.com/api/?name=" +
-                encodeURIComponent(name) +
-                "&background=1760ff&color=fff";
-
-            }
-
-            profileName.textContent =
-              name;
-
-            profileEmail.textContent =
-              email;
-
-          } else {
-
-            accountButtonText.textContent =
-              "ACCOUNT";
-
-            headerAvatar.style.display =
-              "none";
-
-          }
-
-        }
+        emailInput.value.trim(),
+        passwordInput.value
       );
 
+      closeAuth();
 
-      /*
-      Handle Google redirect login if the browser
-      was redirected instead of using a popup.
-      */
+      showToast(
+        "Welcome back."
+      );
 
-      getRedirectResult(auth)
-        .then(result => {
+    } catch(error) {
 
-          if (result?.user) {
+      authMessage.textContent =
+        authError(error);
 
-            showToast(
-              "Welcome to Lucky Store."
-            );
+    } finally {
 
-          }
-
-        })
-        .catch(error => {
-
-          console.error(
-            "Redirect auth error:",
-            error
-          );
-
-        });
+      loginButton.textContent =
+        "SIGN IN";
 
     }
 
-
-    /* ==============================================================
-       SEARCH
-    ============================================================== */
-
-    searchForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-        const query =
-          searchInput.value.trim();
-
-        if (!query) {
-
-          searchInput.focus();
-
-          return;
-
-        }
-
-        await performSearch(query);
-
-      }
-    );
+  }
+);
 
 
-    async function performSearch(query) {
+/*
+===============================================================
+CREATE ACCOUNT
+===============================================================
+*/
 
-      resultsSection.classList.add(
-        "visible"
-      );
+createAccountButton.onclick =
+  async () => {
 
-      resultList.innerHTML = "";
+    const email =
+      emailInput.value.trim();
 
-      resultsTitle.textContent =
-        "SEARCHING...";
+    const password =
+      passwordInput.value;
 
-      resultsMeta.textContent =
-        "";
-
-      searchStatus.textContent =
-        `Searching for "${query}"...`;
-
-      /*
-      ==============================================================
-      API NOT CONFIGURED
-      ==============================================================
-
-      This prevents Lucky Store from displaying fake search results.
-      */
-
-      if (
-        SEARCH_API_ENDPOINT ===
-        "YOUR_SEARCH_API_ENDPOINT?q="
-      ) {
-
-        resultsTitle.textContent =
-          "SEARCH READY";
-
-        resultsMeta.textContent =
-          "Search API not configured";
-
-        resultList.innerHTML = `
-          <div class="no-results">
-
-            <strong>
-              Your search system is ready.
-            </strong>
-
-            <br><br>
-
-            Connect a real search API by changing
-            <code>SEARCH_API_ENDPOINT</code>
-            near the top of the JavaScript.
-
-          </div>
-        `;
-
-        searchStatus.textContent =
-          "Connect your search API to display live results.";
-
-        return;
-
-      }
-
-
-      try {
-
-        const endpoint =
-          SEARCH_API_ENDPOINT +
-          encodeURIComponent(query);
-
-        const response =
-          await fetch(
-            endpoint,
-            {
-              method: "GET",
-              headers: {
-                "Accept": "application/json"
-              }
-            }
-          );
-
-        if (!response.ok) {
-
-          throw new Error(
-            `Search request failed: ${response.status}`
-          );
-
-        }
-
-        const data =
-          await response.json();
-
-        const results =
-          Array.isArray(data)
-            ? data
-            : data.results || [];
-
-        displayResults(
-          query,
-          results
-        );
-
-      } catch (error) {
-
-        console.error(
-          "Search error:",
-          error
-        );
-
-        resultsTitle.textContent =
-          "SEARCH ERROR";
-
-        resultsMeta.textContent =
-          "";
-
-        resultList.innerHTML = `
-          <div class="no-results">
-
-            <strong>
-              Couldn't reach the search service.
-            </strong>
-
-            <br><br>
-
-            Check your search API endpoint,
-            internet connection, and CORS settings.
-
-          </div>
-        `;
-
-        searchStatus.textContent =
-          "Search request failed.";
-
-      }
-
-    }
-
-
-    /* ==============================================================
-       DISPLAY RESULTS
-    ============================================================== */
-
-    function displayResults(
-      query,
-      results
+    if (
+      !email ||
+      !password
     ) {
 
-      resultsTitle.textContent =
-        "RESULTS";
+      authMessage.textContent =
+        "Enter an email and password.";
 
-      resultsMeta.textContent =
-        `${results.length} result(s) for "${query}"`;
+      return;
 
-      resultList.innerHTML = "";
+    }
 
-      if (!results.length) {
+    try {
 
-        resultList.innerHTML = `
-          <div class="no-results">
-            No results found for
-            <strong>${escapeHTML(query)}</strong>.
-          </div>
-        `;
-
-        searchStatus.textContent =
-          "No results found.";
-
-        return;
-
-      }
-
-
-      results.forEach(
-        (result, index) => {
-
-          const title =
-            result.title ||
-            "Untitled result";
-
-          const url =
-            result.url ||
-            result.link ||
-            "#";
-
-          const description =
-            result.description ||
-            result.snippet ||
-            "No description available.";
-
-
-          const card =
-            document.createElement(
-              "article"
-            );
-
-          card.className =
-            "result";
-
-          card.style.animation =
-            `resultsIn .45s ${index * 0.04}s both`;
-
-
-          card.innerHTML = `
-
-            <div class="result-url">
-              ${escapeHTML(url)}
-            </div>
-
-            <a
-              class="result-title"
-              href="${safeURL(url)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ${escapeHTML(title)}
-            </a>
-
-            <div class="result-description">
-              ${escapeHTML(description)}
-            </div>
-
-          `;
-
-
-          resultList.appendChild(
-            card
-          );
-
-        }
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
+      closeAuth();
 
-      searchStatus.textContent =
-        `Found ${results.length} result(s).`;
+      showToast(
+        "Account created!"
+      );
 
-    }
+    } catch(error) {
 
-
-    /* ==============================================================
-       SECURITY HELPERS
-    ============================================================== */
-
-    function escapeHTML(value) {
-
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+      authMessage.textContent =
+        authError(error);
 
     }
 
+  };
 
-    function safeURL(value) {
 
-      try {
+/*
+===============================================================
+PASSWORD RESET
+===============================================================
+*/
 
-        const url =
-          new URL(value);
+resetPasswordButton.onclick =
+  async () => {
 
-        if (
-          url.protocol !== "http:" &&
-          url.protocol !== "https:"
-        ) {
+    const email =
+      emailInput.value.trim();
 
-          return "#";
+    if (!email) {
 
-        }
+      authMessage.textContent =
+        "Enter your email first.";
 
-        return url.href;
-
-      } catch {
-
-        return "#";
-
-      }
+      return;
 
     }
 
+    try {
 
-    /* ==============================================================
-       KEYBOARD SHORTCUTS
-    ============================================================== */
+      await sendPasswordResetEmail(
+        auth,
+        email
+      );
 
-    document.addEventListener(
-      "keydown",
-      event => {
+      authMessage.textContent =
+        "Password reset email sent.";
 
-        /*
-        /
-        Focus search
-        */
+    } catch(error) {
 
-        if (
-          event.key === "/" &&
-          document.activeElement.tagName !==
-          "INPUT"
-        ) {
+      authMessage.textContent =
+        authError(error);
 
-          event.preventDefault();
+    }
 
-          searchInput.focus();
-
-        }
+  };
 
 
-        /*
-        Escape closes menus/modals
-        */
+/*
+===============================================================
+FIRESTORE PROFILE
+===============================================================
+*/
 
-        if (
-          event.key === "Escape"
-        ) {
+async function createOrUpdateProfile(
+  user
+) {
 
-          closeMenu();
+  const profileRef =
+    doc(
+      db,
+      "profiles",
+      user.uid
+    );
 
-          closeAccountModals();
 
-        }
+  const existing =
+    await getDoc(
+      profileRef
+    );
+
+
+  if (
+    !existing.exists()
+  ) {
+
+    await setDoc(
+      profileRef,
+      {
+
+        uid:user.uid,
+
+        displayName:
+          user.displayName ||
+          "Lucky User",
+
+        email:
+          user.email ||
+          "",
+
+        photoURL:
+          user.photoURL ||
+          "",
+
+        bio:
+          "Welcome to Lucky Store!",
+
+        createdAt:
+          serverTimestamp(),
+
+        updatedAt:
+          serverTimestamp()
 
       }
     );
 
+  } else {
 
-    /* ==============================================================
-       STARTUP
-    ============================================================== */
+    /*
+    Only update information supplied
+    by the authentication provider.
+    */
 
-    if (!firebaseReady) {
+    await updateDoc(
+      profileRef,
+      {
 
-      console.info(
-        "Lucky Store: Firebase is not configured yet."
+        email:
+          user.email ||
+          "",
+
+        updatedAt:
+          serverTimestamp()
+
+      }
+    );
+
+  }
+
+}
+
+
+/*
+===============================================================
+AUTH STATE
+===============================================================
+*/
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    currentUser =
+      user;
+
+
+    if (user) {
+
+      await createOrUpdateProfile(
+        user
       );
+
+
+      accountButtonText.textContent =
+        (
+          user.displayName ||
+          "ACCOUNT"
+        )
+        .split(" ")[0]
+        .toUpperCase();
+
+
+      if (
+        user.photoURL
+      ) {
+
+        headerAvatar.src =
+          user.photoURL;
+
+        headerAvatar.style.display =
+          "block";
+
+      }
+
+
+      document
+        .getElementById(
+          "createPostName"
+        )
+        .textContent =
+          user.displayName ||
+          "Lucky User";
+
+
+      document
+        .getElementById(
+          "postText"
+        )
+        .disabled =
+          false;
+
+
+      document
+        .getElementById(
+          "createPostButton"
+        )
+        .disabled =
+          false;
+
+
+      document
+        .getElementById(
+          "createAvatar"
+        )
+        .src =
+          user.photoURL ||
+          avatarURL(
+            user.displayName ||
+            "Lucky User"
+          );
+
+
+      loadCurrentProfile();
 
     } else {
 
-      console.info(
-        "Lucky Store: Firebase authentication ready."
-      );
+      accountButtonText.textContent =
+        "ACCOUNT";
+
+      headerAvatar.style.display =
+        "none";
+
+
+      document
+        .getElementById(
+          "createPostName"
+        )
+        .textContent =
+          "Sign in to post";
+
+
+      document
+        .getElementById(
+          "postText"
+        )
+        .disabled =
+          true;
+
+
+      document
+        .getElementById(
+          "createPostButton"
+        )
+        .disabled =
+          true;
 
     }
 
-  </script>
+  }
+);
+
+
+/*
+===============================================================
+REDIRECT LOGIN
+===============================================================
+*/
+
+getRedirectResult(
+  auth
+).catch(
+  error => {
+
+    console.error(
+      "Redirect login error:",
+      error
+    );
+
+  }
+);
+
+
+/*
+===============================================================
+AVATAR HELPER
+===============================================================
+*/
+
+function avatarURL(
+  name
+) {
+
+  return (
+    "https://ui-avatars.com/api/?name=" +
+    encodeURIComponent(name) +
+    "&background=1767ff&color=ffffff"
+  );
+
+}
+
+
+/*
+===============================================================
+CREATE POST
+===============================================================
+*/
+
+document
+  .getElementById(
+    "createPostButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) {
+
+        authModal.classList.add(
+          "open"
+        );
+
+        return;
+
+      }
+
+
+      const text =
+        document
+          .getElementById(
+            "postText"
+          )
+          .value
+          .trim();
+
+
+      if (!text) {
+
+        showToast(
+          "Write something first."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        text.length >
+        500
+      ) {
+
+        showToast(
+          "Posts are limited to 500 characters."
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document
+          .getElementById(
+            "createPostButton"
+          );
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "POSTING...";
+
+
+      try {
+
+        const profile =
+          await getDoc(
+            doc(
+              db,
+              "profiles",
+              currentUser.uid
+            )
+          );
+
+
+        const data =
+          profile.exists()
+            ? profile.data()
+            : {};
+
+
+        await addDoc(
+          collection(
+            db,
+            "posts"
+          ),
+          {
+
+            authorUID:
+              currentUser.uid,
+
+            authorName:
+              data.displayName ||
+              currentUser.displayName ||
+              "Lucky User",
+
+            authorPhoto:
+              data.photoURL ||
+              currentUser.photoURL ||
+              "",
+
+            text:text,
+
+            likes:[],
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        document
+          .getElementById(
+            "postText"
+          )
+          .value =
+            "";
+
+
+        showToast(
+          "Posted!"
+        );
+
+
+      } catch(error) {
+
+        console.error(error);
+
+        showToast(
+          "Couldn't create post."
+        );
+
+      }
+
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "POST";
+
+    }
+  );
+
+
+/*
+===============================================================
+LOAD COMMUNITY FEED
+===============================================================
+*/
+
+const postsQuery =
+  query(
+    collection(
+      db,
+      "posts"
+    ),
+    orderBy(
+      "createdAt",
+      "desc"
+    ),
+    limit(50)
+  );
+
+
+unsubscribePosts =
+  onSnapshot(
+    postsQuery,
+    snapshot => {
+
+      const posts =
+        snapshot.docs.map(
+          docSnap => ({
+
+            id:
+              docSnap.id,
+
+            ...docSnap.data()
+
+          })
+        );
+
+
+      renderPosts(
+        posts,
+        "postList"
+      );
+
+      renderPosts(
+        posts.slice(0,3),
+        "homePosts"
+      );
+
+    },
+
+    error => {
+
+      console.error(
+        "Post feed error:",
+        error
+      );
+
+      document
+        .getElementById(
+          "postList"
+        )
+        .innerHTML = `
+          <div class="empty">
+            Unable to load the community.
+          </div>
+        `;
+
+    }
+
+  );
+
+
+/*
+===============================================================
+RENDER POSTS
+===============================================================
+*/
+
+function renderPosts(
+  posts,
+  elementID
+) {
+
+  const container =
+    document.getElementById(
+      elementID
+    );
+
+
+  if (!posts.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        No posts yet.<br>
+        Be the first person to post!
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    "";
+
+
+  posts.forEach(
+    post => {
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+      article.className =
+        "post";
+
+
+      const likes =
+        Array.isArray(
+          post.likes
+        )
+          ? post.likes
+          : [];
+
+
+      const liked =
+        currentUser &&
+        likes.includes(
+          currentUser.uid
+        );
+
+
+      article.innerHTML = `
+
+        <div class="post-header">
+
+          <img
+            class="post-avatar"
+            src="${
+              safeImage(
+                post.authorPhoto,
+                post.authorName
+              )
+            }"
+          >
+
+          <div>
+
+            <div
+              class="post-author"
+            >
+              ${escapeHTML(
+                post.authorName ||
+                "Lucky User"
+              )}
+            </div>
+
+            <div class="post-time">
+              ${formatTime(
+                post.createdAt
+              )}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="post-content">
+          ${escapeHTML(
+            post.text || ""
+          )}
+        </div>
+
+
+        <div class="post-footer">
+
+          <button
+            class="like-button ${
+              liked
+                ? "liked"
+                : ""
+            }"
+            data-post-id="${
+              post.id
+            }"
+          >
+
+            ${
+              liked
+                ? "♥"
+                : "♡"
+            }
+
+            ${likes.length}
+
+          </button>
+
+        </div>
+
+      `;
+
+
+      /*
+      Profile click
+      */
+
+      article
+        .querySelector(
+          ".post-avatar"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            openUserProfile(
+              post.authorUID
+            );
+
+          }
+        );
+
+
+      article
+        .querySelector(
+          ".post-author"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            openUserProfile(
+              post.authorUID
+            );
+
+          }
+        );
+
+
+      /*
+      Like
+      */
+
+      article
+        .querySelector(
+          ".like-button"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            toggleLike(
+              post.id,
+              likes
+            );
+
+          }
+        );
+
+
+      container.appendChild(
+        article
+      );
+
+    }
+  );
+
+}
+
+
+/*
+===============================================================
+LIKE / UNLIKE
+===============================================================
+*/
+
+async function toggleLike(
+  postID,
+  likes
+) {
+
+  if (!currentUser) {
+
+    authModal.classList.add(
+      "open"
+    );
+
+    return;
+
+  }
+
+
+  const postRef =
+    doc(
+      db,
+      "posts",
+      postID
+    );
+
+
+  const alreadyLiked =
+    likes.includes(
+      currentUser.uid
+    );
+
+
+  try {
+
+    await updateDoc(
+      postRef,
+      {
+
+        likes:
+          alreadyLiked
+            ? arrayRemove(
+                currentUser.uid
+              )
+            : arrayUnion(
+                currentUser.uid
+              )
+
+      }
+    );
+
+  } catch(error) {
+
+    console.error(
+      error
+    );
+
+    showToast(
+      "Couldn't update like."
+    );
+
+  }
+
+}
+
+
+/*
+===============================================================
+OPEN CURRENT USER PROFILE
+===============================================================
+*/
+
+window.openProfile =
+  async function() {
+
+    if (!currentUser) {
+
+      authModal.classList.add(
+        "open"
+      );
+
+      return;
+
+    }
+
+    viewingProfileUID =
+      currentUser.uid;
+
+    showPage(
+      "profile"
+    );
+
+    await loadProfile(
+      currentUser.uid
+    );
+
+  };
+
+
+/*
+===============================================================
+OPEN OTHER USER PROFILE
+===============================================================
+*/
+
+async function openUserProfile(
+  uid
+) {
+
+  if (!uid) return;
+
+  viewingProfileUID =
+    uid;
+
+  showPage(
+    "profile"
+  );
+
+  await loadProfile(
+    uid
+  );
+
+}
+
+
+/*
+===============================================================
+LOAD PROFILE
+===============================================================
+*/
+
+async function loadProfile(
+  uid
+) {
+
+  try {
+
+    const profileSnap =
+      await getDoc(
+        doc(
+          db,
+          "profiles",
+          uid
+        )
+      );
+
+
+    if (!profileSnap.exists()) {
+
+      showToast(
+        "Profile not found."
+      );
+
+      return;
+
+    }
+
+
+    const profile =
+      profileSnap.data();
+
+
+    document
+      .getElementById(
+        "profileName"
+      )
+      .textContent =
+        profile.displayName ||
+        "Lucky User";
+
+
+    document
+      .getElementById(
+        "profileEmail"
+      )
+      .textContent =
+        profile.email ||
+        "";
+
+
+    document
+      .getElementById(
+        "profileBio"
+      )
+      .textContent =
+        profile.bio ||
+        "No bio yet.";
+
+
+    document
+      .getElementById(
+        "profileAvatar"
+      )
+      .src =
+        safeImage(
+          profile.photoURL,
+          profile.displayName
+        );
+
+
+    /*
+    Only allow edit button on own profile
+    */
+
+    document
+      .getElementById(
+        "editProfileButton"
+      )
+      .style.display =
+        currentUser &&
+        currentUser.uid === uid
+          ? "inline-block"
+          : "none";
+
+
+    /*
+    Profile posts
+    */
+
+    if (
+      unsubscribeProfilePosts
+    ) {
+
+      unsubscribeProfilePosts();
+
+    }
+
+
+    const profilePostsQuery =
+      query(
+        collection(
+          db,
+          "posts"
+        ),
+        orderBy(
+          "createdAt",
+          "desc"
+        ),
+        limit(50)
+      );
+
+
+    unsubscribeProfilePosts =
+      onSnapshot(
+        profilePostsQuery,
+        snapshot => {
+
+          const posts =
+            snapshot.docs
+
+              .map(
+                d => ({
+                  id:d.id,
+                  ...d.data()
+                })
+              )
+
+              .filter(
+                post =>
+                  post.authorUID ===
+                  uid
+              );
+
+
+          renderPosts(
+            posts,
+            "profilePosts"
+          );
+
+        }
+      );
+
+
+  } catch(error) {
+
+    console.error(
+      error
+    );
+
+    showToast(
+      "Couldn't load profile."
+    );
+
+  }
+
+}
+
+
+/*
+===============================================================
+LOAD CURRENT PROFILE
+===============================================================
+*/
+
+async function loadCurrentProfile() {
+
+  if (!currentUser) return;
+
+  await loadProfile(
+    currentUser.uid
+  );
+
+}
+
+
+/*
+===============================================================
+EDIT PROFILE
+===============================================================
+*/
+
+document
+  .getElementById(
+    "editProfileButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) return;
+
+
+      const snap =
+        await getDoc(
+          doc(
+            db,
+            "profiles",
+            currentUser.uid
+          )
+        );
+
+
+      if (
+        !snap.exists()
+      ) return;
+
+
+      const data =
+        snap.data();
+
+
+      document
+        .getElementById(
+          "editDisplayName"
+        )
+        .value =
+          data.displayName ||
+          "";
+
+
+      document
+        .getElementById(
+          "editBio"
+        )
+        .value =
+          data.bio ||
+          "";
+
+
+      document
+        .getElementById(
+          "editPhotoURL"
+        )
+        .value =
+          data.photoURL ||
+          "";
+
+
+      document
+        .getElementById(
+          "editProfileBox"
+        )
+        .classList.toggle(
+          "active"
+        );
+
+    }
+  );
+
+
+/*
+===============================================================
+SAVE PROFILE
+===============================================================
+*/
+
+document
+  .getElementById(
+    "saveProfileButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      if (!currentUser) return;
+
+
+      const displayName =
+        document
+          .getElementById(
+            "editDisplayName"
+          )
+          .value
+          .trim();
+
+
+      const bio =
+        document
+          .getElementById(
+            "editBio"
+          )
+          .value
+          .trim();
+
+
+      const photoURL =
+        document
+          .getElementById(
+            "editPhotoURL"
+          )
+          .value
+          .trim();
+
+
+      if (!displayName) {
+
+        showToast(
+          "Enter a display name."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        await updateDoc(
+
+          doc(
+            db,
+            "profiles",
+            currentUser.uid
+          ),
+
+          {
+
+            displayName:
+              displayName,
+
+            bio:
+              bio,
+
+            photoURL:
+              photoURL,
+
+            updatedAt:
+              serverTimestamp()
+
+          }
+
+        );
+
+
+        /*
+        Update own post author info
+        */
+
+        const ownPostsQuery =
+          query(
+            collection(
+              db,
+              "posts"
+            ),
+            limit(100)
+          );
+
+
+        /*
+        We intentionally don't mass-edit old
+        posts from the client.
+
+        New posts will use the new profile.
+        */
+
+
+        await loadProfile(
+          currentUser.uid
+        );
+
+
+        document
+          .getElementById(
+            "editProfileBox"
+          )
+          .classList.remove(
+            "active"
+          );
+
+
+        showToast(
+          "Profile saved."
+        );
+
+
+      } catch(error) {
+
+        console.error(
+          error
+        );
+
+        showToast(
+          "Couldn't save profile."
+        );
+
+      }
+
+    }
+  );
+
+
+/*
+===============================================================
+SECURITY HELPERS
+===============================================================
+*/
+
+function escapeHTML(
+  value
+) {
+
+  return String(
+    value || ""
+  )
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+function safeImage(
+  url,
+  name
+) {
+
+  if (
+    typeof url === "string" &&
+    (
+      url.startsWith(
+        "https://"
+      ) ||
+      url.startsWith(
+        "http://"
+      )
+    )
+  ) {
+
+    return url;
+
+  }
+
+  return avatarURL(
+    name ||
+    "Lucky User"
+  );
+
+}
+
+
+/*
+===============================================================
+TIME
+===============================================================
+*/
+
+function formatTime(
+  timestamp
+) {
+
+  if (
+    !timestamp ||
+    !timestamp.toDate
+  ) {
+
+    return "Just now";
+
+  }
+
+
+  const date =
+    timestamp.toDate();
+
+
+  const seconds =
+    Math.floor(
+      (
+        Date.now() -
+        date.getTime()
+      ) / 1000
+    );
+
+
+  if (
+    seconds < 60
+  ) {
+
+    return "Just now";
+
+  }
+
+
+  if (
+    seconds < 3600
+  ) {
+
+    return (
+      Math.floor(
+        seconds / 60
+      ) +
+      "m ago"
+    );
+
+  }
+
+
+  if (
+    seconds < 86400
+  ) {
+
+    return (
+      Math.floor(
+        seconds / 3600
+      ) +
+      "h ago"
+    );
+
+  }
+
+
+  if (
+    seconds < 604800
+  ) {
+
+    return (
+      Math.floor(
+        seconds / 86400
+      ) +
+      "d ago"
+    );
+
+  }
+
+
+  return date.toLocaleDateString();
+
+}
+
+
+/*
+===============================================================
+ESCAPE KEY
+===============================================================
+*/
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      closeMenu();
+
+      closeAuth();
+
+    }
+
+
+    if (
+      event.key ===
+      "/" &&
+      document.activeElement.tagName !==
+      "INPUT" &&
+      document.activeElement.tagName !==
+      "TEXTAREA"
+    ) {
+
+      event.preventDefault();
+
+      focusSearch();
+
+    }
+
+  }
+);
+
+
+/*
+===============================================================
+INITIAL
+===============================================================
+*/
+
+showPage(
+  "home"
+);
+
+</script>
 
 </body>
-   </html>
+</html>
